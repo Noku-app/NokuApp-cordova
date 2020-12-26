@@ -1,0 +1,70 @@
+@import "utils.less";
+@import "icons.less";
+@import "meme.less";
+@import "noku.less";
+@import "animate.min.css";
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0;
+    overflow:visible;
+    padding:0;
+    text-align:center;
+}
+
+.block-label{
+    display: block;
+    width: calc(100% - 1em);
+    font-size: 1em;
+
+    border-bottom: 1em solid @app-background;
+    border-top: 1em solid @app-background;
+
+    .p-2();
+    .pt-1();
+    .pb-3();
+}
+
+.center-vertical {
+    margin-top: 0;
+    margin-bottom: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.swipe {
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
+    max-width: @max-width;
+    .mx-auto();
+}
+.swipe-wrap {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    height: auto;
+}
+.swipe-wrap > div {
+    float:left;
+    width:100%;
+    position: relative;
+}
+
+.comments{
+    max-width: @max-width;
+    .mx-auto();
+}
+
+.bg-op{
+    background-color: @comment-op-background;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+
+    }
+}

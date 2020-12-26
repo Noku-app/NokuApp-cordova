@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://cdn.xemplarsoft.com * 'unsafe-inline' 'self' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;img-src * data: 'unsafe-inline' 'self' content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.min.css">
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app-bar">
+            <div class="float-left">
+                <div class="menu btn btn-clear icon-menu mx-2" data-command="menu"></div><p class="inline-text">Noku App</p>
+            </div>
+            <div class="float-right">
+                <div class="menu btn"></div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div id="sidemenu">
+                <div class="sidemenu-header">
+                    <div class="btn sidemenu-close" data-command="menu-close"></div>
+                </div>
+                <ul class="options">
+                    <li><a href="#" class="view_a">2 view A</a></li>
+                    <li><a href="#" class="view_b">2 view B</a></li>
+                    <li><a href="#" class="view_c">2 view C</a></li>
+                    <li><a href="#" class="view_d">2 view D</a></li>
+                    <li><a href="#" class="view_e">2 view E</a></li>
+                </ul>
+            </div>
+            <div id="overlay"></div>
+          <div class="app" id="app">
+            <div id="slider" class="swipe">
+                <div class="swipe-wrap">
+                </div>
+            </div>
+          </div>
+        </div>
+        <div id="em-measure" style="height:0;width:0;outline:none;border:none;padding:0;margin:0;box-sizing:content-box;"></div>
+        <script src="js/libs/jquery.js"></script>
+        <script src="js/libs/jquery-ui.js"></script>
+        <script src="js/libs/swipe.js"></script>
+        <script src="js/noku.js"></script>
+        <script src="js/fileio.js"></script>
+        <script src="cordova.js"></script>
+        <script src="js/function.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>

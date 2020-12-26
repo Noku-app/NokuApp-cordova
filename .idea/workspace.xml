@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bec4e973-a932-40e7-9a57-71e4c28b9bd9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/NokuApp-cordova.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/audio_off.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/audio_on.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/below.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/comment.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/featured.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/jump.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/next.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/prev.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/repub.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/sh_give.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/sh_given.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/sh_take.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/sh_taken.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/raw/share.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-android.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-browser.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/assets/museo.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/animate.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/colors.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/fonts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/fonts.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/fonts.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/icons.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/index.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/index.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/meme.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/noku.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/utils.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/audio_off.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/audio_on.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/below.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/comment.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/featured.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/give_sh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/given_sh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/jump.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/next.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/prev.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/repub.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/share.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/take_sh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/img/taken_sh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/fileio.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/function.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/jquery-ui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/swipe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/noku.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/signin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/signin.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1m1yLO2l3JsF1xfWj807HgvCa5M" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.stylelint" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rohan\workspace\NokuApp-cordova\www\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js\libs" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Shell Script.Run Browser">
+    <configuration name="Run Android" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run-android.bat" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="Run Browser" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run-browser.bat" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Shell Script.Run Android" />
+      <item itemvalue="Shell Script.Run Browser" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bec4e973-a932-40e7-9a57-71e4c28b9bd9" name="Default Changelist" comment="" />
+      <created>1608675342777</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608675342777</updated>
+      <workItem from="1608675347122" duration="7259000" />
+      <workItem from="1608685548824" duration="58584000" />
+      <workItem from="1608784044440" duration="2388000" />
+      <workItem from="1608838302587" duration="10246000" />
+      <workItem from="1608942303284" duration="1321000" />
+      <workItem from="1608945788558" duration="1942000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -1,0 +1,294 @@
+@meme-op-height: 3.25em;
+@meme-mute-height: 3em;
+@op-username-height: 1.25em;
+@footer-padding: 0.4em;
+@op-username-padding: (@meme-op-height - @op-username-height) / 2;
+
+@reply-size: 0.8em;
+@reply-padding: (@meme-op-height - @reply-size) / 2em;
+
+@import (reference) "icons.less";
+@import (reference) "utils.less";
+@import "colors.less";
+
+/***********************************
+ * Meme Original Poster
+ ***********************************/
+
+.meme-op{
+  display: block;
+  width: 100%;
+  height: @meme-op-height;
+  background-color: @meme-op-color;
+}
+
+.meme-op::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.op-pfp{
+  display: inline-list-item;
+  height: @meme-op-height;
+  width: @meme-op-height;
+  margin: 0;
+  padding: 0;
+}
+
+.pfp-image{
+  width: @meme-op-height - 1em;
+  height: @meme-op-height - 1em;
+  padding: 0.5em;
+  border-radius: 50%;
+}
+
+.op-info{
+  display: inline-block;
+  height: @meme-op-height;
+  padding: 0;
+  margin: 0;
+}
+
+.op-username{
+  display: inline-list-item;
+  height: @op-username-height;
+  margin-top: @op-username-padding;
+  margin-bottom: @op-username-padding;
+  padding: 0 !important;
+}
+
+/***********************************
+ * Meme Content
+ ***********************************/
+
+.meme-like-count{
+  padding: 0.5em;
+  font-size: 1em;
+  height: @op-username-height;
+  margin: 0;
+}
+
+.meme-dislike-count{
+  .meme-like-count();
+}
+
+.meme-container{
+  display: block;
+  max-width: 40em;
+  width: 100%;
+  min-height: @meme-op-height;
+  margin: 1em auto 0;
+  padding: 0;
+}
+
+.meme-next{
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+
+  .icon-next();
+}
+
+.meme-prev{
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+
+  .icon-prev();
+}
+
+.meme-image{
+  width: 100%;
+}
+
+.meme-audio{
+  width: calc(100% - @padding-spacer * 8);
+  .p-4();
+}
+
+.meme-footer{
+  background-color: @meme-op-color;
+  display: block;
+  width: calc(100% - (@footer-padding * 2));
+  height: @meme-op-height - (@footer-padding * 2);
+  padding: @footer-padding;
+}
+
+.meme-body{
+  background-color: @meme-op-color;
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.mute-control{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: @meme-mute-height;
+  width: @meme-mute-height;
+  padding: 0;
+  margin: 0 0 0.25em;
+  z-index: 11;
+
+  -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+
+  .icon-audio-off();
+}
+
+.mute-control{
+  filter: url(#drop-shadow);
+}
+
+.mute-control{
+  filter: brightness(300%);
+}
+
+.meme-comment{
+  .icon-comment();
+}
+
+.meme-give{
+  .icon-sh-give();
+}
+
+.meme-take{
+  .icon-sh-take();
+}
+
+.meme-repub{
+  .icon-repub();
+}
+
+.meme-share{
+  .icon-share();
+}
+
+/***********************************
+ * Comments
+ ***********************************/
+
+.comments{
+
+}
+
+.comment{
+  display: block;
+  width: 100%;
+}
+
+.comment-content{
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.comment-overlay{
+  position: absolute;
+  z-index: 14;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: #A0A0A0;
+}
+
+.comment-head{
+  display: block;
+  width: 100%;
+  height: @meme-op-height;
+  background-color: @comment-op-background;
+}
+
+.comment-head::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.comment-vote::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.comment-pfp{
+  display: inline-block;
+  height: @meme-op-height;
+  width: @meme-op-height;
+}
+
+.comment-user{
+  display: inline-block;
+  height: @op-username-height;
+  margin-top: @op-username-padding;
+  margin-bottom: @op-username-padding;
+  font-size: 1em;
+}
+
+.comment-body{
+  text-align: justify;
+  display: block;
+  width: calc(100% - 2em);
+  background-color: @comment-background;
+  padding: 1em;
+}
+
+.comment-vote{
+  display: flex;
+  height: @meme-op-height;
+  width: calc(100% - 0.5em);
+  background-color: @comment-background;
+  margin: 0;
+  padding: 0 0 0 0.5em;
+}
+
+.comment-like-count{
+  display: inline-block;
+  height: @op-username-height;
+  margin-top: @op-username-padding * 0.55;
+  margin-bottom: @op-username-padding * 0.55;
+  font-size: 1em;
+  .ml-2();
+  .mr-2();
+}
+
+.comment-like{
+  .icon-sh-give();
+  display: inline-block;
+  z-index: 15;
+}
+
+.comment-replies{
+  display: block;
+  width: calc(100%);
+  z-index: 15;
+}
+
+.comment-dislike{
+  .icon-sh-take();
+  display: inline-block;
+  z-index: 15;
+}
+
+.comment-reply-to{
+  color: @comment-reply-color;
+  display: inline-block;
+  height: @op-username-height;
+  margin-top: @reply-padding;
+  margin-bottom: @reply-padding;
+  margin-right: 0.5em;
+  font-size: 0.8em;
+  z-index: 15;
+}
+
+.comment-jump{
+  .icon-jump();
+  margin: 0.5em 0.25em 0.5em 0;
+  z-index: 15;
+}
