@@ -36,9 +36,10 @@ function readFile(id, fileEntry, success, error) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
+            alert(this.result);
             success(id, this.result);
         };
-        reader.readAsArrayBuffer(file);
+        reader.readAsText(file);
     }, error(id));
 }
 

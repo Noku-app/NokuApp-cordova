@@ -19,10 +19,13 @@
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
+
 document.addEventListener('deviceready', onDeviceReady, false);
 var muted = true;
 var menu_open = false;
 let noku = new Noku();
+let storage = window.localStorage;
+
 function onDeviceReady() {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
 
@@ -38,29 +41,31 @@ function onDeviceReady() {
 }
 
 function checkSignedIn(){
-    getFileHandle(0, "auth_token", handleFileGot, handleFileError);
+    let token = storage.getItem("auth_token");
+    if(token == null){
+        // Switch to sign in page.
+        //return;
+    }
+
+    // Test Token
+    noku.testToken(token, handleTokenCheck);
 }
 
-function handleSignIn(data){
-    if(data == null){
-        //Switch to sign in page.
-        alert("Not signed in.");
-    } else {
-        console.log(data);
+function handleTokenCheck(response, worked){
+    console.log(worked);
+    console.log(response);
+    var data;
+    try {
+        data = JSON.parse(response.data);
+    } catch (e){
+        alert(e);
+        data = {};
+        data.valid = false;
+    }
+    if(data.valid === "true"){
+        alert("valid token");
         setup();
-    }
-}
-
-function handleFileGot(id, fileHandle){
-    if(id === 0) readFile(0, fileHandle, handleSignIn, handleFileError);
-    if(id === 1) writeToFile(1, fileHandle, "none", handleSignIn, handleFileError);
-}
-
-function handleFileError(id){
-    if(id === 0){
-        getFileHandle(1, "auth_token", handleFileGot, handleFileError);
-    }
-    if(id === 1){
+    } else {
 
     }
 }
@@ -157,10 +162,12 @@ function setup(){
         }
     });
 
-    getPreviousIndex();
-    window.mySwipe.on('slideChange', function () {
+    if (typeof window.mySwipe.on === "function") {
         getPreviousIndex();
-    });
+        window.mySwipe.on('slideChange', function () {
+            getPreviousIndex();
+        });
+    }
 }
 function loadComments(meme){
     let id = noku.getMemeIDByHash(meme);

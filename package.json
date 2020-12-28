@@ -1,8 +1,8 @@
 {
-  "name": "io.cordova.hellocordova",
-  "displayName": "HelloCordova",
-  "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "name": "wtf.noku",
+  "displayName": "Noku",
+  "version": "0.0.1",
+  "description": "Another meme app.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,7 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
+    "com.telerik.plugins.nativepagetransitions": "^0.7.0",
     "cordova-android": "^9.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^6.1.1",
@@ -30,7 +31,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-cors": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-dialogs": {}
+      "cordova-plugin-dialogs": {},
+      "com.telerik.plugins.nativepagetransitions": {}
     },
     "platforms": [
       "browser",

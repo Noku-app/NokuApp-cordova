@@ -1,10 +1,31 @@
 class Noku {
-    init(){
 
+    init(){
+        this.http = cordova.plugin.http;
+        this.http.setDataSerializer('json');
+        this.http.setRequestTimeout(5.0);
+    }
+
+    testToken(token, callback){
+        const options = {
+            method: 'post',
+            data: { "token": token },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "tokencheck", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
     }
 
     getCDNUrl() {
         return "https://cdn.xemplarsoft.com/";
+    }
+
+    getAPIUrl() {
+        return "https://xemplarsoft.com/noku/api/";
     }
 
     getUserData(id) {
