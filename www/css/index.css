@@ -1,4 +1,5 @@
 @import "animate.min.css";
+@import "swiper-bundle.css";
 .center {
   margin-left: auto;
   margin-right: auto;
@@ -498,7 +499,7 @@
   max-width: 40em;
   width: 100%;
   min-height: 3.25em;
-  margin: 1em auto 0;
+  margin: 0;
   padding: 0;
 }
 .meme-next {
@@ -848,24 +849,11 @@ h1 {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.swipe {
-  overflow: hidden;
-  visibility: hidden;
+.app-wrapper {
   position: relative;
   max-width: 40em;
   margin-left: auto;
   margin-right: auto;
-}
-.swipe-wrap {
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  height: auto;
-}
-.swipe-wrap > div {
-  float: left;
-  width: 100%;
-  position: relative;
 }
 .comments {
   max-width: 40em;

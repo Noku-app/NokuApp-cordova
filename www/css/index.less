@@ -3,6 +3,7 @@
 @import "meme.less";
 @import "noku.less";
 @import "animate.min.css";
+@import "swiper-bundle.css";
 
 h1 {
     font-size:24px;
@@ -35,23 +36,10 @@ h1 {
     transform: translateY(-50%);
 }
 
-.swipe {
-    overflow: hidden;
-    visibility: hidden;
+.app-wrapper {
     position: relative;
     max-width: @max-width;
     .mx-auto();
-}
-.swipe-wrap {
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    height: auto;
-}
-.swipe-wrap > div {
-    float:left;
-    width:100%;
-    position: relative;
 }
 
 .comments{

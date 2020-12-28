@@ -46,6 +46,37 @@ function play_media(hash){
     if(audio != null) audio.trigger("play");;
 }
 
+function setInvisible(element){
+    element.style.opacity = 0;
+    element.style.filter = 'alpha(opacity=0)';
+}
+
+function fadeIn(element) {
+    var op = 0.1;  // initial opacity
+    element.style.display = 'block';
+    var timer = setInterval(function () {
+        if (op >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op += op * 0.1;
+    }, 20);
+}
+
+function fadeOut(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
+}
+
 function getType(file_URI) {
     window.resolveLocalFileSystemURI(file_URI, function(fileEntry) {
         fileEntry.file(function(filee) {

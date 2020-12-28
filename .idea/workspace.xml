@@ -2,16 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bec4e973-a932-40e7-9a57-71e4c28b9bd9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/www/css/swiper-bundle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/swiper-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/meme.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/meme.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/fileio.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/fileio.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/function.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/noku.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/noku.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/signin.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/signin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/signin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/libs/swipe.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +117,7 @@
       <workItem from="1608945788558" duration="7067000" />
       <workItem from="1609036442401" duration="1764000" />
       <workItem from="1609043923434" duration="6467000" />
+      <workItem from="1609173987308" duration="8850000" />
     </task>
     <servers />
   </component>

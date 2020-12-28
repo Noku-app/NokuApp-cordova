@@ -70,9 +70,6 @@ function handleTokenCheck(response, worked){
     }
 }
 
-var previousIndex; function getPreviousIndex(){
-    previousIndex = window.mySwipe.getPos();
-}
 var em; function getValue(id){
     var div = document.getElementById(id);
     div.style.height = '1em';
@@ -121,60 +118,57 @@ function exitMenu() {
 }
 
 function setup(){
+    var ops = {
+        direction: 'horizontal',
+        autoHeight: true,
+        loop: true,
+        flipEffect: {
+            slideShadows: false,
+        },
+        zoom: {
+            maxRatio: 5,
+        }
+    };
+
+    if(device.platform === 'browser') {
+        $(".swiper-container").append(
+            '<div class="swiper-button-prev"></div>' +
+            '<div class="swiper-button-next"></div>'
+        );
+
+        ops.navigation = {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
+    }
+    window.mySwipe = new Swiper('.swiper-container', ops);
+
     let memes = ['6261FE583B7797C7A0901A1ADFF4A4782EE1480F38D2C90322F27DBD726C2609', '03B2095B05C892EC91E8545E7EE7520F9E02692A4379B9099AA7EF0AB72F7AE8', 'D25FA9E39679FD4DAF01D8F9A00B0E57B4CE78692C81BE115C2AB3A205620F6F', 'E8F0071EC973CDE24A05BA641FA4DBEE214027E9C060133A14684A73FB7E2767'];
     for(var x = 0; x < memes.length; x++){
-        createMeme(".swipe-wrap", memes[x]);
+        createMeme(".swiper-wrapper", memes[x]);
     }
 
     loadComments(memes[0]);
 
     let app = $(".app");
-    if(device.platform === 'browser'){
-        app.prepend(
-            '<div class="container">\n' +
-            '  <div class="meme-prev btn p-1" data-command="prev-meme"></div>\n' +
-            '  <div class="meme-next btn p-1" data-command="next-meme"></div>\n' +
-            '</div>');
-        $('.meme-next').click(function (){
-            window.mySwipe.next();
-        })
-        $('.meme-prev').click(function (){
-            window.mySwipe.prev();
-        })
-    }
 
-    window.mySwipe = Swipe(document.getElementById('slider'), {
-        startSlide: 0,
-        freeMode: true,
-        autoHeight: true,
-        grabCursor: true,
-        paginationClickable: true,
-        speed: 400,
-        continuous: true,
-        disableScroll: false,
-        stopPropagation: false,
-        callback: function() {
-            stop_media(memes[previousIndex]);
-        },
-        transitionEnd: function(index) {
-            loadComments(memes[index]);
-            play_media(memes[index]);
-        }
+    let swiper = window.mySwipe;
+    swiper.on('slideChangeTransitionStart', function () {
+        stop_media(memes[this.previousIndex]);
+    });
+    swiper.on('slideChangeTransitionEnd', function () {
+        loadComments(memes[this.realIndex]);
+        play_media(memes[this.realIndex]);
     });
 
-    if (typeof window.mySwipe.on === "function") {
-        getPreviousIndex();
-        window.mySwipe.on('slideChange', function () {
-            getPreviousIndex();
-        });
-    }
+    swiper.update();
 }
 function loadComments(meme){
     let id = noku.getMemeIDByHash(meme);
     let com_data = noku.getCommentsByID(id);
     console.log(com_data);
 
-    let comments = $('#' + meme + ' .comments');
+    let comments = $('.comments');
     comments.html('<div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>\n');
     for(var i = 0; i < com_data.length; i++){
         let com = create_comment(com_data[i], 0);
@@ -241,7 +235,7 @@ function createMeme(container, hash){
     let app = $(container);
     var parent = '#' + hash;
     app.append(
-        '<div class="meme-container" id="' + hash + '" data-memeid="' + id + '">\n' +
+        '<div class="swiper-slide meme-container" id="' + hash + '" data-memeid="' + id + '">\n' +
         '  <div class="meme-op">\n' +
         '    <div class="float-left">\n' +
         '      <div class="op-pfp"></div>\n' +
@@ -251,7 +245,7 @@ function createMeme(container, hash){
         '      <div class="btn btn-black mr-2 my-auto" data-command="subscribe">Subscribe</div>\n' +
         '    </div>\n' +
         '  </div>\n' +
-        '  <div class="meme-body">\n' +
+        '  <div class="meme-body swiper-zoom-container">\n' +
         '\n' +
         '  </div>\n' +
         '  <div class="meme-footer">\n' +
@@ -266,9 +260,6 @@ function createMeme(container, hash){
         '       <div class="meme-comment btn mr-2" data-command="comment"></div>\n' +
         '    </div>\n' +
         '  </div>\n' +
-        '  <div class="container comments" id="comments">\n' +
-        '    <div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>\n' +
-        '  </div>' +
         '</div>');
 
     var plat = device.platform;
@@ -299,9 +290,9 @@ function createMeme(container, hash){
             var content = this.getResponseHeader("Content-Type");
             if(content == null) return;
 
-            if(content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image" src="' + url + meme.hash + '" />');
+            if(content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image swiper-zoom-target" src="' + url + meme.hash + '" />');
             if(content.includes("video")){
-                $(parent + " .meme-body").html('<video class="meme-image meme-video" autoplay muted><source src="' + url + meme.hash +'" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
+                $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" autoplay muted><source src="' + url + meme.hash +'" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
                 $(parent + " .mute-control").click(function(){
                     toggleMute(parent);
                 });
@@ -317,6 +308,7 @@ function createMeme(container, hash){
     xhttp.send();
 
     $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
+    window.mySwipe.update();
 }
 function create_comment(comment, layer, parent = null) {
     let author = noku.getUserData(comment.authorID);

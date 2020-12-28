@@ -36,7 +36,7 @@
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/index.min.css">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Hello World</title>
+        <title>Noku - the worst meme app.</title>
     </head>
     <body>
         <div class="app-bar">
@@ -61,17 +61,22 @@
                 </ul>
             </div>
             <div id="overlay"></div>
-          <div class="app" id="app">
-            <div id="slider" class="swipe">
-                <div class="swipe-wrap">
+            <div class="app" id="app">
+                <div class="app-wrapper">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                    </div>
+                </div>
+                <div class="container comments" id="comments">
+                    <div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>
+                </div>
                 </div>
             </div>
-          </div>
         </div>
         <div id="em-measure" style="height:0;width:0;outline:none;border:none;padding:0;margin:0;box-sizing:content-box;"></div>
         <script src="js/libs/jquery.js"></script>
         <script src="js/libs/jquery-ui.js"></script>
-        <script src="js/libs/swipe.js"></script>
+        <script src="js/libs/swiper-bundle.js"></script>
         <script src="js/noku.js"></script>
         <script src="js/fileio.js"></script>
         <script src="cordova.js"></script>
