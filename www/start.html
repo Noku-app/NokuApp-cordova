@@ -34,53 +34,23 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <meta name="color-scheme" content="light dark">
-        <link rel="stylesheet" href="css/index.min.css">
+        <link rel="stylesheet" href="css/start.min.css">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <title>Noku - the worst meme app.</title>
     </head>
     <body>
-    <div data-role="page" id="page1"><div data-role="content">
-        <div class="app-bar">
-            <div class="inline-container w-75">
-                <div class="menu btn btn-clear icon-logo-gif mx-2" data-command="menu"></div>
-                <div class="inline-text">Dank Memes</div>
-            </div>
-            <div class="inline-container text-right w-25">
-                <div class="menu btn icon-close hide" data-command="menu-close" id="menu-close"></div>
-            </div>
-        </div>
-        <div class="main-content">
-            <div id="sidemenu">
-                <ul class="options">
-                    <li><div data-command="#" class="btn side-btn">Dank Memes</div></li>
-                    <li><div data-command="#" class="btn side-btn">Submissions</div></li>
-                    <li><div data-command="#" class="btn side-btn">Subscriptions</div></li>
-                    <li><div data-command="profile" class="btn side-btn">Profile</div></li>
-                    <li><div data-command="upload" class="btn side-btn">Upload</div></li>
-                </ul>
-            </div>
-            <div id="overlay"></div>
-            <div class="app" id="app">
-                <div class="app-wrapper">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                    </div>
-                </div>
-                <div class="container comments" id="comments">
-                    <div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>
-                </div>
-                </div>
+        <div data-role="page" id="page1"><div data-role="content">
+        <div class="app" id="app">
+            <div class="center">
+                <img class="loading" src="img/loading.gif" alt="loading">
+                <p class="loading-label">Checking if you are signed in.</p>
             </div>
         </div>
         <div id="em-measure" style="height:0;width:0;outline:none;border:none;padding:0;margin:0;box-sizing:content-box;"></div>
         <script src="js/libs/jquery.min.js"></script>
-        <script src="js/libs/jquery-ui.min.js"></script>
-        <script src="js/libs/swiper-bundle.min.js"></script>
         <script src="js/noku.min.js"></script>
-        <script src="js/fileio.min.js"></script>
         <script src="cordova.js"></script>
-        <script src="js/function.min.js"></script>
-        <script src="js/index.min.js"></script>
-    </div></div>
+        <script src="js/start.min.js"></script>
+        </div></div>
     </body>
 </html>

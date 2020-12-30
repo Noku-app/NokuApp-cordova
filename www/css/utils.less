@@ -20,9 +20,26 @@
   height: 100%;
 }
 
+.text-right{
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+.hide{
+  display: none !important;
+}
+
+.divider-hz{
+  content: "";
+  display: block;
+  height: 2px !important;
+  width: 100% !important;
+  background-color: @divider-color !important;
+}
+
 .btn{
   display: inline-block;
-  height: 1em;
+  height: 1.1em;
   font-size: 1em;
   text-align: center;
   border-radius: 0.25em;
@@ -33,15 +50,12 @@
 }
 
 .inline-text{
+  position: absolute;
   height: 1em;
-  margin: 0.75em;
-  padding: 0;
+  top: 0.75em;
+  bottom: 0.75em;
   display: inline-block;
   color: @foreground-color;
-}
-
-.app-bar .inline-text{
-  display: inline-list-item;
 }
 
 .btn:active{
@@ -75,8 +89,21 @@
 
 .container{
   display: block;
+  position: relative;
 }
 
+.inline-container{
+  display: inline-block;
+  position: relative;
+}
+
+.w-0 { width: 0 !important; }
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+
+.p-0{ padding: 0 !important; }
 .p-1{ padding: @padding-spacer !important; }
 .p-2{ padding: @padding-spacer * 2 !important; }
 .p-3{ padding: @padding-spacer * 3 !important; }
@@ -84,6 +111,7 @@
 .p-5{ padding: @padding-spacer * 3 !important; }
 .p-6{ padding: @padding-spacer * 3 !important; }
 
+.pt-0{ padding-top: 0 !important; }
 .pt-1{ padding-top: @padding-spacer !important; }
 .pt-2{ padding-top: @padding-spacer * 2 !important; }
 .pt-3{ padding-top: @padding-spacer * 3 !important; }
@@ -91,6 +119,7 @@
 .pt-5{ padding-top: @padding-spacer * 3 !important; }
 .pt-6{ padding-top: @padding-spacer * 3 !important; }
 
+.pl-0{ padding-left: 0 !important; }
 .pl-1{ padding-left: @padding-spacer !important; }
 .pl-2{ padding-left: @padding-spacer * 2 !important; }
 .pl-3{ padding-left: @padding-spacer * 3 !important; }
@@ -98,6 +127,7 @@
 .pl-5{ padding-left: @padding-spacer * 3 !important; }
 .pl-6{ padding-left: @padding-spacer * 3 !important; }
 
+.pr-0{ padding-right: 0 !important; }
 .pr-1{ padding-right: @padding-spacer !important; }
 .pr-2{ padding-right: @padding-spacer * 2 !important; }
 .pr-3{ padding-right: @padding-spacer * 3 !important; }
@@ -105,6 +135,7 @@
 .pr-5{ padding-right: @padding-spacer * 3 !important; }
 .pr-6{ padding-right: @padding-spacer * 3 !important; }
 
+.pb-0{ padding-bottom: 0 !important; }
 .pb-1{ padding-bottom: @padding-spacer !important; }
 .pb-2{ padding-bottom: @padding-spacer * 2 !important; }
 .pb-3{ padding-bottom: @padding-spacer * 3 !important; }

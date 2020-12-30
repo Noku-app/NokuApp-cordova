@@ -1,9 +1,3 @@
-@import "animate.min.css";
-@import "swiper-bundle.css";
-@font-face {
-  font-family: "museo";
-  src: url("../fonts/museo.ttf");
-}
 a,
 a:visited {
   color: #4527a0;
@@ -500,274 +494,9 @@ a:visited {
   background-position-x: center;
   background-image: url("../img/loading.gif");
 }
-/***********************************
- * Meme Original Poster
- ***********************************/
-.meme-op {
-  border-top-left-radius: 0.75em;
-  border-top-right-radius: 0.75em;
-  display: block;
-  width: 100%;
-  height: 3.25em;
-  background-color: #303030;
-}
-.meme-op::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.op-pfp {
-  display: inline-list-item;
-  height: 3.25em;
-  width: 3.25em;
-  margin: 0;
-  padding: 0;
-}
-.pfp-image {
-  width: 2.25em;
-  height: 2.25em;
-  padding: 0.5em;
-  border-radius: 50%;
-}
-.op-info {
-  display: inline-block;
-  height: 3.25em;
-  padding: 0;
-  margin: 0;
-}
-.op-username {
-  display: inline-list-item;
-  height: 1.25em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding: 0 !important;
-}
-/***********************************
- * Meme Content
- ***********************************/
-.meme-like-count {
-  padding: 0.5em;
-  font-size: 1em;
-  height: 1.25em;
-  margin: 0;
-}
-.meme-dislike-count {
-  padding: 0.5em;
-  font-size: 1em;
-  height: 1.25em;
-  margin: 0;
-}
-.meme-container {
-  display: block;
-  max-width: 40em;
-  width: 100%;
-  min-height: 3.25em;
-  margin: 0;
-  padding: 0;
-}
-.meme-next {
-  display: inline-block;
-  width: 3em;
-  height: 3em;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/next.png");
-}
-.meme-prev {
-  display: inline-block;
-  width: 3em;
-  height: 3em;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/prev.png");
-}
-.meme-image {
-  width: 100%;
-}
-.meme-audio {
-  width: calc(100% - 0.25em * 8);
-  padding: 1em !important;
-}
-.meme-footer {
-  background-color: #303030;
-  display: block;
-  width: calc(100% - (0.4em * 2));
-  height: 2.45em;
-  padding: 0.4em;
-}
-.meme-body {
-  background-color: #303030;
-  display: block;
-  width: 100%;
-  position: relative;
-}
-.mute-control {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 3em;
-  width: 3em;
-  padding: 0;
-  margin: 0 0 0.25em;
-  z-index: 11;
-  -webkit-filter: drop-shadow(12px 12px 25px rgba(0, 0, 0, 0.5));
-  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
-  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/audio_off.png");
-}
-.mute-control {
-  filter: url(#drop-shadow);
-}
-.mute-control {
-  filter: brightness(300%);
-}
-.meme-comment {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/comment.png");
-}
-.meme-give {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/give_sh.png");
-}
-.meme-take {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/take_sh.png");
-}
-.meme-repub {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/repub.png");
-}
-.meme-share {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/share.png");
-}
-/***********************************
- * Comments
- ***********************************/
-.comment {
-  display: block;
-  width: 100%;
-}
-.comment-content {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-.comment-overlay {
-  position: absolute;
-  z-index: 14;
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #A0A0A0;
-}
-.comment-head {
-  display: block;
-  width: 100%;
-  height: 3.25em;
-  background-color: #303030;
-}
-.comment-head::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.comment-vote::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.comment-pfp {
-  display: inline-block;
-  height: 3.25em;
-  width: 3.25em;
-}
-.comment-user {
-  display: inline-block;
-  height: 1.25em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: 1em;
-}
-.comment-body {
-  text-align: justify;
-  display: block;
-  width: calc(100% - 2em);
-  background-color: #101010;
-  padding: 1em;
-}
-.comment-vote {
-  display: flex;
-  height: 3.25em;
-  width: calc(100% - 0.5em);
-  background-color: #101010;
-  margin: 0;
-  padding: 0 0 0 0.5em;
-}
-.comment-like-count {
-  display: inline-block;
-  height: 1.25em;
-  margin-top: 0.55em;
-  margin-bottom: 0.55em;
-  font-size: 1em;
-  margin-left: 0.5em !important;
-  margin-right: 0.5em !important;
-}
-.comment-like {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/give_sh.png");
-  display: inline-block;
-  z-index: 15;
-}
-.comment-replies {
-  display: block;
-  width: calc(100%);
-  z-index: 15;
-}
-.comment-dislike {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/take_sh.png");
-  display: inline-block;
-  z-index: 15;
-}
-.comment-reply-to {
-  color: #909090;
-  display: inline-block;
-  height: 1.25em;
-  margin-top: 1.225em;
-  margin-bottom: 1.225em;
-  margin-right: 0.5em;
-  font-size: 0.8em;
-  z-index: 15;
-}
-.comment-jump {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/jump.png");
-  margin: 0.5em 0.25em 0.5em 0;
-  z-index: 15;
+@font-face {
+  font-family: "museo";
+  src: url("../fonts/museo.ttf");
 }
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -781,6 +510,7 @@ body {
   -webkit-user-select: none;
   /* prevent copy paste, to allow, change 'none' to 'text' */
   background-color: #000000;
+  color: #E0E0E0;
   font-family: museo, system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
   height: 100vh;
   margin: 0;
@@ -789,96 +519,13 @@ body {
   padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
   width: 100%;
 }
-.main-content {
+.app {
   display: flex;
   position: absolute;
-  top: 4em;
-  height: calc(100% - 4em);
-  width: 100%;
-  text-align: center;
-}
-#sidemenu {
-  background: #000000 !important;
-  position: absolute;
-  display: none;
-  width: 100%;
-  height: 100%;
-  z-index: 13;
-}
-#sidemenu ul {
-  list-style-type: none;
-  text-align: left;
-}
-#sidemenu ul li {
-  color: #D7D7D7;
-}
-.side-btn {
-  background: none;
-  color: #E0E0E0;
-  font-size: 1.5em;
-  padding: 0 !important;
-}
-#overlay {
-  position: absolute;
-  display: none;
-  width: 100%;
-  height: 100%;
-  left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 12;
-}
-.sidemenu-close {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/close.png");
-}
-.app {
-  transition: margin-left 0.5s;
-}
-body * {
-  color: #D7D7D7;
-}
-.app {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   height: 100%;
   width: 100%;
   text-align: center;
-}
-.app-bar {
-  display: flex;
-  position: fixed;
-  width: 100%;
-  height: 4em;
-  background: #000000;
-  z-index: 10;
-  flex-wrap: wrap;
-  align-content: space-between;
-  flex-direction: column;
-}
-.app-bar::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.app-bar .inline-text {
-  margin-left: 0 !important;
-  display: inline-list-item;
-  font-size: 1.5em;
-}
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1) and (min-width: 400px) {
-  .app {
-    background-position: left center;
-    margin: 0;
-    /* offset vertical: half of image height */
-    /* offset horizontal: half of image width and text area width */
-  }
 }
 h1 {
   font-size: 24px;
@@ -888,55 +535,39 @@ h1 {
   padding: 0;
   text-align: center;
 }
-.block-label {
+.loading-label {
   display: block;
-  width: calc(100% - 1em);
-  font-size: 1em;
-  border-bottom: 1em solid #000000;
-  border-top: 1em solid #000000;
-  padding: 0.5em !important;
-  padding-top: 0.25em !important;
-  padding-bottom: 0.75em !important;
-}
-.center-vertical {
-  margin-top: 0;
-  margin-bottom: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-.app-wrapper {
-  position: relative;
-  max-width: 40em;
-  margin-left: auto;
-  margin-right: auto;
-}
-.comments {
-  max-width: 40em;
-  margin-left: auto;
-  margin-right: auto;
-}
-.app-bar {
-  z-index: 20;
-  background-color: #000000;
-}
-.app {
-  border-top-left-radius: 2em;
-  border-top-right-radius: 2em;
-  background-color: #000000;
-}
-.bg-op {
-  background-color: #303030;
-}
-.menu {
-  width: 2.25em !important;
-  height: 2.25em !important;
+  width: 100%;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
 }
 @media only screen and (max-width: 600px) {
-  .app-wrapper {
-    margin-left: 1em;
-    margin-right: 1em;
+  .center {
+    position: absolute;
+    text-align: center;
+    margin: 0;
+    top: 50%;
+    left: 1em;
+    right: 1em;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
 }
-/*# sourceMappingURL=index.css.map */
+@media not screen and (max-width: 600px) {
+  .center {
+    position: absolute;
+    text-align: center;
+    margin: 0;
+    width: 15em;
+    top: 50%;
+    left: calc(50% - (15em / 2));
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
+.loading {
+  width: 15em;
+  height: 15em;
+}
+/*# sourceMappingURL=start.css.map */

@@ -1,0 +1,32 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/www/js/fileio.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/function.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/index.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/jquery.mobile.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/noku.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/signin.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/start.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/www/js/fileio.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/function.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/index.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/jquery.mobile.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/noku.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/signin.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/start.min.js" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

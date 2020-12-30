@@ -7,7 +7,7 @@
     <author email="service@xemplarsoft.com" href="http://xemplarsoft.com">
         Xemplar Softworks, LLC
     </author>
-    <content src="index.html" />
+    <content src="start.html" />
     <access origin="*" />
     <allow-navigation href="*"/>
     <allow-intent href="http://*/*" />

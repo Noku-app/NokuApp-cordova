@@ -41,7 +41,6 @@
     ]
   },
   "dependencies": {
-    "swiper": "^6.4.5",
-    "uglifyjs": "^2.4.11"
+    "swiper": "^6.4.5"
   }
 }

@@ -1,3 +1,4 @@
+@import "fonts.less";
 @import "utils.less";
 @import "icons.less";
 @import "meme.less";
@@ -47,12 +48,31 @@ h1 {
     .mx-auto();
 }
 
+.app-bar{
+    z-index: 20;
+    background-color: @app-bar-color;
+}
+
+.app {
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    background-color: @app-background;
+}
+
 .bg-op{
     background-color: @comment-op-background;
 }
 
-@media screen and (prefers-color-scheme: dark) {
-    body {
+@app-padding: 1em;
 
+.menu{
+    width: 2.25em !important;
+    height: 2.25em !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .app-wrapper{
+        margin-left: @app-padding;
+        margin-right: @app-padding;
     }
 }

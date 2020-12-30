@@ -4,16 +4,66 @@ class Noku {
         this.http = cordova.plugin.http;
         this.http.setDataSerializer('json');
         this.http.setRequestTimeout(5.0);
+
+        this.memes = [null];
+        this.users = [];
     }
 
-    testToken(token, callback){
+    testToken(callback){
         const options = {
             method: 'post',
-            data: { "token": token },
-            headers: { }
+            data: { "token":this.token, "uid":this.uid },
+            headers: {}
         };
 
         this.http.sendRequest(this.getAPIUrl() + "tokencheck", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    login(username, password, callback){
+        const options = {
+            method: 'post',
+            data: { "username": username, "password": password },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "login", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    register(username, password, email, callback){
+        const options = {
+            method: 'post',
+            data: { "email": email, "username": username, "password": password },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "register", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    setCredentials(token, uid){
+        this.token = token;
+        this.uid = uid;
+    }
+    
+    getMemes(callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getmemes", options, function(response) {
             callback(response, true);
         }, function(response) {
             callback(response, false);
@@ -28,23 +78,18 @@ class Noku {
         return "https://xemplarsoft.com/noku/api/";
     }
 
-    getUserData(id) {
-        //TODO Implement getUserData()
+    getUserData(id, callback) {
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "user_id": id },
+            headers: { }
+        };
 
-        var user = {};
-        switch (id) {
-            case 1:
-                user.pfp = "6CC8ABAEA14F822667CAA621E94200F14F151DBB8A479A25218EEAD6C1388403";
-                user.name = "The Next Guy";
-                user.color = "#5020F0";
-                break;
-            case 2:
-                user.pfp = "6D9BC53912E4F1133052B98406BBD2AF0929F8C5AB78C61FCBD79C8D43CF377E";
-                user.name = "Defy";
-                user.color = "#802020";
-                break;
-        }
-        return user;
+        this.http.sendRequest(this.getAPIUrl() + "getuserdata", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
     }
 
     getMemeIDByHash(hash) {
@@ -64,42 +109,6 @@ class Noku {
             default:
                 return 0;
         }
-    }
-
-    getMemeByID(id) {
-        let meme = {};
-
-        switch (id) {
-            case 21:
-                meme.hash = "6261FE583B7797C7A0901A1ADFF4A4782EE1480F38D2C90322F27DBD726C2609";
-                meme.author = 1;
-                meme.likes = 421;
-                meme.dislikes = 68;
-                break;
-
-            case 25:
-                meme.hash = "03B2095B05C892EC91E8545E7EE7520F9E02692A4379B9099AA7EF0AB72F7AE8";
-                meme.author = 2;
-                meme.likes = 687;
-                meme.dislikes = 21;
-                break;
-
-            case 26:
-                meme.hash = "D25FA9E39679FD4DAF01D8F9A00B0E57B4CE78692C81BE115C2AB3A205620F6F";
-                meme.author = 1;
-                meme.likes = 87;
-                meme.dislikes = 11;
-                break;
-
-            case 31:
-                meme.hash = "E8F0071EC973CDE24A05BA641FA4DBEE214027E9C060133A14684A73FB7E2767";
-                meme.author = 1;
-                meme.likes = 102;
-                meme.dislikes = 21;
-                break;
-        }
-
-        return meme;
     }
 
     getCommentsByID(id) {

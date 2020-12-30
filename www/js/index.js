@@ -22,7 +22,6 @@
 
 document.addEventListener('deviceready', onDeviceReady, false);
 var muted = true;
-var menu_open = false;
 let noku = new Noku();
 let storage = window.localStorage;
 
@@ -30,6 +29,7 @@ function onDeviceReady() {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
 
     noku.init();
+    noku.setCredentials(storage.getItem("auth_token"), storage.getItem("uid"));
 
     $(".btn").click(function (e){
         handleClick(e);
@@ -37,39 +37,29 @@ function onDeviceReady() {
 
     getValue("em-measure");
 
-    checkSignedIn();
+    noku.testToken(handleTokenCheck)
 }
-
-function checkSignedIn(){
-    let token = storage.getItem("auth_token");
-    if(token == null){
-        // Switch to sign in page.
-        //return;
-    }
-
-    // Test Token
-    noku.testToken(token, handleTokenCheck);
-}
-
 function handleTokenCheck(response, worked){
-    console.log(worked);
-    console.log(response);
     var data;
     try {
         data = JSON.parse(response.data);
     } catch (e){
-        alert(e);
         data = {};
         data.valid = false;
     }
-    if(data.valid === "true"){
-        alert("valid token");
+
+    if(data.valid === true){
         setup();
     } else {
-
+        redirect("signin.html");
     }
 }
 
+function redirect(page){
+    $("body").fadeOut(100, function(){
+        window.location.href = page;
+    });
+}
 var em; function getValue(id){
     var div = document.getElementById(id);
     div.style.height = '1em';
@@ -87,10 +77,13 @@ function handleClick(e){
     if(method === "dislike") dislike();
     if(method === "mute") toggleMute();
     if(method === "menu-close") exitMenu();
+    if(method === "profile") profile();
     if(method === "menu"){
-        if(!menu_open) enterMenu(); else exitMenu();
-        menu_open = !menu_open;
+        enterMenu();
     }
+}
+function profile(){
+    redirect("profile.html");
 }
 function toggleMute(parent){
     if(muted){
@@ -106,7 +99,9 @@ function toggleMute(parent){
 function enterMenu() {
     $('#sidemenu').css({'display': 'block'}).addClass('animated slideInRight');
     $('#overlay').fadeIn();
-    menu_open = true;
+
+    let close = $('#menu-close');
+    close.removeClass("hide");
 }
 function exitMenu() {
     let side = $('#sidemenu');
@@ -114,17 +109,18 @@ function exitMenu() {
     side.css({'display': 'none'});
 
     $('#overlay').fadeOut();
-    menu_open = false;
+    let close = $('#menu-close');
+    close.addClass("hide");
 }
 
 function setup(){
+    $("body").fadeIn(100, function(){});
+
     var ops = {
         direction: 'horizontal',
         autoHeight: true,
         loop: true,
-        flipEffect: {
-            slideShadows: false,
-        },
+        effect: 'coverflow',
         zoom: {
             maxRatio: 5,
         }
@@ -143,28 +139,38 @@ function setup(){
     }
     window.mySwipe = new Swiper('.swiper-container', ops);
 
-    let memes = ['6261FE583B7797C7A0901A1ADFF4A4782EE1480F38D2C90322F27DBD726C2609', '03B2095B05C892EC91E8545E7EE7520F9E02692A4379B9099AA7EF0AB72F7AE8', 'D25FA9E39679FD4DAF01D8F9A00B0E57B4CE78692C81BE115C2AB3A205620F6F', 'E8F0071EC973CDE24A05BA641FA4DBEE214027E9C060133A14684A73FB7E2767'];
-    for(var x = 0; x < memes.length; x++){
-        createMeme(".swiper-wrapper", memes[x]);
-    }
+    noku.getMemes(function(response, worked){
+        if(!worked){
+            createMeme(".swiper-wrapper", null);
+            return;
+        }
+        var memes;
+        try{
+            let data = JSON.parse(response.data);
+            memes = data.data;
+        } catch (e){
+            memes = [].push(null);
+        }
+        noku.memes = memes;
+        for(var x = 0; x < memes.length; x++){
+            createMeme(".swiper-wrapper", memes[x]);
+        }
 
-    loadComments(memes[0]);
-
-    let app = $(".app");
+        loadComments(memes[0]);
+        swiper.update();
+    });
 
     let swiper = window.mySwipe;
     swiper.on('slideChangeTransitionStart', function () {
-        stop_media(memes[this.previousIndex]);
+        stop_media(noku.memes[this.previousIndex]);
     });
     swiper.on('slideChangeTransitionEnd', function () {
-        loadComments(memes[this.realIndex]);
-        play_media(memes[this.realIndex]);
+        loadComments(noku.memes[this.realIndex]);
+        play_media(noku.memes[this.realIndex]);
     });
-
-    swiper.update();
 }
 function loadComments(meme){
-    let id = noku.getMemeIDByHash(meme);
+    let id = meme.id;
     let com_data = noku.getCommentsByID(id);
     console.log(com_data);
 
@@ -228,10 +234,43 @@ function getCommentByID(comments, id){
 
     return null;
 }
-
-function createMeme(container, hash){
-    let id = noku.getMemeIDByHash(hash);
-    let meme = noku.getMemeByID(id);
+function createNullMeme(container){
+    let app = $(container);
+    app.append(
+        '<div class="swiper-slide meme-container" id="NULLMEME" data-memeid="NULLMEME">\n' +
+        '  <div class="meme-op">\n' +
+        '    <div class="float-left">\n' +
+        '      <div class="op-pfp"></div>\n' +
+        '      <div class="op-username">Noku Team</div>\n' +
+        '    </div>\n' +
+        '    <div class="float-right">\n' +
+        '      <div class="btn btn-black mr-2 my-auto" data-command="none">No Touch!</div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '  <div class="meme-body swiper-zoom-container">\n' +
+        '    <div class="container p-6">\n' +
+        '      <h1>End of the line pal!</h1>\n' +
+        '      <p>Unfortunately you have reached the end of the meme stream. Come back for more later.</p>\n' +
+        '    </div>\n'+
+        '  </div>\n' +
+        '  <div class="meme-footer">\n' +
+        '    <div class="float-left">\n' +
+        '      <div class="meme-like-count"></div>\n' +
+        '      <div class="meme-take btn ml-1" data-command="none"></div>\n' +
+        '      <div class="meme-take btn" data-command="none"></div>\n' +
+        '    </div>\n' +
+        '    <div class="float-right">\n' +
+        '       <div class="meme-take btn mr-1" data-command="none"></div>\n' +
+        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
+        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>');
+}
+function createMeme(container, meme){
+    if(meme == null) return createNullMeme(container);
+    let id = meme.id;
+    let hash = meme.hash;
     let app = $(container);
     var parent = '#' + hash;
     app.append(
@@ -246,7 +285,6 @@ function createMeme(container, hash){
         '    </div>\n' +
         '  </div>\n' +
         '  <div class="meme-body swiper-zoom-container">\n' +
-        '\n' +
         '  </div>\n' +
         '  <div class="meme-footer">\n' +
         '    <div class="float-left">\n' +
@@ -274,13 +312,22 @@ function createMeme(container, hash){
 
     var url = noku.getCDNUrl();
     var authorID = meme.author;
-    var author = noku.getUserData(authorID);
+    noku.getUserData(authorID, function(response, worked){
+        if(!worked) return;
+        var author;
+        try {
+            author = JSON.parse(response.data).data;
+        } catch (e){
+            author = {};
+            author.valid = false;
+        }
 
-    var pfp = author.pfp;
-    $(parent + " .op-pfp").html('<img class="pfp-image" src="' + url + pfp + '"  alt=""/>');
-    let op_user = $(parent + " .op-username");
-    op_user.html(author.name);
-    op_user.css('color', author.color);
+        var pfp = author.pfp;
+        $(parent + " .op-pfp").html('<img class="pfp-image" src="' + url + pfp + '"  alt=""/>');
+        let op_user = $(parent + " .op-username");
+        op_user.html(author.username);
+        op_user.css('color', "#" + author.color);
+    });
 
     var xhttp = new XMLHttpRequest();
     xhttp.open('HEAD', url + meme.hash);
@@ -310,7 +357,7 @@ function createMeme(container, hash){
     $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
     window.mySwipe.update();
 }
-function create_comment(comment, layer, parent = null) {
+function create_comment(comment, layer, parent) {
     let author = noku.getUserData(comment.authorID);
     let url = noku.getCDNUrl();
 
