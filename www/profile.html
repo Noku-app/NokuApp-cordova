@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://*.xemplarsoft.com * 'unsafe-inline' 'self' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;img-src * data: 'unsafe-inline' 'self' content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/profile.min.css">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Noku - the worst meme app.</title>
+</head>
+<body>
+<div data-role="page" id="page1"><div data-role="content">
+    <div class="app-bar">
+        <div class="inline-container w-75">
+            <div class="menu btn btn-clear icon-logo-gif mx-2" data-command="menu"></div>
+            <div class="inline-text" id="profile-name"></div>
+        </div>
+        <div class="inline-container text-right w-25">
+            <div class="menu btn icon-close hide" data-command="menu-close" id="menu-close"></div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div id="sidemenu">
+            <ul class="options">
+                <li><div data-command="dank" class="btn side-btn">Dank Memes</div></li>
+                <li><div data-command="#" class="btn side-btn">Submissions</div></li>
+                <li><div data-command="#" class="btn side-btn">Subscriptions</div></li>
+                <li><div data-command="profile" class="btn side-btn">Profile</div></li>
+                <li><div data-command="upload" class="btn side-btn">Upload</div></li>
+            </ul>
+        </div>
+        <div id="overlay"></div>
+        <div class="app" id="app">
+            <div class="app-wrapper">
+                <div class="profile-cover">
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-item profile-likes">
+                        <span class="value">0</span>
+                        <span class="label">Shekels</span>
+                    </div>
+                    <div class="profile-item profile-memes">
+                        <span class="value">0</span>
+                        <span class="label">Posted</span>
+                    </div>
+                    <div class="profile-item profile-subs">
+                        <span class="value">0</span>
+                        <span class="label">Subscribers</span>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <div class="btn icon-memes" data-command="image"></div>
+                    <div class="btn icon-upload" data-command="upload"></div>
+                </div>
+                <div class="profile-content">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" id="memes">
+                            </div>
+                            <div class="swiper-slide" id="upload">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="em-measure" style="height:0;width:0;outline:none;border:none;padding:0;margin:0;box-sizing:content-box;"></div>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/jquery-ui.min.js"></script>
+    <script src="js/libs/swiper-bundle.min.js"></script>
+    <script src="js/noku.min.js"></script>
+    <script src="js/fileio.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/function.min.js"></script>
+    <script src="js/profile.min.js"></script>
+</div></div>
+</body>
+</html>

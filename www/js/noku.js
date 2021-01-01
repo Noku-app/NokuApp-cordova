@@ -92,23 +92,60 @@ class Noku {
         });
     }
 
-    getMemeIDByHash(hash) {
-        //TODO Implement GetMemeIDByHash
+    getAllLikes(id, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "user_id": id },
+            headers: { }
+        };
 
-        //Pseudo code just to let it run
-        let memes = ['6261FE583B7797C7A0901A1ADFF4A4782EE1480F38D2C90322F27DBD726C2609', '03B2095B05C892EC91E8545E7EE7520F9E02692A4379B9099AA7EF0AB72F7AE8', 'D25FA9E39679FD4DAF01D8F9A00B0E57B4CE78692C81BE115C2AB3A205620F6F', 'E8F0071EC973CDE24A05BA641FA4DBEE214027E9C060133A14684A73FB7E2767'];
-        switch (hash) {
-            case memes[0]:
-                return 21;
-            case memes[1]:
-                return 25;
-            case memes[2]:
-                return 26;
-            case memes[3]:
-                return 31;
-            default:
-                return 0;
-        }
+        this.http.sendRequest(this.getAPIUrl() + "getalllikes", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    getAllMemes(id, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "user_id": id },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getallmemes", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    getAllSubscribers(id, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "user_id": id },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getallsubs", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    getMimeType(hash, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "hash": hash },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getmimetype", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
     }
 
     getCommentsByID(id) {

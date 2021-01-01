@@ -494,6 +494,18 @@ a:visited {
   background-position-x: center;
   background-image: url("../img/loading.gif");
 }
+.icon-upload {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/upload.png");
+}
+.icon-memes {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/memes.png");
+}
 @font-face {
   font-family: "museo";
   src: url("../fonts/museo.ttf");

@@ -2,34 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bec4e973-a932-40e7-9a57-71e4c28b9bd9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/www/css/form.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/css/start.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/js/start.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/start.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/css/profile.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/meme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/assets/museo.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/fonts/museo.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/colors.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/colors.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/fonts.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/fonts.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/fonts.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/fonts.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/icons.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/icons.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/index.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/meme.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/meme.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/noku.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/noku.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/utils.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/utils.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/function.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/function.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/libs/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/libs/jquery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/index.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/index.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/noku.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/noku.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/signin.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/signin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/signin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/noku.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/noku.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +34,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -61,7 +53,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/www" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www/js" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -77,10 +69,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js" />
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www" />
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\css" />
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js\libs" />
-      <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js" />
       <recent name="C:\Users\rohan\workspace\NokuApp-cordova\www\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -137,7 +129,8 @@
       <workItem from="1609043923434" duration="6467000" />
       <workItem from="1609173987308" duration="11429000" />
       <workItem from="1609189450298" duration="12539000" />
-      <workItem from="1609210123217" duration="31419000" />
+      <workItem from="1609210123217" duration="49388000" />
+      <workItem from="1609466992183" duration="3458000" />
     </task>
     <servers />
   </component>

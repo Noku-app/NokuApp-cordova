@@ -78,11 +78,17 @@ function handleClick(e){
     if(method === "mute") toggleMute();
     if(method === "menu-close") exitMenu();
     if(method === "profile") profile();
+    if(method === "viewprofile") viewprofile(btn.data("id"));
     if(method === "menu"){
         enterMenu();
     }
 }
 function profile(){
+    storage.setItem("view.id", noku.uid);
+    redirect("profile.html");
+}
+function viewprofile(id){
+    storage.setItem("view.id", id);
     redirect("profile.html");
 }
 function toggleMute(parent){
@@ -271,6 +277,7 @@ function createMeme(container, meme){
     if(meme == null) return createNullMeme(container);
     let id = meme.id;
     let hash = meme.hash;
+    let author = meme.author;
     let app = $(container);
     var parent = '#' + hash;
     app.append(
@@ -281,7 +288,7 @@ function createMeme(container, meme){
         '      <div class="op-username"></div>\n' +
         '    </div>\n' +
         '    <div class="float-right">\n' +
-        '      <div class="btn btn-black mr-2 my-auto" data-command="subscribe">Subscribe</div>\n' +
+        '      <div class="btn btn-black mr-2 my-auto" data-command="viewprofile" data-id="' + author + '">View Profile</div>\n' +
         '    </div>\n' +
         '  </div>\n' +
         '  <div class="meme-body swiper-zoom-container">\n' +
@@ -350,6 +357,14 @@ function createMeme(container, meme){
                     toggleMute(parent);
                 });
             }
+
+            $("img").one('load', function (){
+                window.mySwipe.update();
+            });
+
+            $("video").one('load', function (){
+                window.mySwipe.update();
+            });
         }
     };
     xhttp.send();

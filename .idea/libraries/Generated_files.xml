@@ -7,9 +7,10 @@
         <item url="file://$PROJECT_DIR$/www/js/index.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
-        <item url="file://$PROJECT_DIR$/www/js/libs/jquery.mobile.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/meme.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/noku.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/profile.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/signin.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/start.min.js" />
       </sourceFilesUrls>
@@ -20,9 +21,10 @@
       <root url="file://$PROJECT_DIR$/www/js/index.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
-      <root url="file://$PROJECT_DIR$/www/js/libs/jquery.mobile.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/meme.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/noku.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/profile.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/signin.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/start.min.js" />
     </CLASSES>

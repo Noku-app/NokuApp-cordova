@@ -1,0 +1,211 @@
+@import "fonts.less";
+@import "utils.less";
+@import "icons.less";
+@import "meme.less";
+@import "noku.less";
+@import "animate.min.css";
+@import "swiper-bundle.css";
+
+h1 {
+  font-size:24px;
+  font-weight:normal;
+  margin:0;
+  overflow:visible;
+  padding:0;
+  text-align:center;
+}
+
+.block-label{
+  display: block;
+  width: calc(100% - 1em);
+  font-size: 1em;
+
+  border-bottom: 1em solid @app-background;
+  border-top: 1em solid @app-background;
+
+  .p-2();
+  .pt-1();
+  .pb-3();
+}
+
+.center-vertical {
+  margin-top: 0;
+  margin-bottom: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.app-wrapper {
+  position: relative;
+  max-width: @max-width;
+  .mx-auto();
+}
+
+.comments{
+  max-width: @max-width;
+  .mx-auto();
+}
+
+.app-bar{
+  z-index: 20;
+  background-color: @app-bar-color;
+}
+
+.app {
+  background-color: @app-background;
+}
+
+.bg-op{
+  background-color: @comment-op-background;
+}
+
+@app-padding: 1em;
+
+.menu{
+  width: 2.25em !important;
+  height: 2.25em !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .app-wrapper{
+    margin-left: @app-padding;
+    margin-right: @app-padding;
+  }
+}
+
+/*******************************
+ * Profile Styles
+ *******************************/
+
+.pfp-image{
+  width: 100%;
+  height: 100%;
+}
+
+.profile-cover{
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-cover-img{
+  width: 100%;
+  height: 100%;
+}
+
+.profile-pfp{
+  position: absolute;
+  bottom: 4.5em;
+  width: 6em;
+  height: 6em;
+  left: calc(50% - (7em/2));
+}
+
+.profile-name{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0.75em;
+  font-size: 2em;
+}
+
+.profile-title{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0.25em;
+  font-size: 1em;
+  color: goldenrod;
+}
+
+.profile-created{
+  position: absolute;
+  text-align: left;
+  bottom: 1em;
+  left: 1em;
+  font-size: 1em;
+}
+
+@stats-padding: 0.5em;
+
+.profile-stats{
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  background-color: @meme-op-color;
+  margin-top: 1em;
+  padding-top: @stats-padding;
+  padding-bottom: @stats-padding;
+}
+
+.profile-actions{
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  background-color: @app-background;
+}
+
+.profile-actions > *{
+  text-align: center;
+  width:2em;
+  height: 2em;
+}
+
+.profile-item{
+  text-align: center;
+  flex: 1 1 0px;
+}
+
+.profile-stats .value, .profile-stats .label{
+  display: block;
+  width: 100%;
+}
+
+#upload{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#upload > *{
+  flex: 0 25%;
+  box-sizing: border-box;
+}
+
+#memes{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#memes > *{
+  flex: 0 calc(50% - 2em);
+  box-sizing: border-box;
+}
+
+.meme-sm{
+  position: relative;
+  min-height: 2em;
+  margin: 1em;
+}
+
+.sm-content{
+  width: 100%;
+}
+
+@likes-spacing: 0.5em;
+
+.sm-likes{
+  position: absolute;
+  padding-left: @likes-spacing;
+  left: 0;
+  right: 0;
+  padding-bottom: @likes-spacing;
+  bottom: 0;
+  padding-top: @likes-spacing;
+  height: 1em;
+  text-align: left;
+
+  background-color: rgba(15, 15, 15, 0.75);
+}

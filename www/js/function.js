@@ -64,6 +64,11 @@ function fadeIn(element) {
     }, 20);
 }
 
+function getDaysAgo(created){
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Math.round(Math.abs(((new Date()) - created) / oneDay));
+}
+
 function fadeOut(element) {
     var op = 1;  // initial opacity
     var timer = setInterval(function () {
