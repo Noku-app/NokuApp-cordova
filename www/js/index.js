@@ -175,60 +175,141 @@ function setup(){
         play_media(noku.memes[this.realIndex]);
     });
 }
+
 function loadComments(meme){
     let id = meme.id;
-    let com_data = noku.getCommentsByID(id);
-    console.log(com_data);
-
-    let comments = $('.comments');
-    comments.html('<div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>\n');
-    for(var i = 0; i < com_data.length; i++){
-        let com = create_comment(com_data[i], 0);
-        if(com_data[i].replyTo === -1) comments.append(com);
-        else {
-            let parent = getCommentByID(com_data, com_data[i].replyTo);
-            parent.author = noku.getUserData(parent.authorID).name;
-
-            let parent_comment = $("#comment-" + com_data[i].replyTo + " .comment-replies");
-            let parent_comment_header = $("#comment-" + com_data[i].replyTo + " .comment-head");
-            parent_comment.append(create_comment(com_data[i], parent_comment_header.data("layer") + 1, parent));
+    let comment_container = $('.comments');
+    comment_container.html('');
+    noku.getCommentsByID(id, function(response, worked){
+        if(!worked) return;
+        var comments;
+        try {
+            comments = JSON.parse(response.data).data;
+        } catch (e){
+            console.log(e);
+            console.log(response);
+            comments = [];
         }
-    }
 
-    $(".comment-overlay").each(function () {
-        $(this).fadeOut(0);
+        console.log(comments);
+
+        var temp = [];
+        for(var i = 0; i < comments.length; i++){
+            if(comments[i].replyTo === -1){
+                temp.push(comments[i]);
+            }
+        }
+        for(i = 0; i < comments.length; i++){
+            if(comments[i].replyTo !== -1){
+                temp.push(comments[i]);
+            }
+        }
+        comments = temp;
+        temp = null;
+
+        for(i = 0; i < comments.length; i++){
+            let current = comments[i];
+            alert(current.replyTo);
+            if(current.replyTo === -1){
+                create_comment(current, 0, null, comment_container);
+            }
+            else {
+                let parent = getCommentByID(comments, current.replyTo);
+                let parent_comment = $("#comment-" + current.replyTo + " .comment-replies");
+                console.log(parent_comment);
+                let parent_comment_header = $("#comment-" + current.replyTo + " .comment-head");
+                create_comment(current, parent_comment_header.data("layer") + 1, parent, parent_comment);
+            }
+        }
     });
+}
+function create_comment(comment, layer, parent, container) {
+    let html = (
+        '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
+        '    <div class="comment-content">' +
+        '      <div class="comment-head" data-layer="' + layer + '">' +
+        '        <div class="float-left user-data">' +
+        '        </div>' +
+        '        <div class="float-right extra">' +
+        '        </div>' +
+        '      </div>' +
+        '      <div class="comment-body">' + comment.content + '</div>' +
+        '      <div class="comment-vote">' +
+        '        <div class="float-left">' +
+        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
+        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
+        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
+        '        </div>' +
+        '        <div class="float-right">' +
+        '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
+        '        </div>' +
+        '      </div>' +
+        '      <div class="comment-overlay"></div>' +
+        '    </div>' +
+        '    <div class="comment-replies"></div>' +
+        '  </div>');
 
-    $(".comment-head").each(function () {
-        let t = $(this);
-        let pad = (t.data("layer") * 2) + 1;
-        let wid = pad + 1;
+    container.prepend(html);
 
-        t.css("padding-left", t.data("layer") * 2 + "em");
-        t.css("width", "calc(100% - " + t.data("layer") * 2 + "em)");
+    noku.getUserData(comment.author, function(response, worked){
+        if(!worked) return;
+        var author;
+        try {
+            author = JSON.parse(response.data).data;
+        } catch (e){
+            console.log(e);
+            author = null;
+        }
+        let url = noku.getCDNUrl();
 
-        let comment_body = t.parent().children(".comment-body");
-        comment_body.css("padding-left", pad + "em");
-        comment_body.css("width", "calc(100% - " + wid + "em)");
+        var extra = "";
+        if(parent != null){
+            $("#comment-" + comment.id + " .extra").html(
+                '          <div class="comment-reply-to">Reply To</div>' +
+                '          <div class="comment-jump btn" data-comment="' + parent.id + '"></div>'
+            );
+        }
 
-        let comment_vote = t.parent().children(".comment-vote");
-        comment_vote.css("padding-left", pad + "em");
-        comment_vote.css("width", "calc(100% - " + pad + "em)");
-    })
+        $("#comment-" + comment.id + " .user-data").html(
+            '          <div class="comment-pfp"><img class="pfp-image" src="'+url + author.pfp + '" /></div>' +
+            '          <div class="comment-user" style="color:#' + author.color + ';">' + author.username + '</div>'
+        );
 
-    $(".comment-user").each(function () {
-        let t = $(this);
-        t.css("color", )
-    })
+        $(".comment-overlay").each(function () {
+            $(this).fadeOut(0);
+        });
 
-    $(".comment-jump").click(function (){
-        let id = $(this).data("comment");
-        let comment = $("#comment-" + id);
-        let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
-        let body = $("body, html");
-        body.animate({ scrollTop: comment.position().top });
-        body.promise().done(function() {
-            overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
+        $(".comment-head").each(function () {
+            let t = $(this);
+            let pad = (t.data("layer") * 2) + 1;
+            let wid = pad + 1;
+
+            t.css("padding-left", t.data("layer") * 2 + "em");
+            t.css("width", "calc(100% - " + t.data("layer") * 2 + "em)");
+
+            let comment_body = t.parent().children(".comment-body");
+            comment_body.css("padding-left", pad + "em");
+            comment_body.css("width", "calc(100% - " + wid + "em)");
+
+            let comment_vote = t.parent().children(".comment-vote");
+            comment_vote.css("padding-left", pad + "em");
+            comment_vote.css("width", "calc(100% - " + pad + "em)");
+        })
+
+        $(".comment-user").each(function () {
+            let t = $(this);
+            t.css("color", )
+        })
+
+        $(".comment-jump").click(function (){
+            let id = $(this).data("comment");
+            let comment = $("#comment-" + id);
+            let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
+            let body = $("body, html");
+            body.animate({ scrollTop: comment.position().top });
+            body.promise().done(function() {
+                overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
+            });
         });
     });
 }
@@ -237,7 +318,6 @@ function getCommentByID(comments, id){
     for(var i = 0; i < comments.length; i++){
         if(comments[i].id === id) return comments[i];
     }
-
     return null;
 }
 function createNullMeme(container){
@@ -371,43 +451,4 @@ function createMeme(container, meme){
 
     $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
     window.mySwipe.update();
-}
-function create_comment(comment, layer, parent) {
-    let author = noku.getUserData(comment.authorID);
-    let url = noku.getCDNUrl();
-
-    var extra = "";
-    if(parent != null){
-        extra = '' +
-            '<div class="comment-reply-to">Replying To: ' + parent.author + '</div>' +
-            '<div class="comment-jump btn" data-comment="' + parent.id + '"></div>';
-    }
-
-    return  ''+
-        '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
-        '    <div class="comment-content">' +
-        '      <div class="comment-head" data-layer="' + layer + '">' +
-        '        <div class="float-left">' +
-        '          <div class="comment-pfp"><img class="pfp-image" src="'+url + author.pfp + '" /></div>' +
-        '          <div class="comment-user" style="color:' + author.color + ';">' + author.name + '</div>' +
-        '        </div>' +
-        '        <div class="float-right">' +
-        '          ' + extra +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-body">' + comment.content + '</div>' +
-        '      <div class="comment-vote">' +
-        '        <div class="float-left">' +
-        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
-        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
-        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '        <div class="float-right">' +
-        '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-overlay"></div>' +
-        '    </div>' +
-        '    <div class="comment-replies"></div>' +
-        '  </div>';
 }

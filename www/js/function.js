@@ -24,7 +24,8 @@ function repub_done(){
 
 }
 
-function stop_media(hash) {
+function stop_media(meme) {
+    let hash = meme.hash;
     var video = $("#" + hash + " video").get(0);
     if(video != null) {
         video.pause();
@@ -38,7 +39,9 @@ function stop_media(hash) {
     }
 }
 
-function play_media(hash){
+function play_media(meme) {
+    let hash = meme.hash;
+
     let video = $("#" + hash + " video").get(0);
     if(video != null) video.play();
 

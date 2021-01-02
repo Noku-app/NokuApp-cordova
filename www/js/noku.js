@@ -148,82 +148,32 @@ class Noku {
         });
     }
 
-    getCommentsByID(id) {
-        let comments = [];
+    getMemeData(id, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "id": id },
+            headers: { }
+        };
 
-        switch (id) {
-            case 21:
-                comments.push({
-                    id: 1,
-                    authorID: 1,
-                    replyTo: -1,
-                    likes: 1,
-                    dislikes: 0,
-                    content: "This is a test comment."
-                });
-                comments.push({
-                    id: 2,
-                    authorID: 2,
-                    replyTo: -1,
-                    likes: 3,
-                    dislikes: 1,
-                    content: "This is a test comment from a different person."
-                });
-                comments.push({
-                    id: 3,
-                    authorID: 1,
-                    replyTo: 2,
-                    likes: 2,
-                    dislikes: 0,
-                    content: "This is a reply comment to the second one."
-                });
-                comments.push({
-                    id: 4,
-                    authorID: 2,
-                    replyTo: 3,
-                    likes: 0,
-                    dislikes: 0,
-                    content: "Yr a bitch."
-                });
-                break;
+        this.http.sendRequest(this.getAPIUrl() + "getmemedata", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
 
-            case 25:
-                comments.push({
-                    id: 5,
-                    authorID: 1,
-                    replyTo: -1,
-                    likes: 1,
-                    dislikes: 0,
-                    content: "Second set of test comments."
-                });
-                comments.push({
-                    id: 6,
-                    authorID: 2,
-                    replyTo: 5,
-                    likes: 3,
-                    dislikes: 1,
-                    content: "This should be the second comment that appears."
-                });
-                comments.push({
-                    id: 7,
-                    authorID: 1,
-                    replyTo: -1,
-                    likes: 2,
-                    dislikes: 0,
-                    content: "This should be the last even though its the third in sequence"
-                });
-                comments.push({
-                    id: 8,
-                    authorID: 2,
-                    replyTo: 6,
-                    likes: 0,
-                    dislikes: 0,
-                    content: "This should be number 3 even though its fourth in the data set."
-                });
-                break;
-        }
+    getCommentsByID(id, callback) {
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "meme_id": id },
+            headers: { }
+        };
 
-        return comments;
+        this.http.sendRequest(this.getAPIUrl() + "getcomments", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
     }
 
     requestSignIn() {

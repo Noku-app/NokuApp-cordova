@@ -214,10 +214,17 @@ function inflateMeme(meme, container){
             content = '<video class="sm-content" src="'+noku.getCDNUrl() + hash +'"></video>\n';
         }
 
-        container.append('<div class="meme-sm" data-id="'+id+'" id="meme-'+id+'">\n' +
+        container.append('<div class="meme-sm" data-id="'+id+'" data-memeid="'+id+'" id="meme-'+id+'">\n' +
             content +
             '<div class="sm-likes">'+(likes - dislikes)+' Shekels</div>\n' +
             '</div>');
+
+        $(".meme-sm").on('click', function (e){
+            let target = $(e.target).closest(".meme-sm");
+            let id = target.data("memeid");
+            storage.setItem("meme.id", id);
+            redirect("meme.html");
+        });
     });
 }
 
