@@ -2,11 +2,36 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/browser/CameraProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/windows/CameraProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/Camera.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/CameraConstants.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/CameraPopoverHandle.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/CameraPopoverOptions.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-context-menu/src/browser/ContextMenuProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-context-menu/src/windows/ContextMenuProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-context-menu/www/ContextMenu.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/src/windows/FileTransferProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/tests/hooks/after_prepare.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/tests/tests.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/FileTransfer.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/FileTransferError.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/blackberry10/FileTransfer.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/blackberry10/FileTransferProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/blackberry10/xhrFileTransfer.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/browser/FileTransfer.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/firefoxos/FileTransferProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/wp7/base64.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/MediaPicker.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/demo/demo.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/fileio.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/function.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/index.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/Base64.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/raw-deflate.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/meme.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/noku.min.js" />
@@ -16,11 +41,36 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/browser/CameraProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/windows/CameraProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/Camera.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/CameraConstants.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/CameraPopoverHandle.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/CameraPopoverOptions.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-context-menu/src/browser/ContextMenuProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-context-menu/src/windows/ContextMenuProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-context-menu/www/ContextMenu.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/src/windows/FileTransferProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/tests/hooks/after_prepare.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/tests/tests.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/FileTransfer.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/FileTransferError.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/blackberry10/FileTransfer.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/blackberry10/FileTransferProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/blackberry10/xhrFileTransfer.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/browser/FileTransfer.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/firefoxos/FileTransferProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/wp7/base64.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/MediaPicker.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/demo/demo.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/fileio.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/function.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/index.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/Base64.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/raw-deflate.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/meme.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/noku.min.js" />

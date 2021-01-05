@@ -69,17 +69,177 @@ var em; function getValue(id){
 function handleClick(e){
     var btn = $(e.target);
     var method = btn.data("command");
+    let uid = storage.getItem("view.id");
 
     //if(method === "upload") upload();
     if(method === "profile") profile();
     if(method === "menu-close") exitMenu();
-    if(method === "memes") window.mySwipe.slideTo(0, 100, null);
-    if(method === "upload") window.mySwipe.slideTo(1, 100, null);
+    if(method === "memes") window.mySwipe.slideTo(1, 100, null);
+    if(method === "upload") window.mySwipe.slideTo(2, 100, null);
+    if(method === "upload-image") if(uid === noku.uid) uploadImage();
+    if(method === "upload-video") if(uid === noku.uid) uploadVideo();
+    if(method === "take-image") if(uid === noku.uid) takeImage();
+    if(method === "take-video") if(uid === noku.uid) takeVideo();
+
     if(method === "dank") redirect("index.html");
     if(method === "menu"){
         enterMenu();
     }
 }
+
+/********************************
+ * Upload Functions
+ ********************************/
+
+var resultMedias=[];
+var imgs = document.getElementsByName('imgView');
+var args = {
+    'selectMode': 101, //101=picker image and video , 100=image , 102=video
+    'maxSelectCount': 1, //default 40 (Optional)
+    'maxSelectSize': 15728640, //188743680=180M (Optional)
+};
+
+function uploadImage(){
+    args.selectMode = 100;
+    MediaPicker.getMedias(args, function(medias) {
+        resultMedias = medias;
+        getThumbnail(medias, true);
+    }, function(e) { console.log(e) })
+}
+
+function uploadVideo(){
+    args.selectMode = 102;
+    MediaPicker.getMedias(args, function(medias) {
+        resultMedias = medias;
+        getThumbnail(medias, false);
+    }, function(e) { console.log(e) })
+}
+
+function takeImage(){
+    var cameraOptions = {
+        quality: 50,
+        mediaType: Camera.MediaType.PICTURE
+    };
+    MediaPicker.takePhoto(cameraOptions,function(media) {
+        media.index = 0;
+        resultMedias.push(media);
+        getThumbnail(resultMedias, true);
+    }, function(e) { console.log(e) });
+}
+
+function takeVideo(){
+    var cameraOptions = {
+        quality: 50,
+        mediaType: Camera.MediaType.VIDEO
+    };
+    MediaPicker.takePhoto(cameraOptions,function(media) {
+        media.index = 0;
+        resultMedias.push(media);
+        getThumbnail(resultMedias, false);
+    }, function(e) { console.log(e) });
+}
+
+function getFileContentAsBase64(path){
+    path = "file://" + path;
+
+    window.resolveLocalFileSystemURL(path, gotFile, fail);
+
+    function fail(e) {
+        hideLoadingUI();
+        alert('Cannot find the requested file.' + e);
+    }
+
+    function gotFile(fileEntry) {
+        let progress = $(".loading-label");
+
+        fileEntry.file(function(file) {
+            var reader = new FileReader();
+            reader.onloadend = function(e) {
+                let l = $(".loading-label");
+                l.html("Done Converting.")
+                let index = this.result.indexOf('base64,');
+                progress.html("Uploading...");
+                noku.uploadMeme(this.result.substring(index + 7), function (response, worked) {
+                    progress.html("Taking you to your meme...");
+                    if (!worked) {
+                        console.log(response);
+                        alert(JSON.stringify(response));
+                        hideLoadingUI();
+                        return;
+                    }
+                    var data;
+                    try {
+                        data = JSON.parse(response.data);
+                        data = data.data;
+                    } catch (e) {
+                        data = {};
+                        data.id = 0;
+                        data.hash = "";
+                    }
+
+                    hideLoadingUI();
+                    if (data.id === 0) {
+                        redirect("index.html");
+                    } else {
+                        storage.setItem("meme.id", data.id);
+                        redirect("meme.html");
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        }, function (e){
+            hideLoadingUI();
+            alert(JSON.stringify(e));
+        });
+    }
+}
+
+function getThumbnail(medias, compress) {
+    let progress = $(".loading-label");
+    for (var i = 0; i < medias.length; i++) {
+        loadingUI(); //show loading ui
+        medias[i].quality = 100;
+        if(compress){
+            medias[i].quality = 50;
+        }
+        progress.html("Compressing...");
+        MediaPicker.compressImage(medias[i], function(compressData) {
+            progress.html("Converting...");
+            console.log(compressData.path);
+            send(compressData.path);
+        }, function(e) { console.log(e) });
+    }
+}
+
+function send(path){
+    getFileContentAsBase64(path);
+}
+
+function loadingUI(){
+    $(".loading-ui").addClass("show");
+}
+
+function hideLoadingUI(){
+    $(".loading-ui").removeClass("show");
+}
+
+function deleteFile(path){
+    window.resolveLocalFileSystemURL(path, function (fileEntry) {
+            fileEntry.remove(
+                function () {
+                    console.log('Cleaned up compressed file.');
+                },
+                function (error) {
+                    alert('Unable to remove file.');
+                }
+            );
+        }
+    );
+}
+
+/********************************
+ * Profile Functions
+ ********************************/
 function profile(){
     storage.setItem("view.id", noku.uid);
     redirect("profile.html");
@@ -112,6 +272,9 @@ function setup(){
     };
     window.mySwipe = new Swiper('.swiper-container', ops);
     let uid = storage.getItem("view.id");
+
+    if(uid !== noku.uid) $(".profile-actions").css("display", "none");
+
     noku.getUserData(uid, function(response, worked){
         if(!worked) return;
         var author;
@@ -133,6 +296,7 @@ function setup(){
         days += days == 1 ? " Day" : " Days";
         $(".profile-cover").html(
             '<img class="profile-cover-img" src="' + url + bg + '" alt="">' +
+            '<div class="profile-shadow"></div>' +
             '<div class="profile-pfp"></div>' +
             '<div class="profile-name"></div>' +
             '<div class="profile-title">' + title + '</div>' +
@@ -226,101 +390,4 @@ function inflateMeme(meme, container){
             redirect("meme.html");
         });
     });
-}
-
-function loadComments(meme){
-    let id = meme.id;
-    let com_data = noku.getCommentsByID(id);
-    console.log(com_data);
-
-    let comments = $('.comments');
-    comments.html('<div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>\n');
-    for(var i = 0; i < com_data.length; i++){
-        let com = create_comment(com_data[i], 0);
-        if(com_data[i].replyTo === -1) comments.append(com);
-        else {
-            let parent = getCommentByID(com_data, com_data[i].replyTo);
-            parent.author = noku.getUserData(parent.authorID).name;
-
-            let parent_comment = $("#comment-" + com_data[i].replyTo + " .comment-replies");
-            let parent_comment_header = $("#comment-" + com_data[i].replyTo + " .comment-head");
-            parent_comment.append(create_comment(com_data[i], parent_comment_header.data("layer") + 1, parent));
-        }
-    }
-
-    $(".comment-overlay").each(function () {
-        $(this).fadeOut(0);
-    });
-
-    $(".comment-head").each(function () {
-        let t = $(this);
-        let pad = (t.data("layer") * 2) + 1;
-        let wid = pad + 1;
-
-        t.css("padding-left", t.data("layer") * 2 + "em");
-        t.css("width", "calc(100% - " + t.data("layer") * 2 + "em)");
-
-        let comment_body = t.parent().children(".comment-body");
-        comment_body.css("padding-left", pad + "em");
-        comment_body.css("width", "calc(100% - " + wid + "em)");
-
-        let comment_vote = t.parent().children(".comment-vote");
-        comment_vote.css("padding-left", pad + "em");
-        comment_vote.css("width", "calc(100% - " + pad + "em)");
-    })
-
-    $(".comment-user").each(function () {
-        let t = $(this);
-        t.css("color", )
-    })
-
-    $(".comment-jump").click(function (){
-        let id = $(this).data("comment");
-        let comment = $("#comment-" + id);
-        let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
-        let body = $("body, html");
-        body.animate({ scrollTop: comment.position().top });
-        body.promise().done(function() {
-            overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
-        });
-    });
-}
-function create_comment(comment, layer, parent) {
-    let author = noku.getUserData(comment.authorID);
-    let url = noku.getCDNUrl();
-
-    var extra = "";
-    if(parent != null){
-        extra = '' +
-            '<div class="comment-reply-to">Replying To: ' + parent.author + '</div>' +
-            '<div class="comment-jump btn" data-comment="' + parent.id + '"></div>';
-    }
-
-    return  ''+
-        '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
-        '    <div class="comment-content">' +
-        '      <div class="comment-head" data-layer="' + layer + '">' +
-        '        <div class="float-left">' +
-        '          <div class="comment-pfp"><img class="pfp-image" src="'+url + author.pfp + '" /></div>' +
-        '          <div class="comment-user" style="color:' + author.color + ';">' + author.name + '</div>' +
-        '        </div>' +
-        '        <div class="float-right">' +
-        '          ' + extra +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-body">' + comment.content + '</div>' +
-        '      <div class="comment-vote">' +
-        '        <div class="float-left">' +
-        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
-        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
-        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '        <div class="float-right">' +
-        '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-overlay"></div>' +
-        '    </div>' +
-        '    <div class="comment-replies"></div>' +
-        '  </div>';
 }

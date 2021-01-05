@@ -12,12 +12,72 @@ function subscribe(){
     navigator.notification.alert("You subscribed to this user.", repub_done, "Subscribed", "Acknowledge");
 }
 
-function like(){
-    navigator.notification.alert("You liked this meme.", repub_done, "Liked", "Acknowledge");
+function like(parent, noku){
+    let id = parent.data("memeid");
+    let like_counter = $("#count-" + id);
+    let liked = $("#like-" + id);
+    let disliked = $("#dislike-" + id);
+
+    noku.likeMeme(id, liked.hasClass("meme-give"), function (response, worked){
+        if(!worked) return;
+        var data;
+        try{
+            data = JSON.parse(response.data);
+            data = data.data;
+        } catch (e){
+            data = {};
+            data.liked = false;
+            data.likes = 0;
+            data.dislikes = 0;
+        }
+
+        like_counter.html(data.likes - data.dislikes);
+
+        if(data.liked){
+            liked.removeClass("meme-give");
+            liked.addClass("meme-given");
+        } else {
+            liked.removeClass("meme-given");
+            liked.addClass("meme-give");
+        }
+
+        disliked.removeClass("meme-taken");
+        disliked.addClass("meme-take");
+    });
 }
 
-function dislike(){
-    navigator.notification.alert("You disliked this meme.", repub_done, "Disliked", "Acknowledge");
+function dislike(parent, noku){
+    let id = parent.data("memeid");
+    let like_counter = $("#count-" + id);
+    let liked = $("#like-" + id);
+    let disliked = $("#dislike-" + id);
+
+    noku.dislikeMeme(id, disliked.hasClass("meme-take"), function (response, worked){
+        if(!worked) return;
+        var data;
+        try{
+            data = JSON.parse(response.data);
+            data = data.data;
+        } catch (e){
+            data = {};
+            data.disliked = false;
+            data.likes = 0;
+            data.dislikes = 0;
+        }
+
+        like_counter.html(data.likes - data.dislikes);
+
+        if(data.disliked){
+            disliked.removeClass("meme-take");
+            disliked.addClass("meme-taken");
+        } else {
+            disliked.removeClass("meme-taken");
+            disliked.addClass("meme-take");
+        }
+
+        liked.removeClass("meme-given");
+        liked.addClass("meme-give");
+    });
 }
 
 function repub_done(){

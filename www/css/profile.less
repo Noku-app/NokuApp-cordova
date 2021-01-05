@@ -104,6 +104,15 @@ h1 {
   left: calc(50% - (7em/2));
 }
 
+.profile-shadow{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4.0em;
+  background-color: rgba(15, 15, 15, 0.75);
+}
+
 .profile-name{
   position: absolute;
   width: 100%;
@@ -127,6 +136,21 @@ h1 {
   bottom: 1em;
   left: 1em;
   font-size: 1em;
+}
+
+.upload-option > .upload-label {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.upload-option > .btn {
+  display: block;
+  width: 3em;
+  height: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 @stats-padding: 0.5em;
@@ -177,10 +201,18 @@ h1 {
 #memes{
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+  -moz-column-fill: auto;
+  column-fill: auto;
 }
 
 #memes > *{
-  flex: 0 calc(50% - 2em);
+  flex: 0 1 calc(50% - 2em);
   box-sizing: border-box;
 }
 

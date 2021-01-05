@@ -22,6 +22,12 @@
             <div class="menu btn icon-close hide" data-command="menu-close" id="menu-close"></div>
         </div>
     </div>
+    <div class="loading-ui">
+        <div class="center">
+            <img class="loading" src="img/loading.gif" alt="loading">
+            <p class="loading-label">Compressing...</p>
+        </div>
+    </div>
     <div class="main-content">
         <div id="sidemenu">
             <ul class="options">
@@ -44,7 +50,7 @@
                     </div>
                     <div class="profile-item profile-memes">
                         <span class="value">0</span>
-                        <span class="label">Posted</span>
+                        <span class="label">Memes</span>
                     </div>
                     <div class="profile-item profile-subs">
                         <span class="value">0</span>
@@ -52,7 +58,7 @@
                     </div>
                 </div>
                 <div class="profile-actions">
-                    <div class="btn icon-memes" data-command="image"></div>
+                    <div class="btn icon-memes" data-command="memes"></div>
                     <div class="btn icon-upload" data-command="upload"></div>
                 </div>
                 <div class="profile-content">
@@ -61,6 +67,22 @@
                             <div class="swiper-slide" id="memes">
                             </div>
                             <div class="swiper-slide" id="upload">
+                                <div class="upload-option">
+                                    <div class="btn icon-image" data-command="upload-image"></div>
+                                    <div class="upload-label">Upload Image</div>
+                                </div>
+                                <div class="upload-option">
+                                    <div class="btn icon-video" data-command="upload-video"></div>
+                                    <div class="upload-label">Upload Video</div>
+                                </div>
+                                <div class="upload-option">
+                                    <div class="btn icon-camera" data-command="take-image"></div>
+                                    <div class="upload-label">Take Picture</div>
+                                </div>
+                                <div class="upload-option">
+                                    <div class="btn icon-camera-video" data-command="take-video"></div>
+                                    <div class="upload-label">Take Video</div>
+                                </div>
                             </div>
                         </div>
                     </div>

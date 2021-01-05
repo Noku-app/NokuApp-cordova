@@ -65,13 +65,24 @@ var em; function getValue(id){
     div.style.height = '1em';
     return ( em = div.offsetHeight );
 }
-
+function toggleMute(parent){
+    if(muted){
+        $(parent + " .meme-video").prop('muted', false);
+        $(parent + " .mute-control").css('background-image', 'url("../www/img/audio_on.png")');
+        muted = false;
+    } else {
+        $(parent + " .meme-video").prop('muted', true);
+        $(parent + " .mute-control").css('background-image', 'url("../www/img/audio_off.png")');
+        muted = true;
+    }
+}
 function handleClick(e){
     var btn = $(e.target);
     var method = btn.data("command");
 
     //if(method === "upload") upload();
     if(method === "profile") profile();
+    if(method === "mute") toggleMute();
     if(method === "menu-close") exitMenu();
     if(method === "dank") {
         redirect("index.html");
@@ -227,6 +238,7 @@ function createMeme(container, meme){
         $(parent + " .op-pfp").html('<img class="pfp-image" src="' + url + pfp + '"  alt=""/>');
         let op_user = $(parent + " .op-username");
         op_user.html(author.username);
+        $(".page-title").html("By: " + author.username);
         op_user.css('color', "#" + author.color);
     });
 
@@ -240,7 +252,7 @@ function createMeme(container, meme){
 
             if(content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image swiper-zoom-target" src="' + url + meme.hash + '" />');
             if(content.includes("video")){
-                $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" autoplay muted><source src="' + url + meme.hash +'" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
+                $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" autoplay muted loop><source src="' + url + meme.hash +'" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
                 $(parent + " .mute-control").click(function(){
                     toggleMute(parent);
                 });
@@ -260,49 +272,100 @@ function createMeme(container, meme){
 
 function loadComments(meme){
     let id = meme.id;
-    let comments = noku.getCommentsByID(id, function(response, worked){
+    let comment_container = $('.comments');
+    comment_container.html('');
+    noku.getCommentsByID(id, function(response, worked){
         if(!worked) return;
         var comments;
         try {
             comments = JSON.parse(response.data).data;
         } catch (e){
             console.log(e);
+            console.log(response);
             comments = [];
         }
 
         console.log(comments);
 
-        let comment_container = $('.comments');
-        comment_container.html('<div class="block-label bg-op"><span class="icon-below span-icon"></span>Top Comments<span class="icon-below span-icon"></span></div>\n');
+        var temp = [];
         for(var i = 0; i < comments.length; i++){
-            let current = comments[i];
+            if(comments[i].replyTo === -1){
+                temp.push(comments[i]);
+            }
+        }
+        for(i = 0; i < comments.length; i++){
+            if(comments[i].replyTo !== -1){
+                temp.push(comments[i]);
+            }
+        }
+        comments = temp;
+        temp = null;
 
+        for(i = 0; i < comments.length; i++){
+            let current = comments[i];
             if(current.replyTo === -1){
                 create_comment(current, 0, null, comment_container);
             }
             else {
-                let parent = comments[current.replyTo];
-                parent.author = noku.getUserData(parent.author, function(response, worked){
-                    if(!worked) return;
-                    var user;
-                    try {
-                        user = JSON.parse(response.data).data;
-                    } catch (e){
-                        console.log(e);
-                        user = null;
-                    }
-                    var name;
-                    if(user == null) name = "Unknown";
-                    else name = user.username;
-
-                    parent.author = name;
-
-                    let parent_comment = $("#comment-" + current.replyTo + " .comment-replies");
-                    let parent_comment_header = $("#comment-" + current.replyTo + " .comment-head");
-                    create_comment(current, parent_comment_header.data("layer") + 1, parent, parent_comment);
-                });
+                let parent = getCommentByID(comments, current.replyTo);
+                let parent_comment = $("#comment-" + current.replyTo + " .comment-replies");
+                let parent_comment_header = $("#comment-" + current.replyTo + " .comment-head");
+                create_comment(current, parent_comment_header.data("layer") + 1, parent, parent_comment);
             }
         }
+    });
+}
+function create_comment(comment, layer, parent, container) {
+    let html = (
+        '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
+        '    <div class="comment-content">' +
+        '      <div class="comment-head" data-layer="' + layer + '">' +
+        '        <div class="float-left user-data">' +
+        '        </div>' +
+        '        <div class="float-right extra">' +
+        '        </div>' +
+        '      </div>' +
+        '      <div class="comment-body">' + comment.content + '</div>' +
+        '      <div class="comment-vote">' +
+        '        <div class="float-left">' +
+        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
+        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
+        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
+        '        </div>' +
+        '        <div class="float-right">' +
+        '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
+        '        </div>' +
+        '      </div>' +
+        '      <div class="comment-overlay"></div>' +
+        '    </div>' +
+        '    <div class="comment-replies"></div>' +
+        '  </div>');
+
+    container.prepend(html);
+
+    noku.getUserData(comment.author, function(response, worked){
+        if(!worked) return;
+        var author;
+        try {
+            author = JSON.parse(response.data).data;
+        } catch (e){
+            console.log(e);
+            author = null;
+        }
+        let url = noku.getCDNUrl();
+
+        var extra = "";
+        if(parent != null){
+            $("#comment-" + comment.id + " .extra").html(
+                '          <div class="comment-reply-to">Reply To</div>' +
+                '          <div class="comment-jump btn" data-comment="' + parent.id + '"></div>'
+            );
+        }
+
+        $("#comment-" + comment.id + " .user-data").html(
+            '          <div class="comment-pfp"><img class="pfp-image" src="'+url + author.pfp + '" /></div>' +
+            '          <div class="comment-user" style="color:#' + author.color + ';">' + author.username + '</div>'
+        );
 
         $(".comment-overlay").each(function () {
             $(this).fadeOut(0);
@@ -342,51 +405,10 @@ function loadComments(meme){
         });
     });
 }
-function create_comment(comment, layer, parent, container) {
-    noku.getUserData(comment.author, function(response, worked){
-        if(!worked) return;
-        var author;
-        try {
-            author = JSON.parse(response.data).data;
-        } catch (e){
-            console.log(e);
-            author = null;
-        }
-        let url = noku.getCDNUrl();
 
-        var extra = "";
-        if(parent != null){
-            extra = '' +
-                '<div class="comment-reply-to">Replying To: ' + parent.author + '</div>' +
-                '<div class="comment-jump btn" data-comment="' + parent.id + '"></div>';
-        }
-
-        container.append(
-            '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
-            '    <div class="comment-content">' +
-            '      <div class="comment-head" data-layer="' + layer + '">' +
-            '        <div class="float-left">' +
-            '          <div class="comment-pfp"><img class="pfp-image" src="'+url + author.pfp + '" /></div>' +
-            '          <div class="comment-user" style="color:' + author.color + ';">' + author.name + '</div>' +
-            '        </div>' +
-            '        <div class="float-right">' +
-            '          ' + extra +
-            '        </div>' +
-            '      </div>' +
-            '      <div class="comment-body">' + comment.content + '</div>' +
-            '      <div class="comment-vote">' +
-            '        <div class="float-left">' +
-            '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
-            '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
-            '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
-            '        </div>' +
-            '        <div class="float-right">' +
-            '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
-            '        </div>' +
-            '      </div>' +
-            '      <div class="comment-overlay"></div>' +
-            '    </div>' +
-            '    <div class="comment-replies"></div>' +
-            '  </div>');
-    });
+function getCommentByID(comments, id){
+    for(var i = 0; i < comments.length; i++){
+        if(comments[i].id === id) return comments[i];
+    }
+    return null;
 }

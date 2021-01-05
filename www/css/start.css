@@ -506,6 +506,30 @@ a:visited {
   background-position-x: center;
   background-image: url("../img/memes.png");
 }
+.icon-image {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/image.png");
+}
+.icon-video {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/video.png");
+}
+.icon-camera {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/camera.png");
+}
+.icon-camera-video {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/camera_video.png");
+}
 @font-face {
   font-family: "museo";
   src: url("../fonts/museo.ttf");

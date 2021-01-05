@@ -512,6 +512,30 @@ a:visited {
   background-position-x: center;
   background-image: url("../img/memes.png");
 }
+.icon-image {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/image.png");
+}
+.icon-video {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/video.png");
+}
+.icon-camera {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/camera.png");
+}
+.icon-camera-video {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/camera_video.png");
+}
 /***********************************
  * Meme Original Poster
  ***********************************/
@@ -655,6 +679,18 @@ a:visited {
   background-size: 100% 100%;
   background-position-x: center;
   background-image: url("../img/take_sh.png");
+}
+.meme-given {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/given_sh.png");
+}
+.meme-taken {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/taken_sh.png");
 }
 .meme-repub {
   background-repeat: no-repeat;
@@ -809,9 +845,58 @@ body {
   width: 100%;
   text-align: center;
 }
+.loading-ui {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000000;
+  display: none;
+  overflow: hidden;
+}
+.loading-label {
+  display: block;
+  width: 100%;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+.loading {
+  width: 15em;
+  height: 15em;
+}
+.show {
+  display: block !important;
+}
+@media only screen and (max-width: 600px) {
+  .center {
+    position: fixed;
+    text-align: center;
+    margin: 0;
+    top: 50%;
+    left: 1em;
+    right: 1em;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
+@media not screen and (max-width: 600px) {
+  .center {
+    position: fixed;
+    text-align: center;
+    margin: 0;
+    width: 15em;
+    top: 50%;
+    left: calc(50% - (15em / 2));
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
 #sidemenu {
   background: #000000 !important;
-  position: absolute;
+  position: fixed;
   display: none;
   width: 100%;
   height: 100%;
@@ -973,6 +1058,14 @@ h1 {
   height: 6em;
   left: calc(50% - (7em/2));
 }
+.profile-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  background-color: rgba(15, 15, 15, 0.75);
+}
 .profile-name {
   position: absolute;
   width: 100%;
@@ -994,6 +1087,19 @@ h1 {
   bottom: 1em;
   left: 1em;
   font-size: 1em;
+}
+.upload-option > .upload-label {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.upload-option > .btn {
+  display: block;
+  width: 3em;
+  height: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 .profile-stats {
   text-align: center;
@@ -1035,9 +1141,16 @@ h1 {
 #memes {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+  -moz-column-fill: auto;
+  column-fill: auto;
 }
 #memes > * {
-  flex: 0 calc(50% - 2em);
+  flex: 0 1 calc(50% - 2em);
   box-sizing: border-box;
 }
 .meme-sm {

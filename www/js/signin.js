@@ -135,8 +135,18 @@ function handleRegister(response){
 
         tokenCheck();
     } else {
+        alert(JSON.stringify(response));
+
         navigator.notification.alert("Username or password incorrect.", null, "Register Error", "Okay");
     }
+}
+
+function requestErrorLog(error){
+    navigator.notification.confirm("An error has occurred, would you like to send a message to the Noku staff?", function (choice){
+        if(choice === 1){
+            noku.sendError(error);
+        }
+    }, "Error Report", ['No', 'Yes']);
 }
 
 function tokenCheck(){

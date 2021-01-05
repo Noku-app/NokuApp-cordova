@@ -2,8 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bec4e973-a932-40e7-9a57-71e4c28b9bd9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/www/js/libs/Base64.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/raw-deflate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/icons.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/icons.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/index.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/meme.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/meme.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/noku.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/noku.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/profile.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/profile.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/profile.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/function.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/function.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/index.js" afterDir="false" />
@@ -14,6 +33,10 @@
       <change beforePath="$PROJECT_DIR$/www/js/noku.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/noku.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/profile.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/profile.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/signin.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/signin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/signin.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/signin.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/meme.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/meme.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +49,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -71,7 +94,20 @@
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js\libs" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Run Android">
+  <component name="RunManager" selected="Shell Script.Run Browser">
+    <configuration name="Run Android" type="PhoneGap" factoryName="PhoneGap/Cordova">
+      <option name="myExecutable" value="C:\Users\rohan\AppData\Roaming\npm\cordova.cmd" />
+      <option name="myWorkDir" value="$PROJECT_DIR$" />
+      <option name="myCommand" value="run" />
+      <option name="myPassParent" value="true" />
+      <option name="myPlatform" value="android" />
+      <option name="myExtraArgs" value="" />
+      <option name="hasTarget" value="true" />
+      <option name="target" value="" />
+      <method v="2">
+        <option name="PhonegapTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run Android" type="ShConfigurationType">
       <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run-android.bat" />
@@ -98,10 +134,27 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Cordova.Run Android" />
+      <item itemvalue="npm.test" />
       <item itemvalue="Shell Script.Run Android" />
       <item itemvalue="Shell Script.Run Browser" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -122,7 +175,12 @@
       <workItem from="1609173987308" duration="11429000" />
       <workItem from="1609189450298" duration="12539000" />
       <workItem from="1609210123217" duration="49388000" />
-      <workItem from="1609466992183" duration="17280000" />
+      <workItem from="1609466992183" duration="25364000" />
+      <workItem from="1609566535265" duration="1574000" />
+      <workItem from="1609574778823" duration="24058000" />
+      <workItem from="1609727477364" duration="3229000" />
+      <workItem from="1609844811659" duration="15000" />
+      <workItem from="1609867633684" duration="7740000" />
     </task>
     <servers />
   </component>

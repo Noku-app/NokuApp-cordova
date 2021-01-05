@@ -31,7 +31,7 @@ function onDeviceReady() {
     noku.init();
     noku.setCredentials(storage.getItem("auth_token"), storage.getItem("uid"));
 
-    $(".btn").click(function (e){
+    $(".btn").on('click', function (e){
         handleClick(e);
     });
 
@@ -68,13 +68,15 @@ var em; function getValue(id){
 
 function handleClick(e){
     var btn = $(e.target);
+    let parent = btn.closest(".swiper-slide");
+
     var method = btn.data("command");
 
     if(method === "repub") repub();
     if(method === "comment") comment();
     if(method === "subscribe") subscribe();
-    if(method === "like") like();
-    if(method === "dislike") dislike();
+    if(method === "like") like(parent, noku);
+    if(method === "dislike") dislike(parent, noku);
     if(method === "mute") toggleMute();
     if(method === "menu-close") exitMenu();
     if(method === "profile") profile();
@@ -119,13 +121,16 @@ function exitMenu() {
     close.addClass("hide");
 }
 
+var set = 0;
+const buffer = 5;
+
 function setup(){
     $("body").fadeIn(100, function(){});
 
     var ops = {
         direction: 'horizontal',
         autoHeight: true,
-        loop: true,
+        loop: false,
         effect: 'coverflow',
         zoom: {
             maxRatio: 5,
@@ -145,7 +150,39 @@ function setup(){
     }
     window.mySwipe = new Swiper('.swiper-container', ops);
 
-    noku.getMemes(function(response, worked){
+    //loadMemes(set * buffer, buffer);
+    loadAllMemes();
+
+    let swiper = window.mySwipe;
+    swiper.on('transitionStart', function () {
+        stop_media(noku.memes[this.previousIndex]);
+    });
+    swiper.on('transitionEnd', function () {
+        loadComments(noku.memes[this.realIndex]);
+        play_media(noku.memes[this.realIndex]);
+    });
+    /*
+    swiper.on('slideChange', function () {
+        if(swiper.isEnd){
+            const length = swiper.slides.length;
+            for(var i = 0; i < length; i++){
+                if(i === swiper.realIndex) continue;
+                swiper.slides[i].
+                swiper.removeSlide(i);
+            }
+            set++;
+            loadMemes(set * buffer, buffer);
+        }
+    });
+    /**/
+}
+
+function loadMemes(start, length){
+    if(start !== 0){
+        start++;
+    }
+    noku.getMemesLimit(start, length, function(response, worked){
+        const swipe = window.mySwipe;
         if(!worked){
             createMeme(".swiper-wrapper", null);
             return;
@@ -163,16 +200,34 @@ function setup(){
         }
 
         loadComments(memes[0]);
-        swiper.update();
+        swipe.update();
+        swipe.slideTo(0, 0, true);
     });
+}
 
-    let swiper = window.mySwipe;
-    swiper.on('slideChangeTransitionStart', function () {
-        stop_media(noku.memes[this.previousIndex]);
-    });
-    swiper.on('slideChangeTransitionEnd', function () {
-        loadComments(noku.memes[this.realIndex]);
-        play_media(noku.memes[this.realIndex]);
+function loadAllMemes(){
+    noku.getMemes(function(response, worked){
+        console.log(response);
+        const swipe = window.mySwipe;
+        if(!worked){
+            createMeme(".swiper-wrapper", null);
+            return;
+        }
+        var memes;
+        try{
+            let data = JSON.parse(response.data);
+            memes = data.data;
+        } catch (e){
+            memes = [].push(null);
+        }
+        noku.memes = memes;
+        for(var x = 0; x < memes.length; x++){
+            createMeme(".swiper-wrapper", memes[x]);
+        }
+
+        loadComments(memes[0]);
+        swipe.update();
+        swipe.slideTo(0, 0, true);
     });
 }
 
@@ -209,14 +264,12 @@ function loadComments(meme){
 
         for(i = 0; i < comments.length; i++){
             let current = comments[i];
-            alert(current.replyTo);
             if(current.replyTo === -1){
                 create_comment(current, 0, null, comment_container);
             }
             else {
                 let parent = getCommentByID(comments, current.replyTo);
                 let parent_comment = $("#comment-" + current.replyTo + " .comment-replies");
-                console.log(parent_comment);
                 let parent_comment_header = $("#comment-" + current.replyTo + " .comment-head");
                 create_comment(current, parent_comment_header.data("layer") + 1, parent, parent_comment);
             }
@@ -357,6 +410,8 @@ function createMeme(container, meme){
     if(meme == null) return createNullMeme(container);
     let id = meme.id;
     let hash = meme.hash;
+    let liked = meme.liked;
+    let disliked = meme.disliked;
     let author = meme.author;
     let app = $(container);
     var parent = '#' + hash;
@@ -375,9 +430,9 @@ function createMeme(container, meme){
         '  </div>\n' +
         '  <div class="meme-footer">\n' +
         '    <div class="float-left">\n' +
-        '      <div class="meme-like-count"></div>\n' +
-        '      <div class="meme-give btn ml-1" data-command="like"></div>\n' +
-        '      <div class="meme-take btn" data-command="dislike"></div>\n' +
+        '      <div class="meme-like-count" id="count-'+id+'"></div>\n' +
+        '      <div class="meme-give btn ml-1" data-command="like" id="like-'+id+'"></div>\n' +
+        '      <div class="meme-take btn" data-command="dislike" id="dislike-'+id+'"></div>\n' +
         '    </div>\n' +
         '    <div class="float-right">\n' +
         '       <div class="meme-repub btn mr-1" data-command="repub"></div>\n' +
@@ -387,13 +442,22 @@ function createMeme(container, meme){
         '  </div>\n' +
         '</div>');
 
+    if(liked){
+        $('#like-'+id).removeClass("meme-give");
+        $('#like-'+id).addClass("meme-given");
+    }
+    if(disliked){
+        $('#dislike-'+id).removeClass("meme-take");
+        $('#dislike-'+id).addClass("meme-taken");
+    }
+
     var plat = device.platform;
     if(plat === "browser"){
     } else {
         $(parent + " .meme-container").addClass("center-vertical");
     }
 
-    $(".btn").click(function (e){
+    $(".btn").on('click', function (e){
         handleClick(e);
     });
 
@@ -426,7 +490,7 @@ function createMeme(container, meme){
 
             if(content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image swiper-zoom-target" src="' + url + meme.hash + '" />');
             if(content.includes("video")){
-                $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" autoplay muted><source src="' + url + meme.hash +'" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
+                $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" muted loop><source src="' + url + meme.hash +'" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
                 $(parent + " .mute-control").click(function(){
                     toggleMute(parent);
                 });

@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="wtf.noku.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="wtf.noku.app" version="1.0.0"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Noku</name>
     <description>
         The worst meme app on the planet.
@@ -17,6 +20,9 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <icon src="www/img/logo.png" width="512" height="512" density="mdpi" />
+    <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="application">
+        <application android:requestLegacyExternalStorage="true" ></application>
+    </edit-config>
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>

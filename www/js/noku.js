@@ -55,7 +55,7 @@ class Noku {
         this.token = token;
         this.uid = uid;
     }
-    
+
     getMemes(callback){
         const options = {
             method: 'post',
@@ -70,12 +70,49 @@ class Noku {
         });
     }
 
+    getMemesLimit(start, length, callback){
+        const options = {
+            method: 'post',
+            data: {
+                uid: this.uid,
+                token: this.token,
+                start: start,
+                length: length,
+            },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getmemeslimit", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    sendError(){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getmemes", options, function(response) {
+            navigator.notification.alert("Error report was sent successfully.", function(){}, "Error Report")
+        }, function() {
+            console.log();
+        });
+    }
+
     getCDNUrl() {
         return "https://cdn.xemplarsoft.com/";
     }
 
     getAPIUrl() {
         return "https://xemplarsoft.com/noku/api/";
+    }
+
+    getUploadUrl() {
+        return "https://xemplarsoft.com/noku/upload";
     }
 
     getUserData(id, callback) {
@@ -162,6 +199,35 @@ class Noku {
         });
     }
 
+    likeMeme(id, state, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "id": id, "state":state },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "likememe", options, function(response) {
+            callback(response, true);
+
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    dislikeMeme(id, state, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "id": id, "state":state },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "dislikememe", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
     getCommentsByID(id, callback) {
         const options = {
             method: 'post',
@@ -170,6 +236,20 @@ class Noku {
         };
 
         this.http.sendRequest(this.getAPIUrl() + "getcomments", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    uploadMeme(base64, callback) {
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "data": base64 },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getUploadUrl(), options, function(response) {
             callback(response, true);
         }, function(response) {
             callback(response, false);
