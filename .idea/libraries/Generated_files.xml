@@ -2,6 +2,9 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/plugins/com.qdev.webintent/www/webintent.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-clipboard/src/windows/ClipboardProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-clipboard/www/clipboard.min.js" />
         <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/browser/CameraProxy.min.js" />
         <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/windows/CameraProxy.min.js" />
         <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/Camera.min.js" />
@@ -25,10 +28,16 @@
         <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/wp7/base64.min.js" />
         <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/MediaPicker.min.js" />
         <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/demo/demo.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-spinner-dialog/www/spinner.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-x-toast/src/blackberry10/index.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-x-toast/src/windows/toastProxy.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-plugin-x-toast/www/Toast.min.js" />
+        <item url="file://$PROJECT_DIR$/plugins/cordova-webintent/www/webintent.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/fileio.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/function.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/index.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/Base64.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/clipboard.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/raw-deflate.min.js" />
@@ -41,6 +50,9 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/plugins/com.qdev.webintent/www/webintent.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-clipboard/src/windows/ClipboardProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-clipboard/www/clipboard.min.js" />
       <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/browser/CameraProxy.min.js" />
       <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/src/windows/CameraProxy.min.js" />
       <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-camera/www/Camera.min.js" />
@@ -64,10 +76,16 @@
       <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-file-transfer/www/wp7/base64.min.js" />
       <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/MediaPicker.min.js" />
       <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-mediapicker-dmcsdk/www/demo/demo.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-spinner-dialog/www/spinner.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-x-toast/src/blackberry10/index.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-x-toast/src/windows/toastProxy.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-plugin-x-toast/www/Toast.min.js" />
+      <root url="file://$PROJECT_DIR$/plugins/cordova-webintent/www/webintent.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/fileio.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/function.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/index.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/Base64.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/clipboard.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/raw-deflate.min.js" />

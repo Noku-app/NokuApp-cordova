@@ -19,9 +19,25 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <feature name="Toast">
+        <param name="ios-package" value="Toast" />
+    </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
     <icon src="www/img/logo.png" width="512" height="512" density="mdpi" />
     <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="application">
-        <application android:requestLegacyExternalStorage="true" ></application>
+        <application android:requestLegacyExternalStorage="true" >
+            <provider
+                    android:name="android.support.v4.content.FileProvider"
+                    android:authorities="wtf.noku.app"
+                    android:exported="false"
+                    android:grantUriPermissions="true">
+                <meta-data
+                        android:name="android.support.FILE_PROVIDER_PATHS"
+                        android:resource="@xml/provider_paths" />
+            </provider>
+        </application>
     </edit-config>
     <platform name="android">
         <allow-intent href="market:*" />

@@ -59,6 +59,49 @@ h1 {
     background-color: @app-background;
 }
 
+@text-box-height: 1.5em;
+@text-box-padding: 0.25em;
+
+.post-comment{
+    display: block;
+    width: 100%;
+    height: @text-box-height + (@text-box-padding * 2);
+    position: relative;
+    margin-top: 1em;
+}
+.post-comment::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.post-comment > *{
+    margin: auto 0 auto 0 !important;
+}
+
+.post-comment > input{
+    display: inline-block;
+    width: calc(100% - ((@text-box-padding * 2) + (@text-box-height * 2)));
+    height: @text-box-height;
+    border-radius: @text-box-height + (@text-box-padding * 2);
+
+    padding: @text-box-padding;
+    font-size: @text-box-height - (@text-box-padding * 2);
+    box-sizing: content-box;
+    border: none;
+    float: left;
+    margin-right: 0.25em;
+}
+
+.post-comment > button{
+    display: inline-block;
+    width: @text-box-height;
+    height: @text-box-height;
+    padding: @text-box-padding;
+    float: right;
+    margin-left: 0.25em;
+}
+
 .bg-op{
     background-color: @comment-op-background;
 }

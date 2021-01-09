@@ -85,21 +85,19 @@ function repub_done(){
 }
 
 function stop_media(meme) {
+    if(meme == null) return;
+
     let hash = meme.hash;
     var video = $("#" + hash + " video").get(0);
     if(video != null) {
         video.pause();
         video.currentTime = 0;
     }
-
-    var audio = $("#" + hash + " audio");
-    if(audio[0] != null) {
-        audio[0].pause();
-        audio.prop('currentTime', 0);
-    }
 }
 
 function play_media(meme) {
+    if(meme == null) return;
+
     let hash = meme.hash;
 
     let video = $("#" + hash + " video").get(0);
@@ -156,4 +154,37 @@ function getType(file_URI) {
     }, function (error){
 
     });
+}
+
+function copyToClipboard(elem) {
+    var targetId = "_hiddenCopyText_";
+    var origSelectionStart, origSelectionEnd;
+
+    target = document.getElementById(targetId);
+    if (!target) {
+        var target = document.createElement("textarea");
+        target.style.position = "absolute";
+        target.style.left = "-9999px";
+        target.style.top = "0";
+        target.id = targetId;
+        document.body.appendChild(target);
+    }
+    target.textContent = elem.textContent;
+
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    var succeed;
+    try {
+        succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+
+    target.textContent = "";
+    return succeed;
 }

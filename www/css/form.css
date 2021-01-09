@@ -39,7 +39,7 @@ label {
 }
 .form-text {
   display: block;
-  width: calc(100% - 0.25em * 3);
+  width: calc(100% - (0.25em * 3));
   height: 1.5em;
   border-radius: 2em;
   padding: 0.25em;

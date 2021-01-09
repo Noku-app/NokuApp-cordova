@@ -30,6 +30,10 @@ function onDeviceReady() {
 
     noku.init();
     noku.setCredentials(storage.getItem("auth_token"), storage.getItem("uid"));
+    noku.getThisUser(function (){
+        noku.userdat = JSON.parse(storage.getItem("userdat"));
+        console.log(noku.userdat);
+    });
 
     $(".btn").click(function (e){
         handleClick(e);
@@ -72,8 +76,6 @@ function handleClick(e){
     let uid = storage.getItem("view.id");
 
     //if(method === "upload") upload();
-    if(method === "profile") profile();
-    if(method === "menu-close") exitMenu();
     if(method === "memes") window.mySwipe.slideTo(1, 100, null);
     if(method === "upload") window.mySwipe.slideTo(2, 100, null);
     if(method === "upload-image") if(uid === noku.uid) uploadImage();
@@ -81,10 +83,11 @@ function handleClick(e){
     if(method === "take-image") if(uid === noku.uid) takeImage();
     if(method === "take-video") if(uid === noku.uid) takeVideo();
 
+    if(method === "profile") profile();
+    if(method === "submissions") redirect("submissions.html");
     if(method === "dank") redirect("index.html");
-    if(method === "menu"){
-        enterMenu();
-    }
+    if(method === "menu") enterMenu();
+    if(method === "menu-close") exitMenu();
 }
 
 /********************************
@@ -275,16 +278,7 @@ function setup(){
 
     if(uid !== noku.uid) $(".profile-actions").css("display", "none");
 
-    noku.getUserData(uid, function(response, worked){
-        if(!worked) return;
-        var author;
-        try {
-            author = JSON.parse(response.data).data;
-        } catch (e){
-            author = {};
-            author.valid = false;
-        }
-
+    noku.getUserData(uid, function (author) {
         let url = noku.getCDNUrl();
         let pfp = author.pfp;
         let bg = author.bg;

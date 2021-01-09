@@ -6,7 +6,9 @@ class Noku {
         this.http.setRequestTimeout(5.0);
 
         this.memes = [null];
+        this.userdat = {};
         this.users = [];
+        this.version = "0.1.2C Beta";
     }
 
     testToken(callback){
@@ -56,17 +58,47 @@ class Noku {
         this.uid = uid;
     }
 
-    getMemes(callback){
+    getMemes(type, callback){
+        var api = "";
+        switch(type){
+            case 2: api = "getmemes"; break;
+            default: api = "getdankmemes"; break;
+        }
+
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getmemes", options, function(response) {
+        this.http.sendRequest(this.getAPIUrl() + api, options, function(response) {
             callback(response, true);
         }, function(response) {
             callback(response, false);
+        });
+    }
+
+    checkUpdate(updateCallback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "version": this.version },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "checkupdate", options, function(response) {
+            var update;
+            try {
+                update = JSON.parse(response.data).data;
+            } catch (e){
+                update = {};
+                update.update = false;
+                update.version = this.version;
+            }
+            if(update.update === true){
+                updateCallback(update);
+            }
+        }, function(response) {
+
         });
     }
 
@@ -116,6 +148,10 @@ class Noku {
     }
 
     getUserData(id, callback) {
+        if(id === this.uid && this.userdat != null){
+            callback(this.userdat);
+            return;
+        }
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "user_id": id },
@@ -123,9 +159,40 @@ class Noku {
         };
 
         this.http.sendRequest(this.getAPIUrl() + "getuserdata", options, function(response) {
-            callback(response, true);
+            var author;
+            try {
+                author = JSON.parse(response.data).data;
+                author.valid = true;
+            } catch (e) {
+                author = {};
+                author.valid = false;
+            }
+            callback(author);
         }, function(response) {
             callback(response, false);
+        });
+    }
+
+    async getThisUser(callback) {
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "user_id": this.uid },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getuserdata", options, function(response) {
+            var data;
+            try {
+                data = JSON.parse(response.data);
+            } catch (e){
+                data = {};
+                data.valid = false;
+            }
+
+            storage.setItem("userdat", JSON.stringify(data.data));
+            callback();
+        }, function(response) {
+
         });
     }
 
@@ -193,6 +260,20 @@ class Noku {
         };
 
         this.http.sendRequest(this.getAPIUrl() + "getmemedata", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    postComment(meme, content, replyTo, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "meme": meme, "content":content, "replyTo": replyTo },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "postcomment", options, function(response) {
             callback(response, true);
         }, function(response) {
             callback(response, false);

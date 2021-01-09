@@ -43,7 +43,7 @@
   <div class="app-bar">
     <div class="inline-container w-75">
       <div class="menu btn btn-clear icon-logo-gif mx-2" data-command="menu"></div>
-      <div class="inline-text page-title">Meme By: </div>
+      <div class="inline-text page-title">By: </div>
     </div>
     <div class="inline-container text-right w-25">
       <div class="menu btn icon-close hide" data-command="menu-close" id="menu-close"></div>
@@ -53,7 +53,7 @@
     <div id="sidemenu">
       <ul class="options">
         <li><div data-command="dank" class="btn side-btn">Dank Memes</div></li>
-        <li><div data-command="#" class="btn side-btn">Submissions</div></li>
+        <li><div data-command="submissions" class="btn side-btn">Submissions</div></li>
         <li><div data-command="#" class="btn side-btn">Subscriptions</div></li>
         <li><div data-command="profile" class="btn side-btn">Profile</div></li>
         <li><div data-command="upload" class="btn side-btn">Upload</div></li>
@@ -74,6 +74,13 @@
   <script src="js/libs/jquery.min.js"></script>
   <script src="js/noku.min.js"></script>
   <script src="cordova.js"></script>
+  <script src="js/function.min.js"></script>
+  <script src="js/libs/clipboard.min.js"></script>
+  <script type="text/javascript">
+      function getMemeID(){
+          return window.localStorage.getItem("meme.id");
+      }
+  </script>
   <script src="js/meme.min.js"></script>
 </div></div>
 </body>

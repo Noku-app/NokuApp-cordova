@@ -32,14 +32,15 @@ a:visited {
 }
 .btn {
   display: inline-block;
-  height: 1.1em;
+  min-height: 1.1em !important;
   font-size: 1em;
   text-align: center;
   border-radius: 0.25em;
-  min-width: 1em;
+  min-width: 1em !important;
   margin: 0.25em 0;
   color: #E0E0E0;
   padding: 0.5em;
+  box-sizing: content-box !important;
 }
 .inline-text {
   position: absolute;
@@ -51,9 +52,6 @@ a:visited {
 }
 .btn:active {
   background-color: rgba(0, 0, 0, 0.5);
-}
-.btn-clear {
-  background: none;
 }
 .btn-green {
   background-color: #43a047;
@@ -67,6 +65,10 @@ a:visited {
 .btn-white {
   background-color: #E0E0E0;
   color: black;
+}
+.btn-clear {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 }
 .flex {
   display: flex;
@@ -505,6 +507,12 @@ a:visited {
   background-size: 100% 100%;
   background-position-x: center;
   background-image: url("../img/memes.png");
+}
+.icon-refresh {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/refresh.png");
 }
 .icon-image {
   background-repeat: no-repeat;

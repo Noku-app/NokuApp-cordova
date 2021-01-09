@@ -37,16 +37,18 @@
   background-color: @divider-color !important;
 }
 
+
 .btn{
   display: inline-block;
-  height: 1.1em;
+  min-height: 1.1em !important;
   font-size: 1em;
   text-align: center;
   border-radius: 0.25em;
-  min-width: 1em;
+  min-width: 1em !important;
   margin: 0.25em 0;
   color: @foreground-color;
   padding: 0.5em;
+  box-sizing: content-box !important;
 }
 
 .inline-text{
@@ -62,9 +64,6 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.btn-clear{
-  background: none;
-}
 
 .btn-green{
   background-color: @color-green;
@@ -81,6 +80,11 @@
 .btn-white{
   background-color: @color-white;
   color: black;
+}
+
+.btn-clear{
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 }
 
 .flex{
