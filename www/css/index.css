@@ -1,8 +1,8 @@
 @import "animate.min.css";
 @import "swiper-bundle.css";
 @font-face {
-  font-family: "museo";
-  src: url("../fonts/museo.ttf");
+  font-family: "anon";
+  src: url("../fonts/anon.ttf");
 }
 a,
 a:visited {
@@ -47,6 +47,11 @@ a:visited {
   color: #E0E0E0;
   padding: 0.5em;
   box-sizing: content-box !important;
+}
+.btn-hollow {
+  background: none !important;
+  border: 2px solid #D7D7D7 !important;
+  color: #D7D7D7 !important;
 }
 .inline-text {
   position: absolute;
@@ -118,10 +123,10 @@ a:visited {
   padding: 1em !important;
 }
 .p-5 {
-  padding: 0.75em !important;
+  padding: 1.25em !important;
 }
 .p-6 {
-  padding: 0.75em !important;
+  padding: 1.5em !important;
 }
 .pt-0 {
   padding-top: 0 !important;
@@ -139,10 +144,10 @@ a:visited {
   padding-top: 1em !important;
 }
 .pt-5 {
-  padding-top: 0.75em !important;
+  padding-top: 1.25em !important;
 }
 .pt-6 {
-  padding-top: 0.75em !important;
+  padding-top: 1.5em !important;
 }
 .pl-0 {
   padding-left: 0 !important;
@@ -160,10 +165,10 @@ a:visited {
   padding-left: 1em !important;
 }
 .pl-5 {
-  padding-left: 0.75em !important;
+  padding-left: 1.25em !important;
 }
 .pl-6 {
-  padding-left: 0.75em !important;
+  padding-left: 1.5em !important;
 }
 .pr-0 {
   padding-right: 0 !important;
@@ -181,10 +186,10 @@ a:visited {
   padding-right: 1em !important;
 }
 .pr-5 {
-  padding-right: 0.75em !important;
+  padding-right: 1.25em !important;
 }
 .pr-6 {
-  padding-right: 0.75em !important;
+  padding-right: 1.5em !important;
 }
 .pb-0 {
   padding-bottom: 0 !important;
@@ -202,46 +207,58 @@ a:visited {
   padding-bottom: 1em !important;
 }
 .pb-5 {
-  padding-bottom: 0.75em !important;
+  padding-bottom: 1.25em !important;
 }
 .pb-6 {
-  padding-bottom: 0.75em !important;
+  padding-bottom: 1.5em !important;
 }
 .px-1 {
-  padding: 0 0.25em 0 0.25em !important;
+  padding-left: 0.25em !important;
+  padding-right: 0.25em !important;
 }
 .px-2 {
-  padding: 0 0.5em 0 0.5em !important;
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
 }
 .px-3 {
-  padding: 0 0.75em 0 0.75em !important;
+  padding-left: 0.75em !important;
+  padding-right: 0.75em !important;
 }
 .px-4 {
-  padding: 0 1em 0 1em !important;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
 }
 .px-5 {
-  padding: 0 0.75em 0 0.75em !important;
+  padding-left: 1.25em !important;
+  padding-right: 1.25em !important;
 }
 .px-6 {
-  padding: 0 0.75em 0 0.75em !important;
+  padding-left: 1.5em !important;
+  padding-right: 1.5em !important;
 }
 .py-1 {
-  padding: 0.25em 0 0.25em 0 !important;
+  padding-top: 0.25em !important;
+  padding-bottom: 0.25em !important;
 }
 .py-2 {
-  padding: 0.5em 0 0.5em 0 !important;
+  padding-top: 0.5em !important;
+  padding-bottom: 0.5em !important;
 }
 .py-3 {
-  padding: 0.75em 0 0.75em 0 !important;
+  padding-top: 0.75em !important;
+  padding-bottom: 0.75em !important;
 }
 .py-4 {
-  padding: 1em 0 1em 0 !important;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
 }
 .py-5 {
-  padding: 0.75em 0 0.75em 0 !important;
+  padding-top: 1.25em !important;
+  padding-bottom: 1.25em !important;
 }
 .py-6 {
-  padding: 0.75em 0 0.75em 0 !important;
+  padding-top: 1.5em !important;
+  padding-bottom: 1.5em !important;
 }
 .m-1 {
   margin: 0.25em !important;
@@ -508,17 +525,35 @@ a:visited {
   background-position-x: center;
   background-image: url("../img/upload.png");
 }
+.icon-flag {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/flag.png");
+}
 .icon-memes {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position-x: center;
   background-image: url("../img/memes.png");
 }
+.icon-settings {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/settings.png");
+}
 .icon-refresh {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position-x: center;
   background-image: url("../img/refresh.png");
+}
+.icon-link {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/link.png");
 }
 .icon-image {
   background-repeat: no-repeat;
@@ -582,9 +617,10 @@ a:visited {
 .op-username {
   display: inline-list-item;
   height: 1.25em;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.875em;
+  margin-bottom: 0.875em;
   padding: 0 !important;
+  font-size: 1.125em;
 }
 /***********************************
  * Meme Content
@@ -629,6 +665,10 @@ a:visited {
 }
 .meme-image {
   width: 100%;
+}
+.meme-embed {
+  width: 100%;
+  border: none;
 }
 .meme-audio {
   width: calc(100% - 0.25em * 8);
@@ -700,11 +740,41 @@ a:visited {
   background-position-x: center;
   background-image: url("../img/taken_sh.png");
 }
+.comment-give {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/give_sh.png");
+}
+.comment-take {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/take_sh.png");
+}
+.comment-given {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/given_sh.png");
+}
+.comment-taken {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/taken_sh.png");
+}
 .meme-repub {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position-x: center;
   background-image: url("../img/repub.png");
+}
+.meme-flag {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position-x: center;
+  background-image: url("../img/flag.png");
 }
 .meme-share {
   background-repeat: no-repeat;
@@ -791,12 +861,14 @@ a:visited {
   margin-right: 0.5em !important;
 }
 .comment-like {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/give_sh.png");
   display: inline-block;
   z-index: 15;
+}
+.content {
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
+  padding-top: 0.25em !important;
+  padding-bottom: 0.25em !important;
 }
 .comment-replies {
   display: block;
@@ -804,10 +876,6 @@ a:visited {
   z-index: 15;
 }
 .comment-dislike {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position-x: center;
-  background-image: url("../img/take_sh.png");
   display: inline-block;
   z-index: 15;
 }
@@ -841,7 +909,7 @@ body {
   -webkit-user-select: none;
   /* prevent copy paste, to allow, change 'none' to 'text' */
   background-color: #000000;
-  font-family: museo, system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: anon, system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
   height: 100vh;
   margin: 0;
   padding: 0;

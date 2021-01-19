@@ -57,9 +57,10 @@
 .op-username{
   display: inline-list-item;
   height: @op-username-height;
-  margin-top: @op-username-padding;
-  margin-bottom: @op-username-padding;
+  margin-top: @op-username-padding * (1 - 0.125);
+  margin-bottom: @op-username-padding * (1 - 0.125);
   padding: 0 !important;
+  font-size: 1.125em;
 }
 
 /***********************************
@@ -104,6 +105,11 @@
 
 .meme-image{
   width: 100%;
+}
+
+.meme-embed{
+  width: 100%;
+  border: none;
 }
 
 .meme-audio{
@@ -171,8 +177,28 @@
   .icon-sh-taken();
 }
 
+.comment-give{
+  .icon-sh-give();
+}
+
+.comment-take{
+  .icon-sh-take();
+}
+
+.comment-given{
+  .icon-sh-given();
+}
+
+.comment-taken{
+  .icon-sh-taken();
+}
+
 .meme-repub{
   .icon-repub();
+}
+
+.meme-flag{
+  .icon-flag();
 }
 
 .meme-share{
@@ -276,9 +302,13 @@
 }
 
 .comment-like{
-  .icon-sh-give();
   display: inline-block;
   z-index: 15;
+}
+
+.content{
+  .px-2();
+  .py-1();
 }
 
 .comment-replies{
@@ -288,7 +318,6 @@
 }
 
 .comment-dislike{
-  .icon-sh-take();
   display: inline-block;
   z-index: 15;
 }

@@ -2,36 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bec4e973-a932-40e7-9a57-71e4c28b9bd9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/www/js/libs/clipboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/submissions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/fonts/anon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/showdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/js/libs/xss.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raw/comment.svg" beforeDir="false" afterPath="$PROJECT_DIR$/raw/comment.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raw/repub.svg" beforeDir="false" afterPath="$PROJECT_DIR$/raw/repub.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raw/upload.svg" beforeDir="false" afterPath="$PROJECT_DIR$/raw/upload.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/colors.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/colors.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/fonts.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/fonts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/fonts.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/fonts.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/fonts.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/fonts.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/form.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/form.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/form.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/form.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/form.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/form.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/form.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/form.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/icons.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/icons.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/index.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/index.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/meme.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/meme.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/noku.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/noku.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/profile.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/profile.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/profile.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/profile.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/start.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/css/start.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/start.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/start.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/css/utils.less" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/utils.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/img/comment.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/img/comment.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/img/repub.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/img/repub.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/img/upload.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/img/upload.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/fonts/museo.ttf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/function.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/function.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/function.min.js" afterDir="false" />
@@ -45,6 +45,10 @@
       <change beforePath="$PROJECT_DIR$/www/js/profile.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/profile.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/meme.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/meme.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/signin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/start.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/submissions.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/submissions.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +80,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/www" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www/fonts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -92,17 +96,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www" />
+      <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\fonts" />
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js\libs" />
+      <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www" />
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js" />
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\css" />
-      <recent name="C:\Users\rohan\workspace\NokuApp-cordova\www\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rohan\workspace\Noku\NokuApp-cordova\www\js\libs" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Run Android">
+  <component name="RunManager" selected="Shell Script.Run Browser">
     <configuration name="Run Android" type="PhoneGap" factoryName="PhoneGap/Cordova">
       <option name="myExecutable" value="C:\Users\rohan\AppData\Roaming\npm\cordova.cmd" />
       <option name="myWorkDir" value="$PROJECT_DIR$" />
@@ -190,7 +194,10 @@
       <workItem from="1609844811659" duration="15000" />
       <workItem from="1609867633684" duration="12083000" />
       <workItem from="1610019687829" duration="4777000" />
-      <workItem from="1610025172329" duration="37447000" />
+      <workItem from="1610025172329" duration="56133000" />
+      <workItem from="1610565739052" duration="40523000" />
+      <workItem from="1611068869369" duration="58000" />
+      <workItem from="1611069172899" duration="2738000" />
     </task>
     <servers />
   </component>

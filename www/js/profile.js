@@ -30,10 +30,21 @@ function onDeviceReady() {
 
     noku.init();
     noku.setCredentials(storage.getItem("auth_token"), storage.getItem("uid"));
-    noku.getThisUser(function (){
-        noku.userdat = JSON.parse(storage.getItem("userdat"));
-        console.log(noku.userdat);
-    });
+
+    if(device.platform !== "browser"){
+        $("#upload").prepend('<div class="upload-option">\n' +
+            '                                    <div class="btn icon-image" data-command="upload-image"></div>\n' +
+            '                                    <div class="upload-label">Upload Image</div>\n' +
+            '                                </div>\n' +
+            '                                <div class="upload-option">\n' +
+            '                                    <div class="btn icon-video" data-command="upload-video"></div>\n' +
+            '                                    <div class="upload-label">Upload Video</div>\n' +
+            '                                </div>\n' +
+            '                                <div class="upload-option">\n' +
+            '                                    <div class="btn icon-camera" data-command="take-image"></div>\n' +
+            '                                    <div class="upload-label">Take Picture</div>\n' +
+            '                                </div>');
+    }
 
     $(".btn").click(function (e){
         handleClick(e);
@@ -55,6 +66,7 @@ function handleTokenCheck(response, worked){
     if(data.valid === true){
         setup();
     } else {
+        alert(JSON.stringify(response));
         redirect("signin.html");
     }
 }
@@ -77,17 +89,66 @@ function handleClick(e){
 
     //if(method === "upload") upload();
     if(method === "memes") window.mySwipe.slideTo(1, 100, null);
+    if(method === "settings") window.mySwipe.slideTo(3, 100, null);
     if(method === "upload") window.mySwipe.slideTo(2, 100, null);
-    if(method === "upload-image") if(uid === noku.uid) uploadImage();
-    if(method === "upload-video") if(uid === noku.uid) uploadVideo();
-    if(method === "take-image") if(uid === noku.uid) takeImage();
-    if(method === "take-video") if(uid === noku.uid) takeVideo();
+    if(method === "upload-image") {
+        if(uid === noku.uid) uploadImage();
+    }
+    if(method === "upload-video") {
+        if(uid === noku.uid) uploadVideo();
+    }
+    if(method === "take-image") {
+        if(uid === noku.uid) takeImage();
+    }
+    if(method === "upload-link") {
+        if(uid === noku.uid){
+            navigator.notification.prompt("Paste or type the url you want to share.", function (result){
+                if(result.buttonIndex === 1){
+                    uploadURL(result.input1);
+                }
+            }, "Upload from URL", ['Okay', 'Cancel'], "");
+        }
+    }
+
+    if(method === "setting-pfp"){
+        navigator.notification.prompt("Press the share button on the meme you want to set as your pfp and paste the link below. Only images are supported.", function (result){
+            if(result.buttonIndex === 1){
+                settingPFP(result.input1);
+            }
+        }, "PFP from Link", ['Okay', 'Cancel'], "");
+    }
 
     if(method === "profile") profile();
     if(method === "submissions") redirect("submissions.html");
     if(method === "dank") redirect("index.html");
     if(method === "menu") enterMenu();
     if(method === "menu-close") exitMenu();
+}
+
+/********************************
+ * Settings Functions
+ ********************************/
+
+function settingPFP(link){
+    noku.settingPFP(link, function(response, worked){
+        console.log(JSON.stringify(response));
+        if(!worked) return;
+
+        var data;
+        try{
+            data = JSON.parse(response.data);
+        } catch (e){
+            console.log(e);
+            data = {};
+            data.error = true;
+        }
+        
+        if(data.error === true){
+            navigator.notification.alert(data.data.message, null, "An Error Occurred", "Okay");
+            return;
+        }
+        window.location.reload(true);
+    });
 }
 
 /********************************
@@ -116,6 +177,40 @@ function uploadVideo(){
         resultMedias = medias;
         getThumbnail(medias, false);
     }, function(e) { console.log(e) })
+}
+
+function uploadURL(url){
+    let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+    let regex = new RegExp(expression);
+
+    if (url.match(regex)) {
+        let progress = $(".loading-label");
+        loadingUI();
+        progress.html("Checking URL Contents...")
+        noku.uploadUrlMeme(url, function(response, worked){
+            if(!worked) return;
+            var data;
+            try {
+                data = JSON.parse(response.data);
+                if(data.error === true){
+                    navigator.notification.alert(data.data.message, function(){}, "Error uploading URL", "Okay");
+                    hideLoadingUI();
+                    return;
+                }
+                data = data.data;
+            } catch (e) {
+                data = {};
+                data.id = 0;
+                data.hash = "";
+            }
+
+            hideLoadingUI();
+            storage.setItem("meme.id", data.id);
+            redirect("meme.html");
+        });
+    } else {
+        navigator.notification.alert("URL is invalid.", function(){}, "Error uploading URL", "Okay");
+    }
 }
 
 function takeImage(){
@@ -166,7 +261,6 @@ function getFileContentAsBase64(path){
                     progress.html("Taking you to your meme...");
                     if (!worked) {
                         console.log(response);
-                        alert(JSON.stringify(response));
                         hideLoadingUI();
                         return;
                     }
@@ -280,11 +374,17 @@ function setup(){
 
     noku.getUserData(uid, function (author) {
         let url = noku.getCDNUrl();
+        let me = (uid === noku.uid);
         let pfp = author.pfp;
         let bg = author.bg;
         let title = author.title;
         var t = author.created.split(/[- :]/);
         let date = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));;
+
+        if(!me){
+            window.mySwipe.allowSlideNext = false;
+            window.mySwipe.allowSlidePrev = false;
+        }
 
         var days = getDaysAgo(date);
         days += days == 1 ? " Day" : " Days";
@@ -294,7 +394,8 @@ function setup(){
             '<div class="profile-pfp"></div>' +
             '<div class="profile-name"></div>' +
             '<div class="profile-title">' + title + '</div>' +
-            '<div class="profile-created">' + days + '</div>'
+            '<div class="profile-created">' + days + '</div>' +
+            (me ? '<div class="profile-settings" data-command="settings"></div>' : '')
         );
 
         $(".profile-pfp").html('<img class="pfp-image" src="' + url + pfp + '"  alt=""/>');
@@ -356,6 +457,10 @@ function inflateMeme(meme, container){
     let hash = meme.hash;
     let id = meme.id;
 
+    container.append('<div class="meme-sm" data-id="'+id+'" data-memeid="'+id+'" id="meme-'+id+'">\n' +
+        '<div class="sm-likes">'+(likes - dislikes)+' Shekels</div>\n' +
+        '</div>');
+
     noku.getMimeType(hash, function (response, worked){
         if(!worked) return;
         var mime;
@@ -364,24 +469,35 @@ function inflateMeme(meme, container){
         } catch (e){
             mime = "image/jpg";
         }
+        console.log(response);
 
-        var content;
+        var content = $("#meme-" + id);
         if(mime.startsWith("image")){
-            content = '<img class="sm-content" src="'+noku.getCDNUrl() + hash +'" alt="meme">\n';
+            content.prepend('<img class="sm-content" src="'+noku.getCDNUrl() + hash +'" alt="meme">');
         } else if(mime.startsWith("video")){
-            content = '<video class="sm-content" src="'+noku.getCDNUrl() + hash +'"></video>\n';
+            content.prepend('<video class="sm-content" src="'+noku.getCDNUrl() + hash +'"></video>');
+        } else if(mime.startsWith("embed")){
+            noku.getContent(noku.getCDNUrl() + meme.hash, function(response, worked){
+                if(!worked) return;
+                if(device.platform === "browser") {
+                    content.prepend(response.data);
+                } else {
+                    content.prepend('<iframe class="meme-embed" src="'+noku.getCDNUrl() + meme.hash+'" />');
+                }
+            });
         }
-
-        container.append('<div class="meme-sm" data-id="'+id+'" data-memeid="'+id+'" id="meme-'+id+'">\n' +
-            content +
-            '<div class="sm-likes">'+(likes - dislikes)+' Shekels</div>\n' +
-            '</div>');
 
         $(".meme-sm").on('click', function (e){
             let target = $(e.target).closest(".meme-sm");
             let id = target.data("memeid");
             storage.setItem("meme.id", id);
             redirect("meme.html");
+        });
+
+        $(".sm-content").onload(function(){
+            if(window.mySwipe != null){
+                window.mySwipe.update();
+            }
         });
     });
 }

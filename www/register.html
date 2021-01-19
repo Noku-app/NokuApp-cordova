@@ -29,7 +29,7 @@
       * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
           * Enable inline JS: add 'unsafe-inline' to default-src
   -->
-  <meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://*.xemplarsoft.com * 'unsafe-inline' 'self' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;img-src * data: 'unsafe-inline' 'self' content:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://*.xemplarsoft.com * gap: ws: https://*.noku.wtf * 'unsafe-inline' 'self' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;img-src * data: 'unsafe-inline' 'self' content:;">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -66,6 +66,14 @@
         <div class="form-control">
           <label for="confirm" class="form-label">Confirm:</label>
           <input type="password" id="confirm" name="confirm" class="form-text">
+        </div>
+        <div class="form-control">
+          <input type="checkbox" id="privacy" name="privacy" class="form-checkbox">
+          <label for="privacy" class="form-label">I have read, and I agree to the privacy policy located <a href="https://noku.wtf/policies/privacy/">here</a>.</label>
+        </div>
+        <div class="form-control">
+          <input type="checkbox" id="terms" name="terms" class="form-checkbox">
+          <label for="terms" class="form-label">I have read, and I agree to use this software in accordance with our terms and conditions located <a href="https://noku.wtf/policies/terms/">here</a>, which certify that I am at least 18 years or older in Europe, and 13 years or older in the United States.</label>
         </div>
         <div class="form-control">
           <label for="username" class="form-label"> </label>

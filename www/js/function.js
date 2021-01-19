@@ -12,7 +12,7 @@ function subscribe(){
     navigator.notification.alert("You subscribed to this user.", repub_done, "Subscribed", "Acknowledge");
 }
 
-function like(parent, noku){
+function likeMeme(parent, noku){
     let id = parent.data("memeid");
     let like_counter = $("#count-" + id);
     let liked = $("#like-" + id);
@@ -46,7 +46,40 @@ function like(parent, noku){
     });
 }
 
-function dislike(parent, noku){
+function likeComment(id, noku){
+    let like_counter = $("#comment-count-" + id);
+    let liked = $("#comment-like-" + id);
+    let disliked = $("#comment-dislike-" + id);
+
+    noku.likeComment(id, liked.hasClass("comment-give"), function (response, worked){
+        if(!worked) return;
+        var data;
+        try{
+            data = JSON.parse(response.data);
+            data = data.data;
+        } catch (e){
+            data = {};
+            data.liked = false;
+            data.likes = 0;
+            data.dislikes = 0;
+        }
+
+        like_counter.html(data.likes - data.dislikes);
+
+        if(data.liked){
+            liked.removeClass("comment-give");
+            liked.addClass("comment-given");
+        } else {
+            liked.removeClass("comment-given");
+            liked.addClass("comment-give");
+        }
+
+        disliked.removeClass("comment-taken");
+        disliked.addClass("comment-take");
+    });
+}
+
+function dislikeMeme(parent, noku){
     let id = parent.data("memeid");
     let like_counter = $("#count-" + id);
     let liked = $("#like-" + id);
@@ -80,6 +113,39 @@ function dislike(parent, noku){
     });
 }
 
+function dislikeComment(id, noku){
+    let like_counter = $("#comment-count-" + id);
+    let liked = $("#comment-like-" + id);
+    let disliked = $("#comment-dislike-" + id);
+
+    noku.dislikeComment(id, disliked.hasClass("comment-take"), function (response, worked){
+        if(!worked) return;
+        var data;
+        try{
+            data = JSON.parse(response.data);
+            data = data.data;
+        } catch (e){
+            data = {};
+            data.disliked = false;
+            data.likes = 0;
+            data.dislikes = 0;
+        }
+
+        like_counter.html(data.likes - data.dislikes);
+
+        if(data.disliked){
+            disliked.removeClass("comment-take");
+            disliked.addClass("comment-taken");
+        } else {
+            disliked.removeClass("comment-taken");
+            disliked.addClass("comment-take");
+        }
+
+        liked.removeClass("comment-given");
+        liked.addClass("comment-give");
+    });
+}
+
 function repub_done(){
 
 }
@@ -105,6 +171,24 @@ function play_media(meme) {
 
     let audio = $("#" + hash + " audio");
     if(audio != null) audio.trigger("play");;
+}
+
+function resizeIframe(obj) {
+    try {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+        if (window.mySwipe != null) window.mySwipe.update();
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function create_context(jq_comp, title, data){
+    return {
+        title: title,
+        items: data,
+        x: $(jq_comp).position().left,
+        y: $(jq_comp).position().top
+    }
 }
 
 function setInvisible(element){

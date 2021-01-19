@@ -39,12 +39,34 @@ label {
 }
 .form-text {
   display: block;
-  width: calc(100% - (0.25em * 3));
+  width: calc(100% - 0.25em * 3);
   height: 1.5em;
   border-radius: 2em;
   padding: 0.25em;
   font-size: 1em;
-  border: none;
+}
+.form-checkbox {
+  display: inline-block;
+  content: none;
+  width: 1.5em;
+  height: 1.5em;
+  text-align: left;
+  padding-right: 0.25em;
+}
+.form-checkbox + label {
+  display: inline-block;
+  width: calc(100% - (1.5em + 0.75em));
+  text-align: left;
+}
+input:focus {
+  outline: none;
+}
+input[type=text],
+input[type=password],
+input[type=email] {
+  border: 2px solid #D7D7D7 !important;
+  background: none !important;
+  color: #D7D7D7 !important;
 }
 .form-control > .btn {
   font-size: 1.25em;

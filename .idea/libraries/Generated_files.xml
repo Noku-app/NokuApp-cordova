@@ -41,7 +41,9 @@
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/raw-deflate.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/showdown.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
+        <item url="file://$PROJECT_DIR$/www/js/libs/xss.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/meme.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/noku.min.js" />
         <item url="file://$PROJECT_DIR$/www/js/profile.min.js" />
@@ -89,7 +91,9 @@
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery-ui.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/jquery.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/raw-deflate.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/showdown.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/libs/swiper-bundle.min.js" />
+      <root url="file://$PROJECT_DIR$/www/js/libs/xss.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/meme.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/noku.min.js" />
       <root url="file://$PROJECT_DIR$/www/js/profile.min.js" />

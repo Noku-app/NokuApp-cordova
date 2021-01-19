@@ -185,150 +185,7 @@ function setup(){
         loadComments(meme);
     });
 }
-function createNullMeme(container){
-    let app = $(container);
-    app.append(
-        '<div class="swiper-slide meme-container" id="NULLMEME" data-memeid="NULLMEME">\n' +
-        '  <div class="meme-op">\n' +
-        '    <div class="float-left">\n' +
-        '      <div class="op-pfp"></div>\n' +
-        '      <div class="op-username">Noku Team</div>\n' +
-        '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '      <div class="btn btn-black mr-2 my-auto" data-command="none">No Touch!</div>\n' +
-        '    </div>\n' +
-        '  </div>\n' +
-        '  <div class="meme-body swiper-zoom-container">\n' +
-        '    <div class="container p-6">\n' +
-        '      <h1>End of the line pal!</h1>\n' +
-        '      <p>Unfortunately you have reached the end of the meme stream. Come back for more later.</p>\n' +
-        '    </div>\n'+
-        '  </div>\n' +
-        '  <div class="meme-footer">\n' +
-        '    <div class="float-left">\n' +
-        '      <div class="meme-like-count"></div>\n' +
-        '      <div class="meme-take btn ml-1" data-command="none"></div>\n' +
-        '      <div class="meme-take btn" data-command="none"></div>\n' +
-        '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '       <div class="meme-take btn mr-1" data-command="none"></div>\n' +
-        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
-        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
-        '    </div>\n' +
-        '  </div>\n' +
-        '</div>');
-}
-function createMeme(container, meme) {
-    if (meme == null) return createNullMeme(container);
-    let id = meme.id;
-    let hash = meme.hash;
-    let liked = meme.liked;
-    let disliked = meme.disliked;
-    let author = meme.author;
-    let app = $(container);
-    var parent = '#' + hash;
-    let link = noku.getAPIUrl().substring(0, noku.getAPIUrl().length - 4) + hash;
-    app.append(
-        '<div class="meme-container" id="' + hash + '" data-memeid="' + id + '">\n' +
-        '  <div class="meme-op">\n' +
-        '    <div class="float-left">\n' +
-        '      <div class="op-pfp"></div>\n' +
-        '      <div class="op-username"></div>\n' +
-        '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '      <div class="btn btn-black mr-2 my-auto" data-command="viewprofile" data-id="' + author + '">View Profile</div>\n' +
-        '    </div>\n' +
-        '  </div>\n' +
-        '  <div class="meme-body swiper-zoom-container">\n' +
-        '  </div>\n' +
-        '  <div class="meme-footer">\n' +
-        '    <div class="float-left">\n' +
-        '      <div class="meme-like-count" id="count-' + id + '"></div>\n' +
-        '      <div class="meme-give btn ml-1" data-command="like" id="like-' + id + '"></div>\n' +
-        '      <div class="meme-take btn" data-command="dislike" id="dislike-' + id + '"></div>\n' +
-        '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '       <div class="meme-repub btn mr-1" data-command="repub"></div>\n' +
-        '       <button class="btn btn-clear meme-share mr-2" data-command="share" data-clipboard-text="' + link + '"></button>\n' +
-        '       <div class="meme-comment btn mr-2" data-command="comment"></div>\n' +
-        '    </div>\n' +
-        '  </div>\n' +
-        '</div>');
 
-    $('#' + hash + ' .meme-share').on('click', function (target) {
-        if (device.platform === 'browser') {
-            alert("Url Copied");
-        } else {
-            cordova.plugins.clipboard.copy(link);
-            window.plugins.toast.showWithOptions({
-                    message: "Copied URL",
-                    duration: "short", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
-                    position: "bottom",
-                    addPixelsY: -40  // added a negative value to move it up a bit (default 0)
-                }
-            );
-        }
-    });
-
-    if (liked) {
-        $('#like-' + id).removeClass("meme-give");
-        $('#like-' + id).addClass("meme-given");
-    }
-    if (disliked) {
-        $('#dislike-' + id).removeClass("meme-take");
-        $('#dislike-' + id).addClass("meme-taken");
-    }
-
-    var plat = device.platform;
-    if (plat === "browser") {
-    } else {
-        $(parent + " .meme-container").addClass("center-vertical");
-    }
-
-    $(".btn").on('click', function (e) {
-        handleClick(e);
-    });
-
-    var url = noku.getCDNUrl();
-    var authorID = meme.author;
-    noku.getUserData(authorID, function (author) {
-        var pfp = author.pfp;
-        $(parent + " .op-pfp").html('<img class="pfp-image" src="' + url + pfp + '"  alt=""/>');
-        let op_user = $(parent + " .op-username");
-        op_user.html(author.username);
-        $('.page-title').html(author.username);
-        op_user.css('color', "#" + author.color);
-    });
-
-    var content = meme.mime_type;
-    alert()
-    if (content == null) return;
-
-    if (content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image swiper-zoom-target" src="' + url + meme.hash + '" />');
-    if (content.includes("video")) {
-        $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" muted loop autoplay><source src="' + url + meme.hash + '" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
-        $(parent + " .mute-control").click(function () {
-            toggleMute(parent);
-        });
-    }
-    if (content.includes("audio")) {
-        $(parent + " .meme-body").html('<audio class="meme-image meme-audio" controls><source src="' + url + meme.hash + '" type="' + content + '"/></audio>');
-        $(parent + " .mute-control").click(function () {
-            toggleMute(parent);
-        });
-    }
-
-    $(parent + " img").load(function (){
-        window.mySwipe.update();
-    });
-
-    $(parent + " video").load(function (){
-        window.mySwipe.update();
-    });
-
-    $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
-    window.mySwipe.update();
-}
 
 async function loadComments(meme){
     let id = meme.id;
@@ -379,6 +236,9 @@ async function loadComments(meme){
     });
 }
 function create_comment(comment, layer, parent, container) {
+    let liked = comment.liked;
+    let disliked = comment.disliked;
+
     let html = (
         '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
         '    <div class="comment-content">' +
@@ -391,9 +251,9 @@ function create_comment(comment, layer, parent, container) {
         '      <div class="comment-body">' + comment.content + '</div>' +
         '      <div class="comment-vote">' +
         '        <div class="float-left">' +
-        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
-        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
-        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
+        '          <div class="comment-like-count" id="comment-count-' + comment.id + '">' + (comment.likes - comment.dislikes) + '</div>' +
+        '          <div class="comment-like btn" data-comment="' + comment.id + '" id="comment-like-' + comment.id + '"></div>' +
+        '          <div class="comment-dislike btn" data-comment="' + comment.id + '" id="comment-dislike-"' + comment.id + '></div>' +
         '        </div>' +
         '        <div class="float-right">' +
         '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
@@ -405,6 +265,23 @@ function create_comment(comment, layer, parent, container) {
         '  </div>');
 
     container.prepend(html);
+
+    if (liked) {
+        $('#comment-' + comment.id + ' .comment-like').removeClass("comment-give");
+        $('#comment-' + comment.id + ' .comment-like').addClass("comment-given");
+    }
+    if (disliked) {
+        $('#comment-' + comment.id + ' .comment-dislike').removeClass("comment-take");
+        $('#comment-' + comment.id + ' .comment-dislike').addClass("comment-taken");
+    }
+
+    $("#comment-" + comment.id + " .comment-like").click(function (e){
+        likeComment(comment.id, noku);
+    });
+
+    $("#comment-" + comment.id + " .comment-dislike").click(function (e){
+        dislikeComment(comment.id, noku);
+    });
 
     noku.getUserData(comment.author, function (author) {
         let url = noku.getCDNUrl();
@@ -441,17 +318,6 @@ function create_comment(comment, layer, parent, container) {
             let comment_vote = t.parent().children(".comment-vote");
             comment_vote.css("padding-left", pad + "em");
             comment_vote.css("width", "calc(100% - " + pad + "em)");
-        });
-
-        $("#comment-" + comment.id + " .comment-jump").click(function (){
-            let id = $(this).data("comment");
-            let comment = $("#comment-" + id);
-            let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
-            let body = $("body, html");
-            body.animate({ scrollTop: comment.position().top });
-            body.promise().done(function() {
-                overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
-            });
         });
     });
 }
@@ -524,4 +390,172 @@ function getCommentByID(comments, id){
         if(comments[i].id === id) return comments[i];
     }
     return null;
+}
+function createNullMeme(container){
+    let app = $(container);
+    app.append(
+        '<div class="swiper-slide meme-container" id="NULLMEME" data-memeid="NULLMEME">\n' +
+        '  <div class="meme-op">\n' +
+        '    <div class="float-left">\n' +
+        '      <div class="op-pfp"></div>\n' +
+        '      <div class="op-username">Noku Team</div>\n' +
+        '    </div>\n' +
+        '    <div class="float-right">\n' +
+        '      <div class="btn btn-black mr-2 my-auto" data-command="none">No Touch!</div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '  <div class="meme-body swiper-zoom-container">\n' +
+        '    <div class="container p-6">\n' +
+        '      <h1>End of the line pal!</h1>\n' +
+        '      <p>Unfortunately you have reached the end of the meme stream. Come back for more later.</p>\n' +
+        '    </div>\n'+
+        '  </div>\n' +
+        '  <div class="meme-footer">\n' +
+        '    <div class="float-left">\n' +
+        '      <div class="meme-like-count"></div>\n' +
+        '      <div class="meme-take btn ml-1" data-command="none"></div>\n' +
+        '      <div class="meme-take btn" data-command="none"></div>\n' +
+        '    </div>\n' +
+        '    <div class="float-right">\n' +
+        '       <div class="meme-take btn mr-1" data-command="none"></div>\n' +
+        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
+        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>');
+}
+function createMeme(container, meme, focus) {
+    if (meme == null) return createNullMeme(container);
+    let id = meme.id;
+    let hash = meme.hash;
+    let liked = meme.liked;
+    let disliked = meme.disliked;
+    let author = meme.author;
+    let app = $(container);
+    var parent = '#' + hash;
+    let link = noku.getAPIUrl().substring(0, noku.getAPIUrl().length - 4) + "home/" + hash;
+    app.append(
+        '<div class="swiper-slide meme-container" id="' + hash + '" data-memeid="' + id + '">\n' +
+        '  <div class="meme-op">\n' +
+        '    <div class="float-left">\n' +
+        '      <div class="op-pfp"></div>\n' +
+        '      <div class="op-username"></div>\n' +
+        '    </div>\n' +
+        '    <div class="float-right">\n' +
+        '      <div class="btn btn-black mr-2 my-auto" data-command="viewprofile" data-id="' + author + '">View Profile</div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '  <div class="meme-body swiper-zoom-container">\n' +
+        '  </div>\n' +
+        '  <div class="meme-footer">\n' +
+        '    <div class="float-left">\n' +
+        '      <div class="meme-like-count" id="count-' + id + '"></div>\n' +
+        '      <div class="meme-give btn ml-1" data-command="like" id="like-' + id + '"></div>\n' +
+        '      <div class="meme-take btn" data-command="dislike" id="dislike-' + id + '"></div>\n' +
+        '    </div>\n' +
+        '    <div class="float-right">\n' +
+        '       <div class="meme-repub btn mr-1" data-command="repub"></div>\n' +
+        '       <button class="btn btn-clear meme-share mr-2" data-command="share" data-clipboard-text="' + link + '"></button>\n' +
+        '       <div class="meme-comment btn mr-2" data-command="comment"></div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>');
+
+    $('#' + hash + ' .meme-share').on('click', function (target) {
+        if (device.platform === 'browser') {
+            alert("Url Copied");
+        } else {
+            cordova.plugins.clipboard.copy(link);
+            window.plugins.toast.showWithOptions({
+                    message: "Copied URL",
+                    duration: "short", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
+                    position: "bottom",
+                    addPixelsY: -40  // added a negative value to move it up a bit (default 0)
+                }
+            );
+        }
+    });
+
+    if (liked) {
+        $('#like-' + id).removeClass("meme-give");
+        $('#like-' + id).addClass("meme-given");
+    }
+    if (disliked) {
+        $('#dislike-' + id).removeClass("meme-take");
+        $('#dislike-' + id).addClass("meme-taken");
+    }
+
+    var plat = device.platform;
+    if (plat === "browser") {
+    } else {
+        $(parent + " .meme-container").addClass("center-vertical");
+    }
+
+    $(".btn").on('click', function (e) {
+        handleClick(e);
+    });
+
+    var url = noku.getCDNUrl();
+    var authorID = meme.author;
+    noku.getUserData(authorID, function (author) {
+        var pfp = author.pfp;
+        $(parent + " .op-pfp").html('<img class="pfp-image" src="' + url + pfp + '"  alt=""/>');
+        $(".page-title").html("By: " + author.username);
+        let op_user = $(parent + " .op-username");
+        op_user.html(author.username);
+        op_user.css('color', "#" + author.color);
+    });
+
+    loadMemeContent(meme);
+
+    $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
+    
+}
+
+function loadMemeContent(meme){
+    if(meme.loaded) return;
+    meme.loaded = true;
+    let hash = meme.hash;
+    var parent = '#' + hash;
+    let url = noku.getCDNUrl();
+
+    var content = meme.mime_type;
+    if (content == null) return;
+
+    if (content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image swiper-zoom-target" src="' + url + meme.hash + '" />');
+    if (content.includes("embed")){
+        noku.getContent(url + meme.hash, function(response, worked){
+            if(!worked) return;
+            if(device.platform === "browser") {
+                $(parent + " .meme-body").html(response.data);
+            } else {
+                $(parent + " .meme-body").html('<iframe class="meme-embed" src="'+noku.getCDNUrl() + meme.hash+'" onload="resizeIframe(this)"/>');
+            }
+        });
+    }
+    if (content.includes("video")) {
+        $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" muted loop><source src="' + url + meme.hash + '" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
+        $(parent + " .mute-control").click(function () {
+            toggleMute(parent);
+        });
+    }
+    if (content.includes("audio")) {
+        $(parent + " .meme-body").html('<audio class="meme-image meme-audio" controls><source src="' + url + meme.hash + '" type="' + content + '"/></audio>');
+        $(parent + " .mute-control").click(function () {
+            toggleMute(parent);
+        });
+    }
+
+    $(parent + " .meme-image").one('load', function (){
+        
+    });
+
+    $(parent + " .meme-video").on('load', function(){
+        
+        if(focus) {
+            $(parent + " video")[0].autoplay = true;
+        }
+        play_media(meme);
+    });
+    
 }

@@ -8,7 +8,7 @@ class Noku {
         this.memes = [null];
         this.userdat = {};
         this.users = [];
-        this.version = "0.1.2C Beta";
+        this.version = "0.1.9C Beta";
     }
 
     testToken(callback){
@@ -121,6 +121,20 @@ class Noku {
         });
     }
 
+    getContent(url, callback){
+        const options = {
+            method: 'post',
+            data: { },
+            headers: { }
+        };
+
+        this.http.sendRequest(url, options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
     sendError(){
         const options = {
             method: 'post',
@@ -140,18 +154,18 @@ class Noku {
     }
 
     getAPIUrl() {
-        return "https://xemplarsoft.com/noku/api/";
+        return "https://noku.wtf/api/";
     }
 
     getUploadUrl() {
-        return "https://xemplarsoft.com/noku/upload";
+        return "https://noku.wtf/home/upload";
     }
 
-    getUserData(id, callback) {
-        if(id === this.uid && this.userdat != null){
-            callback(this.userdat);
-            return;
-        }
+    getUploadUrlUrl() {
+        return "https://noku.wtf/home/uploadurl";
+    }
+
+    async getUserData(id, callback) {
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "user_id": id },
@@ -196,7 +210,7 @@ class Noku {
         });
     }
 
-    getAllLikes(id, callback){
+    async getAllLikes(id, callback){
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "user_id": id },
@@ -210,7 +224,7 @@ class Noku {
         });
     }
 
-    getAllMemes(id, callback){
+    async getAllMemes(id, callback){
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "user_id": id },
@@ -224,7 +238,7 @@ class Noku {
         });
     }
 
-    getAllSubscribers(id, callback){
+    async getAllSubscribers(id, callback){
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "user_id": id },
@@ -252,7 +266,7 @@ class Noku {
         });
     }
 
-    getMemeData(id, callback){
+    async getMemeData(id, callback){
         const options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "id": id },
@@ -295,6 +309,21 @@ class Noku {
         });
     }
 
+    likeComment(id, state, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "id": id, "state":state },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "likecomment", options, function(response) {
+            callback(response, true);
+
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
     dislikeMeme(id, state, callback){
         const options = {
             method: 'post',
@@ -303,6 +332,20 @@ class Noku {
         };
 
         this.http.sendRequest(this.getAPIUrl() + "dislikememe", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    dislikeComment(id, state, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "id": id, "state":state },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "dislikecomment", options, function(response) {
             callback(response, true);
         }, function(response) {
             callback(response, false);
@@ -337,7 +380,49 @@ class Noku {
         });
     }
 
-    requestSignIn() {
+    uploadUrlMeme(url, callback) {
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "url": url },
+            headers: { }
+        };
 
+        this.http.sendRequest(this.getUploadUrlUrl(), options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    getMemeIDFromURL(url, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "url": url },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "getmemeidfromurl", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
+    }
+
+    /********************************
+     * Settings Functions
+     ********************************/
+    
+    settingPFP(link, callback){
+        const options = {
+            method: 'post',
+            data: { "uid": this.uid, "token": this.token, "link": link },
+            headers: { }
+        };
+
+        this.http.sendRequest(this.getAPIUrl() + "settingpfp", options, function(response) {
+            callback(response, true);
+        }, function(response) {
+            callback(response, false);
+        });
     }
 }

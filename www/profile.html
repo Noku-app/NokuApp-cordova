@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://*.xemplarsoft.com * 'unsafe-inline' 'self' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;img-src * data: 'unsafe-inline' 'self' content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://*.xemplarsoft.com * gap: ws: https://*.noku.wtf * 'unsafe-inline' 'self' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;img-src * data: 'unsafe-inline' 'self' content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -60,6 +60,7 @@
                 <div class="profile-actions">
                     <div class="btn icon-memes" data-command="memes"></div>
                     <div class="btn icon-upload" data-command="upload"></div>
+                    <div class="btn icon-settings" data-command="settings"></div>
                 </div>
                 <div class="profile-content">
                     <div class="swiper-container">
@@ -68,20 +69,47 @@
                             </div>
                             <div class="swiper-slide" id="upload">
                                 <div class="upload-option">
-                                    <div class="btn icon-image" data-command="upload-image"></div>
-                                    <div class="upload-label">Upload Image</div>
+                                    <div class="btn icon-link" data-command="upload-link"></div>
+                                    <div class="upload-label">Upload Link</div>
                                 </div>
-                                <div class="upload-option">
-                                    <div class="btn icon-video" data-command="upload-video"></div>
-                                    <div class="upload-label">Upload Video</div>
+                            </div>
+                            <div class="swiper-slide" id="settings">
+                                <div class="setting-header">Profile Management</div>
+                                <div class="setting" data-command="setting-pfp">
+                                    <div class="setting-info">
+                                        <div class="setting-label">Change PFP</div>
+                                        <div class="setting-desc">Change your user profile picture.</div>
+                                    </div>
+                                    <div class="btn btn-clear setting-btn"></div>
                                 </div>
-                                <div class="upload-option">
-                                    <div class="btn icon-camera" data-command="take-image"></div>
-                                    <div class="upload-label">Take Picture</div>
+                                <div class="setting" data-command="setting-cover">
+                                    <div class="setting-info">
+                                        <div class="setting-label">Change Cover</div>
+                                        <div class="setting-desc">Change your user cover photo.</div>
+                                    </div>
+                                    <div class="btn btn-clear setting-btn"></div>
                                 </div>
-                                <div class="upload-option">
-                                    <div class="btn icon-camera-video" data-command="take-video"></div>
-                                    <div class="upload-label">Take Video</div>
+                                <div class="setting" data-command="setting-email">
+                                    <div class="setting-info">
+                                        <div class="setting-label">Change Email</div>
+                                        <div class="setting-desc">Change your email address.</div>
+                                    </div>
+                                    <div class="btn btn-clear setting-btn"></div>
+                                </div>
+                                <div class="setting-header">Session Management</div>
+                                <div class="setting" data-command="setting-logout">
+                                    <div class="setting-info">
+                                        <div class="setting-label">Logut</div>
+                                        <div class="setting-desc">Log out of Noku</div>
+                                    </div>
+                                    <div class="btn btn-clear setting-btn"></div>
+                                </div>
+                                <div class="setting" data-command="setting-invalidate">
+                                    <div class="setting-info">
+                                        <div class="setting-label">Invalidate Token</div>
+                                        <div class="setting-desc">Logs you out of Noku on every device that you have signed in with, including this one.</div>
+                                    </div>
+                                    <div class="btn btn-clear setting-btn"></div>
                                 </div>
                             </div>
                         </div>

@@ -188,6 +188,17 @@ h1 {
   width: 100%;
 }
 
+#settings{
+  display: block;
+  width: 100%;
+}
+
+#settings > *{
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 #upload{
   display: flex;
   flex-wrap: wrap;
@@ -214,6 +225,43 @@ h1 {
 #memes > *{
   flex: 0 1 calc(50% - 2em);
   box-sizing: border-box;
+}
+
+@setting-button-size: 4.5em;
+@setting-padding: 0.25em;
+@setting-height: 5em;
+@setting-font-size: 1em;
+
+.setting{
+  display: block;
+  position: relative;
+  width: 100%;
+  height: @setting-height;
+}
+
+.setting-info{
+  display: inline-block;
+  width: calc(100% - (@setting-button-size + (@setting-padding * 2)));
+}
+
+.setting-info > *{
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding-left: @setting-padding;
+  padding-right: @setting-padding;
+  padding-top: @setting-padding;
+}
+
+.setting-label{
+  height: (@setting-padding * 2) + @setting-font-size;
+  color: @app-foreground;
+}
+
+.setting-desc{
+  height: @setting-height - (@setting-padding * 2) + @setting-font-size;
+  font-size: @setting-font-size * 0.75;
+  color: @app-secondary;
 }
 
 .meme-sm{

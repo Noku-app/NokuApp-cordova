@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="wtf.noku.app" version="1.0.0"
+<widget id="wtf.noku.app" version="0.2.0C"
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:cdv="http://cordova.apache.org/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
@@ -37,6 +37,14 @@
                         android:name="android.support.FILE_PROVIDER_PATHS"
                         android:resource="@xml/provider_paths" />
             </provider>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="noku.wtf" android:scheme="http" />
+                <data android:pathPrefix="/home" />
+            </intent-filter>
+            <preference name="AndroidLaunchMode" value="singleTask" />
         </application>
     </edit-config>
     <platform name="android">

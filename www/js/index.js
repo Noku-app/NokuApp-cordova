@@ -24,18 +24,48 @@ document.addEventListener('deviceready', onDeviceReady, false);
 var muted = true;
 let noku = new Noku();
 let storage = window.localStorage;
+
+// Control Variables
+let PREF_LOAD_COUNT = 5;
+var INIT_MEMES = false;
+var SIGNED_IN = false;
+var IS_MOD = false;
+
 var cb = null;
 var isSubmissions;
 
 var comment_posted = false;
+var pageTitle;
 
 function onDeviceReady() {
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+    let handle = function(url){
+        console.log("Open Url" + url);
+        noku.getMemeIDFromURL(url, function(response, worked){
+            if(!worked) return;
+            var id = NaN;
+            try{
+                id = JSON.parse(response.data).data;
+                id = parseInt(id);
+            } catch (e) {
+                id = NaN;
+                return;
+            }
+            if(isNaN(id)) return;
+            storage.setItem("meme.id", id);
+            redirect("meme.html");
+        });
+    };
+    window.plugins.webintent.onNewIntent(handle);
+    window.plugins.webintent.getUri(handle);
 
+    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+    pageTitle = $(".page-title");
     noku.init();
     noku.setCredentials(storage.getItem("auth_token"), storage.getItem("uid"));
-    noku.getThisUser(function (){
+
+    if(noku.uid != null) noku.getThisUser(function (){
         noku.userdat = JSON.parse(storage.getItem("userdat"));
+        IS_MOD = noku.userdat['perms'] > 31;
         console.log(noku.userdat);
     });
     $(".btn").on('click', function (e){
@@ -57,11 +87,8 @@ function handleTokenCheck(response, worked){
         data.valid = false;
     }
 
-    if(data.valid === true){
-        setup();
-    } else {
-        redirect("signin.html");
-    }
+    SIGNED_IN = data.valid === true;
+    setup();
 }
 
 function redirect(page){
@@ -82,10 +109,10 @@ function handleClick(e){
     var method = btn.data("command");
 
     if(method === "refresh") window.location.reload(true);
-    if(method === "repub") repub();
-    if(method === "subscribe") subscribe();
-    if(method === "like") like(parent, noku);
-    if(method === "dislike") dislike(parent, noku);
+    if(method === "repub" && SIGNED_IN) repub();
+    if(method === "subscribe" && SIGNED_IN) subscribe();
+    if(method === "like" && SIGNED_IN) likeMeme(parent, noku);
+    if(method === "dislike" && SIGNED_IN) dislikeMeme(parent, noku);
     if(method === "mute") toggleMute();
 
     if(method === "menu-close") exitMenu();
@@ -124,6 +151,7 @@ function handleClick(e){
                 dislikes: 0,
                 content: content
             }, 0, null, $('.comments'));
+            $(".content").val("");
         });
         box.hide();
     }
@@ -175,7 +203,7 @@ function setup(){
     var ops = {
         direction: 'horizontal',
         autoHeight: true,
-        loop: false,
+        loop: true,
         effect: 'coverflow',
         zoom: {
             maxRatio: 5,
@@ -201,8 +229,8 @@ function setup(){
     noku.checkUpdate(function (update){
         navigator.notification.confirm(
             ("New: " + update.version + "\n" +
-            "Yours: " + noku.version + "\n" +
-            "And Update is available to download, would you like to update?"),
+                "Yours: " + noku.version + "\n" +
+                "And Update is available to download, would you like to update?"),
             function (number){
                 if(number === 1){
                     downloadUpdate();
@@ -213,20 +241,40 @@ function setup(){
 
     let swiper = window.mySwipe;
     swiper.on('transitionStart', function () {
+        let left = this.previousIndex < this.activeIndex;
+        if(left){
+            if(typeof noku.memes[this.activeIndex - 5] === 'undefined') { }
+            else unloadMemeContent(noku.memes[this.activeIndex - 5]);
+        } else {
+            if(typeof noku.memes[this.activeIndex + 5] === 'undefined') { }
+            else unloadMemeContent(noku.memes[this.activeIndex + 5]);
+        }
         stop_media(noku.memes[this.previousIndex]);
         $(".post-comment").hide();
     });
     swiper.on('transitionEnd', function () {
-        loadComments(noku.memes[this.realIndex]);
-        play_media(noku.memes[this.realIndex]);
-        storage.setItem(isSubmissions ? "sub.last" : "dank.last", this.realIndex);
+        updatePageTitle((this.activeIndex + 1), Object.keys(noku.memes).length);
+        let curr = noku.memes[this.activeIndex];
+
+        for(var i = 0; i < 11; i++){
+            let pos = indexToPos(this.activeIndex, (i - 5));
+            if(noku.memes[pos].loaded) continue;
+
+            createMeme("#slide-" + (this.activeIndex + (i - 5)) % 11, memes[pos], i === 5);
+            loadMemeContent(noku.memes[pos]);
+        }
+
+        loadComments(curr);
+
+        play_media(curr);
+        storage.setItem(isSubmissions ? "sub.last" : "dank.last", this.activeIndex);
     });
     /*
     swiper.on('slideChange', function () {
         if(swiper.isEnd){
             const length = swiper.slides.length;
             for(var i = 0; i < length; i++){
-                if(i === swiper.realIndex) continue;
+                if(i === swiper.activeIndex) continue;
                 swiper.slides[i].
                 swiper.removeSlide(i);
             }
@@ -236,6 +284,11 @@ function setup(){
     });
     /**/
 }
+
+function updatePageTitle(index, max){
+    pageTitle.html((isSubmissions ? "Submissions: " : "Dank Memes: ") + '<span style="font-size: 0.9em;">' + index + "/" + max + '</span>');
+}
+
 function downloadUpdate() {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function onFileSystemSuccess(fileSystem) {
         var storageLocation = "";
@@ -260,33 +313,6 @@ function downloadUpdate() {
     }, function (error){ alert("Download update failed: " + error.code); });
 }
 
-function loadMemes(start, length){
-    if(start !== 0){
-        start++;
-    }
-    noku.getMemesLimit(start, length, function(response, worked){
-        const swipe = window.mySwipe;
-        if(!worked){
-            createMeme(".swiper-wrapper", null);
-            return;
-        }
-        var memes;
-        try{
-            let data = JSON.parse(response.data);
-            memes = data.data;
-        } catch (e){
-            memes = [].push(null);
-        }
-        noku.memes = memes;
-        for(var x = 0; x < memes.length; x++){
-            createMeme(".swiper-wrapper", memes[x]);
-        }
-
-        loadComments(memes[0]);
-        swipe.update();
-        swipe.slideTo(0, 0, true);
-    });
-}
 function loadAllMemes(type){
     noku.getMemes(type, function(response, worked){
         console.log(response);
@@ -302,20 +328,32 @@ function loadAllMemes(type){
         } catch (e){
             memes = [].push(null);
         }
-        noku.memes = memes;
-        for(var x = 0; x < memes.length; x++){
-            createMeme(".swiper-wrapper", memes[x]);
-        }
-
-        swipe.update();
 
         var lastSeen = storage.getItem(isSubmissions ? "sub.last" : "dank.last");
         if(lastSeen == null) lastSeen = 0;
 
-        loadComments(memes[lastSeen]);
+        noku.memes = memes;
+        for(var x = 0; x < memes.length; x++){
+            memes[x].loaded = false;
+        }
+
+        for(var i = 0; i < 11; i++){
+            let pos = indexToPos(this.activeIndex, (i - 5));
+            createMeme("#slide-" + (this.activeIndex + (i - 5)) % 11, memes[pos], i === 5);
+            loadMemeContent(memes[pos]);
+        }
+
+        swipe.update();
+
+        play_media(noku.memes[lastSeen]);
         swipe.slideTo(lastSeen, 0, true);
     });
 }
+
+function indexToPos(center, index){
+    return center + ((index % 11) - 5);
+}
+
 async function loadComments(meme){
     let id = meme.id;
     let comment_container = $('.comments');
@@ -365,6 +403,9 @@ async function loadComments(meme){
     });
 }
 function create_comment(comment, layer, parent, container) {
+    let liked = comment.liked;
+    let disliked = comment.disliked;
+
     let html = (
         '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
         '    <div class="comment-content">' +
@@ -377,9 +418,9 @@ function create_comment(comment, layer, parent, container) {
         '      <div class="comment-body">' + comment.content + '</div>' +
         '      <div class="comment-vote">' +
         '        <div class="float-left">' +
-        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
-        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
-        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
+        '          <div class="comment-like-count" id="comment-count-' + comment.id + '">' + (comment.likes - comment.dislikes) + '</div>' +
+        '          <div class="comment-like btn" data-comment="' + comment.id + '" id="comment-like-' + comment.id + '"></div>' +
+        '          <div class="comment-dislike btn" data-comment="' + comment.id + '" id="comment-dislike-"' + comment.id + '></div>' +
         '        </div>' +
         '        <div class="float-right">' +
         '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
@@ -391,6 +432,23 @@ function create_comment(comment, layer, parent, container) {
         '  </div>');
 
     container.prepend(html);
+
+    if (liked) {
+        $('#comment-' + comment.id + ' .comment-like').removeClass("comment-give");
+        $('#comment-' + comment.id + ' .comment-like').addClass("comment-given");
+    }
+    if (disliked) {
+        $('#comment-' + comment.id + ' .comment-dislike').removeClass("comment-take");
+        $('#comment-' + comment.id + ' .comment-dislike').addClass("comment-taken");
+    }
+
+    $("#comment-" + comment.id + " .comment-like").click(function (e){
+        likeComment(comment.id, noku);
+    });
+
+    $("#comment-" + comment.id + " .comment-dislike").click(function (e){
+        dislikeComment(comment.id, noku);
+    });
 
     noku.getUserData(comment.author, function (author) {
         let url = noku.getCDNUrl();
@@ -428,17 +486,6 @@ function create_comment(comment, layer, parent, container) {
             comment_vote.css("padding-left", pad + "em");
             comment_vote.css("width", "calc(100% - " + pad + "em)");
         });
-
-        $("#comment-" + comment.id + " .comment-jump").click(function (){
-            let id = $(this).data("comment");
-            let comment = $("#comment-" + id);
-            let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
-            let body = $("body, html");
-            body.animate({ scrollTop: comment.position().top });
-            body.promise().done(function() {
-                overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
-            });
-        });
     });
 }
 function create_posted_comment(comment, layer, parent, container) {
@@ -452,7 +499,7 @@ function create_posted_comment(comment, layer, parent, container) {
         '        </div>' +
         '        <div class="float-right extra">' +
         (parent != null ? '          <div class="comment-reply-to">Reply To</div>' +
-        '          <div class="comment-jump btn" data-comment="' + parent.id + '"></div>' : '') +
+            '          <div class="comment-jump btn" data-comment="' + parent.id + '"></div>' : '') +
         '        </div>' +
         '      </div>' +
         '      <div class="comment-body">' + comment.content + '</div>' +
@@ -544,7 +591,7 @@ function createNullMeme(container){
         '  </div>\n' +
         '</div>');
 }
-function createMeme(container, meme) {
+function createMeme(container, meme, focus) {
     if (meme == null) return createNullMeme(container);
     let id = meme.id;
     let hash = meme.hash;
@@ -553,9 +600,9 @@ function createMeme(container, meme) {
     let author = meme.author;
     let app = $(container);
     var parent = '#' + hash;
-    let link = noku.getAPIUrl().substring(0, noku.getAPIUrl().length - 4) + hash;
+    let link = noku.getAPIUrl().substring(0, noku.getAPIUrl().length - 4) + "home/" + hash;
     app.append(
-        '<div class="swiper-slide meme-container" id="' + hash + '" data-memeid="' + id + '">\n' +
+        '<div class="meme-container" id="' + hash + '" data-memeid="' + id + '">\n' +
         '  <div class="meme-op">\n' +
         '    <div class="float-left">\n' +
         '      <div class="op-pfp"></div>\n' +
@@ -569,14 +616,15 @@ function createMeme(container, meme) {
         '  </div>\n' +
         '  <div class="meme-footer">\n' +
         '    <div class="float-left">\n' +
-        '      <div class="meme-like-count" id="count-' + id + '"></div>\n' +
+        '      <div class="meme-like-count" id="count-' + id + '"></div>\n' + (SIGNED_IN ?
         '      <div class="meme-give btn ml-1" data-command="like" id="like-' + id + '"></div>\n' +
-        '      <div class="meme-take btn" data-command="dislike" id="dislike-' + id + '"></div>\n' +
+        '      <div class="meme-take btn" data-command="dislike" id="dislike-' + id + '"></div>\n' : '') +
         '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '       <div class="meme-repub btn mr-1" data-command="repub"></div>\n' +
-        '       <button class="btn btn-clear meme-share mr-2" data-command="share" data-clipboard-text="' + link + '"></button>\n' +
-        '       <div class="meme-comment btn mr-2" data-command="comment"></div>\n' +
+        '    <div class="float-right">\n' + (IS_MOD ?
+        '       <div class="meme-flag btn mr-1" data-command="flag"></div>\n' : '') + (SIGNED_IN ?
+        '       <div class="meme-repub btn mr-1" data-command="repub"></div>\n' : '') +
+        '       <button class="btn btn-clear meme-share mr-2" data-command="share" data-clipboard-text="' + link + '"></button>\n' + (SIGNED_IN ?
+        '       <div class="meme-comment btn mr-2" data-command="comment"></div>\n' : '') +
         '    </div>\n' +
         '  </div>\n' +
         '</div>');
@@ -625,12 +673,43 @@ function createMeme(container, meme) {
         op_user.css('color', "#" + author.color);
     });
 
+    //Load when swiped to
+
+    $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
+    window.mySwipe.update();
+}
+
+function unloadMemeContent(meme){
+    if(!meme.loaded) return;
+    meme.loaded = false;
+    let hash = meme.hash;
+    var parent = '#' + hash;
+    $(parent + " .meme-body").html('');
+}
+
+function loadMemeContent(meme){
+    if(meme.loaded) return;
+    meme.loaded = true;
+    let hash = meme.hash;
+    var parent = '#' + hash;
+    let url = noku.getCDNUrl();
+
     var content = meme.mime_type;
     if (content == null) return;
 
     if (content.includes("image")) $(parent + " .meme-body").html('<img class="meme-image swiper-zoom-target" src="' + url + meme.hash + '" />');
+    if (content.includes("embed")){
+        noku.getContent(url + meme.hash, function(response, worked){
+            if(!worked) return;
+            if(device.platform === "browser") {
+                $(parent + " .meme-body").html(response.data);
+            } else {
+                $(parent + " .meme-body").html('<iframe class="meme-embed" src="'+noku.getCDNUrl() + meme.hash+'" onload="resizeIframe(this)"/>');
+            }
+        });
+    }
     if (content.includes("video")) {
-        $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" muted loop autoplay><source src="' + url + meme.hash + '" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
+        $(parent + " .meme-body").html('<video class="meme-image meme-video swiper-zoom-target" muted loop><source src="' + url + meme.hash + '" type="' + content + '"/></video><div class="mute-control btn" data-command="mute"></div>');
         $(parent + " .mute-control").click(function () {
             toggleMute(parent);
         });
@@ -642,14 +721,16 @@ function createMeme(container, meme) {
         });
     }
 
-    $(parent + " img").load(function (){
+    $(parent + " .meme-image").one('load', function (){
         window.mySwipe.update();
     });
 
-    $(parent + " video").load(function (){
+    $(parent + " .meme-video").on('load', function(){
         window.mySwipe.update();
+        if(focus) {
+            $(parent + " video")[0].autoplay = true;
+        }
+        play_media(meme);
     });
-
-    $(parent + " .meme-like-count").html(meme.likes - meme.dislikes);
     window.mySwipe.update();
 }
