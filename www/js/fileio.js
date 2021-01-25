@@ -54,7 +54,7 @@ const readFile = (id, fileEntry, success, error) => {
     };
     fileEntry.file(
         file => {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onloadend = () => {
                 alert(this.result);
                 success(id, this.result);
