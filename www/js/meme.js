@@ -21,305 +21,335 @@
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 
 document.addEventListener('deviceready', onDeviceReady, false);
-var muted = true;
-let noku = new Noku();
-let storage = window.localStorage;
+var muted = true, comment_posted = false;
+let noku = new Noku(), storage = window.localStorage;
 var cb;
 
-var comment_posted = false;
-
-function onDeviceReady() {
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+const onDeviceReady = () => {
+    console.log(`Running cordova-${cordova.platformId}@${cordova.version}`);
 
     noku.init();
-    noku.setCredentials(storage.getItem("auth_token"), storage.getItem("uid"));
+    noku.setCredentials(storage.getItem(`auth_token`), storage.getItem(`uid`));
 
-    $(".btn").click(function (e){
-        handleClick(e);
-    });
+    $(`.btn`).click(
+        e => {
+            handleClick(e);
+        }
+    );
 
-    getValue("em-measure");
+    getValue(`em-measure`);
 
     noku.testToken(handleTokenCheck)
 }
-function handleTokenCheck(response, worked){
-    var data;
+
+const handleTokenCheck = (response, worked) => {
+    let data;
     try {
         data = JSON.parse(response.data);
     } catch (e){
-        data = {};
-        data.valid = false;
+        data = {}, data.valid = false;
     }
 
-    if(data.valid === true){
+    if(data.valid){
         setup();
     } else {
-        redirect("signin.html");
+        redirect(`signin.html`);
     }
 }
 
-function redirect(page){
-    $("body").fadeOut(100, function(){
-        window.location.href = page;
-    });
+const redirect = page => {
+    $(`body`).fadeOut(
+        100, 
+        () => {
+            window.location.href = page;
+        }
+    );
 }
-var em; function getValue(id){
-    var div = document.getElementById(id);
+
+var em; 
+
+const getValue = id => {
+    let div = document.getElementById(id);
     div.style.height = '1em';
     return ( em = div.offsetHeight );
 }
-function toggleMute(parent){
+
+const toggleMute = parent => {
     if(muted){
-        $(parent + " .meme-video").prop('muted', false);
-        $(parent + " .mute-control").css('background-image', 'url("../www/img/audio_on.png")');
+        $(`${parent} .meme-video`).prop(`muted`, false);
+        $(`${parent} .mute-control`).css(`background-image`, `url("../www/img/audio_on.png")`);
         muted = false;
     } else {
-        $(parent + " .meme-video").prop('muted', true);
-        $(parent + " .mute-control").css('background-image', 'url("../www/img/audio_off.png")');
+        $(`${parent} .meme-video`).prop(`muted`, true);
+        $(`${parent} .mute-control`).css(`background-image`, `url("../www/img/audio_off.png")`);
         muted = true;
     }
 }
-function handleClick(e){
-    var btn = $(e.target);
-    var method = btn.data("command");
-    let parent = btn.closest(".swiper-slide");
+const handleClick = e => {
+    let btn = $(e.target), method = btn.data(`command`), parent = btn.closest(`.swiper-slide`);
 
     //if(method === "upload") upload();
-    if(method === "mute") toggleMute();
-    if(method === "like") like(parent, noku);
-    if(method === "dislike") dislike(parent, noku);
+    if(method === `mute`) toggleMute();
+    if(method === `like`) like(parent, noku);
+    if(method === `dislike`) dislike(parent, noku);
 
-    if(method === "profile") profile();
-    if(method === "submissions") redirect("submissions.html");
-    if(method === "dank") redirect("index.html");
-    if(method === "menu-close") exitMenu();
-    if(method === "menu") enterMenu();
+    if(method === `profile`) profile();
+    if(method === `submissions`) redirect(`submissions.html`);
+    if(method === `dank`) redirect(`index.html`);
+    if(method === `menu-close`) exitMenu();
+    if(method === `menu`) enterMenu();
 
-    if(method === "comment"){
-        let box = $(".post-comment");
+    if(method === `comment`){
+        let box = $(`.post-comment`);
         box.show();
-        box.data('replyTo', -1);
-        box.data('meme', parent.data('memeid'));
+        box.data(`replyTo`, -1);
+        box.data(`meme`, parent.data(`memeid`));
         comment_posted = false;
     }
-    if(method === "postcomment"){
+    if(method === `postcomment`){
         if(comment_posted) return;
 
         comment_posted = true;
-        let box = $(".post-comment");
-        let replyTo = box.data('replyTo');
-        let meme = box.data('meme');
-        let content = $(".content").val();
-        noku.postComment(meme, content, replyTo, function (response, worked){
-            var data;
-            try {
-                data = JSON.parse(response.data);
-            } catch (e){
-                data = {};
-                data.valid = false;
-                alert(JSON.stringify(response));
+        let box = $(`.post-comment`);
+        let replyTo = box.data(`replyTo`);
+        let meme = box.data(`meme`);
+        let content = $(`.content`).val();
+        noku.postComment(
+            meme, 
+            content, 
+            replyTo, 
+            (response, worked) => {
+                let data;
+                try {
+                    data = JSON.parse(response.data);
+                } catch (e){
+                    data = {};
+                    data.valid = false;
+                    alert(JSON.stringify(response));
+                }
+                create_posted_comment({
+                    id: data.data.id,
+                    likes: 0,
+                    dislikes: 0,
+                    content: content
+                }, 0, null, $(`.comments`));
             }
-            create_posted_comment({
-                id: data.data.id,
-                likes: 0,
-                dislikes: 0,
-                content: content
-            }, 0, null, $('.comments'));
-        });
+        );
         box.hide();
     }
-    if(method === "viewprofile") viewprofile(btn.data("id"));
+    if(method === `viewprofile`) viewprofile(btn.data(`id`));
 }
 
-function viewprofile(id){
-    storage.setItem("view.id", id);
-    redirect("profile.html");
+const viewprofile = id => {
+    storage.setItem(`view.id`, id);
+    redirect(`profile.html`);
 }
 
-function profile(){
-    storage.setItem("view.id", noku.uid);
-    redirect("profile.html");
+const profile = () => {
+    storage.setItem(`view.id`, noku.uid);
+    redirect(`profile.html`);
 }
 
-function enterMenu() {
-    $('#sidemenu').css({'display': 'block'}).addClass('animated slideInRight');
-    $('#overlay').fadeIn();
+const enterMenu = () => {
+    $(`#sidemenu`).css({display: `block`}).addClass(`animated slideInRight`);
+    $(`#overlay`).fadeIn();
 
-    let close = $('#menu-close');
-    close.removeClass("hide");
-}
-function exitMenu() {
-    let side = $('#sidemenu');
-    side.addClass('animated slideOutRight');
-    side.css({'display': 'none'});
-
-    $('#overlay').fadeOut();
-    let close = $('#menu-close');
-    close.addClass("hide");
+    let close = $(`#menu-close`);
+    close.removeClass(`hide`);
 }
 
-function setup(){
-    cb = new ClipboardJS(".meme-share");
-    $("body").fadeIn(100, function(){});
+const exitMenu = () => {
+    let side = $(`#sidemenu`);
+    side.addClass(`animated slideOutRight`);
+    side.css({display: `none`});
+
+    $(`#overlay`).fadeOut();
+    let close = $(`#menu-close`);
+    close.addClass(`hide`);
+}
+
+const setup = () => {
+    cb = new ClipboardJS(`.meme-share`);
+    $(`body`).fadeIn(100, ()=>{});
     let id = getMemeID();
-    noku.getMemeData(id, function (response, worked){
-        if(!worked) return;
+    noku.getMemeData(
+        id, 
+        (response, worked) => {
+            if(!worked) {
+                return
+            }
 
-        var meme;
-        try {
-            meme = JSON.parse(response.data);
-            if(meme.error === true) {
-                console.log(meme.data);
+            let meme;
+            try {
+                meme = JSON.parse(response.data);
+                if(meme.error === true) {
+                    console.log(meme.data);
+                    meme = null;
+                }
+                else meme = meme.data;
+
+            } catch (e){
+                console.log(e);
+                console.log(response);
                 meme = null;
             }
-            else meme = meme.data;
+            console.log(meme);
 
-        } catch (e){
-            console.log(e);
-            console.log(response);
-            meme = null;
+            createMeme(`.meme-content`, meme);
+            loadComments(meme);
         }
-        console.log(meme);
-
-        createMeme(".meme-content", meme);
-        loadComments(meme);
-    });
+    );
 }
 
-
-async function loadComments(meme){
+const loadComments = async meme => {
     let id = meme.id;
-    let comment_container = $('.comments');
-    comment_container.html('');
-    noku.getCommentsByID(id, function(response, worked){
-        if(!worked) return;
-        var comments;
-        try {
-            comments = JSON.parse(response.data).data;
-        } catch (e){
-            console.log(e);
-            console.log(response);
-            alert(JSON.stringify(response));
-            comments = [];
-        }
+    let comment_container = $(`.comments`);
+    comment_container.html(``);
+    noku.getCommentsByID(
+        id, 
+        (response, worked) => {
+            if(!worked) {
+                return
+            }
+            let comments;
+            try {
+                comments = JSON.parse(response.data).data;
+            } catch (e){
+                console.log(e);
+                console.log(response);
+                alert(JSON.stringify(response));
+                comments = [];
+            }
 
-        console.log(comments);
+            console.log(comments);
 
-        var temp = [];
-        for(var i = 0; i < comments.length; i++){
-            if(comments[i].replyTo === -1){
-                temp.push(comments[i]);
+            var temp = [];
+            for(let i in comments){
+                if(comments[i].replyTo === -1){
+                    temp.push(comments[i]);
+                }
             }
-        }
-        for(i = 0; i < comments.length; i++){
-            if(comments[i].replyTo !== -1){
-                temp.push(comments[i]);
+            for(let i in comments){
+                if(comments[i].replyTo !== -1){
+                    temp.push(comments[i]);
+                }
             }
-        }
-        comments = temp;
-        temp = null;
+            comments = temp, temp = null
 
-        for(i = 0; i < comments.length; i++){
-            let current = comments[i];
-            if(current.replyTo === -1){
-                if(current.author === noku.uid) create_posted_comment(current, 0, null, comment_container);
-                else create_comment(current, 0, null, comment_container);
-            }
-            else {
-                let parent = getCommentByID(comments, current.replyTo);
-                let parent_comment = $("#comment-" + current.replyTo + " .comment-replies");
-                let parent_comment_header = $("#comment-" + current.replyTo + " .comment-head");
-                if(current.author === noku.uid) create_posted_comment(current, parent_comment_header.data("layer") + 1, parent, parent_comment);
-                else create_comment(current, parent_comment_header.data("layer") + 1, parent, parent_comment);
+            for(let i in comments){
+                let current = comments[i];
+                if(current.replyTo === -1){
+                    if(current.author === noku.uid) create_posted_comment(current, 0, null, comment_container);
+                    else create_comment(current, 0, null, comment_container);
+                }
+                else {
+                    let parent = getCommentByID(comments, current.replyTo), 
+                        parent_comment = $(`#comment-${current.replyTo} .comment-replies`), 
+                        parent_comment_header = $(`#comment-${current.replyTo} .comment-head`);
+                    if(current.author === noku.uid) create_posted_comment(current, parent_comment_header.data(`layer`) + 1, parent, parent_comment);
+                    else create_comment(current, parent_comment_header.data(`layer`) + 1, parent, parent_comment);
+                }
             }
         }
-    });
+    );
 }
-function create_comment(comment, layer, parent, container) {
-    let liked = comment.liked;
-    let disliked = comment.disliked;
 
-    let html = (
-        '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
-        '    <div class="comment-content">' +
-        '      <div class="comment-head" data-layer="' + layer + '">' +
-        '        <div class="float-left user-data">' +
-        '        </div>' +
-        '        <div class="float-right extra">' +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-body">' + comment.content + '</div>' +
-        '      <div class="comment-vote">' +
-        '        <div class="float-left">' +
-        '          <div class="comment-like-count" id="comment-count-' + comment.id + '">' + (comment.likes - comment.dislikes) + '</div>' +
-        '          <div class="comment-like btn" data-comment="' + comment.id + '" id="comment-like-' + comment.id + '"></div>' +
-        '          <div class="comment-dislike btn" data-comment="' + comment.id + '" id="comment-dislike-"' + comment.id + '></div>' +
-        '        </div>' +
-        '        <div class="float-right">' +
-        '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-overlay"></div>' +
-        '    </div>' +
-        '    <div class="comment-replies"></div>' +
-        '  </div>');
+const create_comment = (comment, layer, parent, container) => {
+    let liked = comment.liked, disliked = comment.disliked;
 
+    let html = `
+        <div class="comment${parent == null ? ` comment-root` : ``}" id="comment-${comment.id}">
+            <div class="comment-content">
+                <div class="comment-head" data-layer="${layer}">
+                    <div class="float-left user-data">
+                    </div>
+                    <div class="float-right extra">
+                    </div>
+                </div>
+                <div class="comment-body">${comment.content}</div>
+                <div class="comment-vote">
+                    <div class="float-left">
+                        <div class="comment-like-count" id="comment-count-${comment.id}">${comment.likes - comment.dislikes}</div>
+                        <div class="comment-like btn" data-comment="${comment.id}" id="comment-like-${comment.id}"></div>
+                        <div class="comment-dislike btn" data-comment="${comment.id}" id="comment-dislike-${comment.id}></div>
+                    </div>
+                    <div class="float-right">
+                        <div class="comment-reply btn" data-comment"${comment.id}"></div>
+                    </div>
+                </div>
+                <div class="comment-overlay"></div>
+            </div>
+            <div class="comment-replies"></div>
+        </div>
+    `
     container.prepend(html);
 
     if (liked) {
-        $('#comment-' + comment.id + ' .comment-like').removeClass("comment-give");
-        $('#comment-' + comment.id + ' .comment-like').addClass("comment-given");
+        $(`#comment-${comment.id} .comment-like`).removeClass(`comment-give`);
+        $(`#comment-${comment.id} .comment-like`).addClass(`comment-given`);
     }
     if (disliked) {
-        $('#comment-' + comment.id + ' .comment-dislike').removeClass("comment-take");
-        $('#comment-' + comment.id + ' .comment-dislike').addClass("comment-taken");
+        $(`#comment-${comment.id} .comment-dislike`).removeClass(`comment-take`);
+        $(`#comment-${comment.id} .comment-dislike`).addClass(`comment-taken`);
     }
 
-    $("#comment-" + comment.id + " .comment-like").click(function (e){
-        likeComment(comment.id, noku);
-    });
+    $(`#comment-${comment.id} .comment-like`).click(
+        e => {
+            likeComment(comment.id, noku);
+        }
+    );
 
-    $("#comment-" + comment.id + " .comment-dislike").click(function (e){
-        dislikeComment(comment.id, noku);
-    });
+    $(`#comment-${comment.id} .comment-dislike`).click(
+        e => {
+            dislikeComment(comment.id, noku);
+        }
+    );
 
-    noku.getUserData(comment.author, function (author) {
-        let url = noku.getCDNUrl();
+    noku.getUserData(
+        comment.author, 
+        author => {
+            let url = noku.getCDNUrl(), extra = "";
 
-        var extra = "";
-        if(parent != null){
-            $("#comment-" + comment.id + " .extra").html(
-                '          <div class="comment-reply-to">Reply To</div>' +
-                '          <div class="comment-jump btn" data-comment="' + parent.id + '"></div>'
+            if(parent){
+                $(`#comment-${comment.id} .extra`).html(
+                    `
+                    <div class="comment-reply-to">Reply To</div>
+                    <div class="comment-jump btn" data-comment="${parent.id}"></div>
+                    `
+                );
+            }
+
+            $(`#comment-${comment.id} .user-data`).html(
+                `
+                <div class="comment-pfp"><img class="pfp-image" src="${url}${author.pfp}"/></div>
+                <div class="comment-user" style="color:#${author.color};">${author.username}</div>
+                `
+            );
+
+            $(`#comment-${comment.id} .comment-overlay`).each(
+                () => {
+                    $(this).fadeOut(0);
+                }
+            );
+
+            $(`#comment-${comment.id} .comment-head`).each(
+                () => {
+                    let t = $(this), pad = (t.data(`layer`) * 2) + 1, wid = pad + 1;
+
+                    t.css(`padding-left`, `${t.data(`layer`) * 2}em`);
+                    t.css(`width`, `calc(100% - ${t.data(`layer`) * 2}em)`);
+
+                    let comment_body = t.parent().children(`.comment-body`);
+                    comment_body.css(`padding-left`, `${pad}em`);
+                    comment_body.css(`width`, `calc(100% - ${wid}em)`);
+
+                    let comment_vote = t.parent().children(`.comment-vote`);
+                    comment_vote.css(`padding-left`, `${pad}em`);
+                    comment_vote.css("width", "calc(100% - " + pad + "em)");
+                }
             );
         }
-
-        $("#comment-" + comment.id + " .user-data").html(
-            '          <div class="comment-pfp"><img class="pfp-image" src="'+url + author.pfp + '" /></div>' +
-            '          <div class="comment-user" style="color:#' + author.color + ';">' + author.username + '</div>'
-        );
-
-        $("#comment-" + comment.id + " .comment-overlay").each(function () {
-            $(this).fadeOut(0);
-        });
-
-        $("#comment-" + comment.id + " .comment-head").each(function () {
-            let t = $(this);
-            let pad = (t.data("layer") * 2) + 1;
-            let wid = pad + 1;
-
-            t.css("padding-left", t.data("layer") * 2 + "em");
-            t.css("width", "calc(100% - " + t.data("layer") * 2 + "em)");
-
-            let comment_body = t.parent().children(".comment-body");
-            comment_body.css("padding-left", pad + "em");
-            comment_body.css("width", "calc(100% - " + wid + "em)");
-
-            let comment_vote = t.parent().children(".comment-vote");
-            comment_vote.css("padding-left", pad + "em");
-            comment_vote.css("width", "calc(100% - " + pad + "em)");
-        });
-    });
+    );
 }
 function create_posted_comment(comment, layer, parent, container) {
     let html = (
