@@ -468,6 +468,7 @@ const createMeme = (container, meme, focus) => {
     if (meme == null) {
         return createNullMeme(container)
     }
+    
     let id = meme.id;
     let hash = meme.hash;
     let liked = meme.liked;
