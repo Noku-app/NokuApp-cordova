@@ -408,58 +408,66 @@ const create_posted_comment = (comment, layer, parent, container) => {
 
     $(`#comment-${comment.id} .comment-jump`).click(
         () => {
-            let id = $(this).data("comment");
-            let comment = $("#comment-" + id);
-            let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
-            let body = $("body, html");
+            let id = $(this).data(`comment`), comment = $(`#comment-${id}`), 
+                overlay = $($(`#comment-${id} .comment-overlay`)[0]),
+                body = $(`body, html`);
             body.animate({ scrollTop: comment.position().top });
-            body.promise().done(function() {
-                overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
-            });
+            body.promise().done(
+                () => {
+                    overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
+                }
+            );
         }
     );
 }
-function getCommentByID(comments, id){
-    for(var i = 0; i < comments.length; i++){
+const getCommentByID = (comments, id) => {
+    for(let i in comments){
         if(comments[i].id === id) return comments[i];
     }
     return null;
 }
-function createNullMeme(container){
+const createNullMeme = container => {
     let app = $(container);
+
     app.append(
-        '<div class="swiper-slide meme-container" id="NULLMEME" data-memeid="NULLMEME">\n' +
-        '  <div class="meme-op">\n' +
-        '    <div class="float-left">\n' +
-        '      <div class="op-pfp"></div>\n' +
-        '      <div class="op-username">Noku Team</div>\n' +
-        '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '      <div class="btn btn-black mr-2 my-auto" data-command="none">No Touch!</div>\n' +
-        '    </div>\n' +
-        '  </div>\n' +
-        '  <div class="meme-body swiper-zoom-container">\n' +
-        '    <div class="container p-6">\n' +
-        '      <h1>End of the line pal!</h1>\n' +
-        '      <p>Unfortunately you have reached the end of the meme stream. Come back for more later.</p>\n' +
-        '    </div>\n'+
-        '  </div>\n' +
-        '  <div class="meme-footer">\n' +
-        '    <div class="float-left">\n' +
-        '      <div class="meme-like-count"></div>\n' +
-        '      <div class="meme-take btn ml-1" data-command="none"></div>\n' +
-        '      <div class="meme-take btn" data-command="none"></div>\n' +
-        '    </div>\n' +
-        '    <div class="float-right">\n' +
-        '       <div class="meme-take btn mr-1" data-command="none"></div>\n' +
-        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
-        '       <div class="meme-take btn mr-2" data-command="none"></div>\n' +
-        '    </div>\n' +
-        '  </div>\n' +
-        '</div>');
+        `
+            <div class="swiper-slide meme-container" id="NULLMEME" data-memeid="NULLMEME">
+                <div class="meme-op">
+                    <div class="float-left">
+                        <div class="op-pfp"></div>
+                        <div class="op-username">noku Team</div>
+                    </div>
+                    <div class="float-right">
+                        <div class="btn btn-black mr-2 my-auto" data-command="none">No Touch!</div>
+                    </div>
+                </div>
+                <div class="meme-body swiper-zoom-container">
+                    <div class="container p-6">
+                        <h1>End of the line pal</h1>
+                        <p>Unfortunately you have reached the end of the meme stream, come back later.</p>
+                    </div>
+                </div>
+                <div class="meme-footer">
+                    <div class="float-left">
+                        <div class="meme-like-count"></div>
+                        <div class="meme-take btn ml-1" data-command="none"></div>
+                        <div class="meme-take btn" data-command="none"></div>
+                    </div>
+                    <div class="float-right">
+                        <div class="meme-take btn mr-1" data-command="none"></div>
+                        <div class="meme-take btn mr-2" data-command="none"></div>
+                        <div class="meme-take btn mr-2" data-command="none"></div>
+                    </div>
+                </div>
+            </div>
+        `
+    )
 }
-function createMeme(container, meme, focus) {
-    if (meme == null) return createNullMeme(container);
+
+const createMeme = (container, meme, focus) => {
+    if (meme == null) {
+        return createNullMeme(container)
+    }
     let id = meme.id;
     let hash = meme.hash;
     let liked = meme.liked;
