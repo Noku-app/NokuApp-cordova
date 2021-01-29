@@ -345,75 +345,79 @@ const create_comment = (comment, layer, parent, container) => {
 
                     let comment_vote = t.parent().children(`.comment-vote`);
                     comment_vote.css(`padding-left`, `${pad}em`);
-                    comment_vote.css("width", "calc(100% - " + pad + "em)");
+                    comment_vote.css(`width`, `calc(100% - ${pad}em)`);
                 }
             );
         }
     );
 }
-function create_posted_comment(comment, layer, parent, container) {
-    let html = (
-        '  <div class="comment' + (parent == null ? " comment-root" : "") + '" id="comment-' + comment.id + '">' +
-        '    <div class="comment-content">' +
-        '      <div class="comment-head" data-layer="' + layer + '">' +
-        '        <div class="float-left user-data">' +
-        '          <div class="comment-pfp"><img class="pfp-image" src="'+noku.getCDNUrl() + noku.userdat.pfp + '" alt=""/></div>' +
-        '          <div class="comment-user" style="color:#' + noku.userdat.color + ';">' + noku.userdat.username + '</div>' +
-        '        </div>' +
-        '        <div class="float-right extra">' +
-        (parent != null ? '          <div class="comment-reply-to">Reply To</div>' +
-            '          <div class="comment-jump btn" data-comment="' + parent.id + '"></div>' : '') +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-body">' + comment.content + '</div>' +
-        '      <div class="comment-vote">' +
-        '        <div class="float-left">' +
-        '          <div class="comment-like-count">' + (comment.likes - comment.dislikes) + '</div>' +
-        '          <div class="comment-like btn" data-comment="' + comment.id + '"></div>' +
-        '          <div class="comment-dislike btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '        <div class="float-right">' +
-        '          <div class="comment-reply btn" data-comment="' + comment.id + '"></div>' +
-        '        </div>' +
-        '      </div>' +
-        '      <div class="comment-overlay"></div>' +
-        '    </div>' +
-        '    <div class="comment-replies"></div>' +
-        '  </div>');
+const create_posted_comment = (comment, layer, parent, container) => {
+
+    let html = `
+        <div class="comment${parent == null ? ` comment-root` : ``}" id="comment-${comment.id}">
+            <div class="comment-content">
+                <div class="comment-head" data-layer="${layer}">
+                    <div class="float-left user-data">
+                        <div class="comment-pfp"><img class="pfp-image" src="${noku.getCDNUrl()}${noku.userdat.pfp}" alt=""/></div>
+                        <div class="comment-user" style="color:#${noku.userdat.color};">${noku.userdat.username}</div>
+                    </div>
+                    <div class="float-right extra">${parent != null ? `<div class="comment-reply-to">Reply To</div><div class="comment-jump btn" data-comment="${parent.id}"></div>` : ``}
+                    </div>
+                </div>
+                <div class="comment-body">${comment.content}</div>
+                <div class="comment-vote">
+                    <div class="float-left">
+                        <div class="comment-like-count">${comment.likes - comment.dislikes}</div>
+                        <div class="comment-like btn" data-comment="${comment.id}"></div>
+                        <div class="comment-dislike btn" data-comment="${comment.id}"></div>
+                    </div>
+                    <div class="float-right">
+                        <div class="comment-reply btn" data-comment="${comment.id}"></div>
+                    </div>
+                </div>
+                <div class="comment-overlay"></div>
+            </div>
+            <div class="comment-replies"></div>
+        </div>
+    `
 
     container.prepend(html);
 
-    $("#comment-" + comment.id + " .comment-overlay").each(function () {
-        $(this).fadeOut(0);
-    });
+    $(`#comment-${comment.id} .comment-overlay`).each(
+        () => {
+            $(this).fadeOut(0);
+        }
+    );
 
-    $("#comment-" + comment.id + " .comment-head").each(function () {
-        let t = $(this);
-        let pad = (t.data("layer") * 2) + 1;
-        let wid = pad + 1;
+    $(`#comment-${comment.id} .comment-head`).each(
+        () => {
+            let t = $(this), pad = (t.data(`layer`) * 2) + 1, wid = pad + 1;
 
-        t.css("padding-left", t.data("layer") * 2 + "em");
-        t.css("width", "calc(100% - " + t.data("layer") * 2 + "em)");
+            t.css(`padding-left`, `${t.data(`layer`) * 2}em`);
+            t.css(`width`, `calc(100% - ${t.data(`layer`) * 2}em)`);
 
-        let comment_body = t.parent().children(".comment-body");
-        comment_body.css("padding-left", pad + "em");
-        comment_body.css("width", "calc(100% - " + wid + "em)");
+            let comment_body = t.parent().children(`.comment-body`);
+            comment_body.css(`padding-left`, `${pad}em`);
+            comment_body.css(`width`, `calc(100% - ${wid}em)`);
 
-        let comment_vote = t.parent().children(".comment-vote");
-        comment_vote.css("padding-left", pad + "em");
-        comment_vote.css("width", "calc(100% - " + pad + "em)");
-    });
+            let comment_vote = t.parent().children(".comment-vote");
+            comment_vote.css("padding-left", pad + "em");
+            comment_vote.css(`width`, `calc(100% - ${pad}em)`);
+        }
+    );
 
-    $("#comment-" + comment.id + " .comment-jump").click(function (){
-        let id = $(this).data("comment");
-        let comment = $("#comment-" + id);
-        let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
-        let body = $("body, html");
-        body.animate({ scrollTop: comment.position().top });
-        body.promise().done(function() {
-            overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
-        });
-    });
+    $(`#comment-${comment.id} .comment-jump`).click(
+        () => {
+            let id = $(this).data("comment");
+            let comment = $("#comment-" + id);
+            let overlay = $($("#comment-" + id + " .comment-overlay")[0]);
+            let body = $("body, html");
+            body.animate({ scrollTop: comment.position().top });
+            body.promise().done(function() {
+                overlay.fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
+            });
+        }
+    );
 }
 function getCommentByID(comments, id){
     for(var i = 0; i < comments.length; i++){
