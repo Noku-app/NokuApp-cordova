@@ -1,56 +1,70 @@
 class Noku {
 
-    init(){
+    init() {
         this.http = cordova.plugin.http;
-        this.http.setDataSerializer('json');
+        this.http.setDataSerializer(`json`);
         this.http.setRequestTimeout(5.0);
 
         this.memes = [null];
         this.userdat = {};
         this.users = [];
-        this.version = "0.1.9C Beta";
+        this.version = `0.1.9C Beta`;
     }
 
     testToken(callback){
         const options = {
-            method: 'post',
+            method: `post`,
             data: { "token":this.token, "uid":this.uid },
             headers: {}
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "tokencheck", options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}tokencheck`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }
+        );
     }
 
     login(username, password, callback){
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "username": username, "password": password },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "login", options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}login`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, response => {
+                callback(response, false);
+            }
+        );
     }
 
     register(username, password, email, callback){
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "email": email, "username": username, "password": password },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "register", options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}register`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }
+        );
     }
 
     setCredentials(token, uid){
@@ -59,52 +73,60 @@ class Noku {
     }
 
     getMemes(type, callback){
-        var api = "";
-        switch(type){
-            case 2: api = "getmemes"; break;
-            default: api = "getdankmemes"; break;
+        let api = ``;
+        switch(type) {
+            case 2: api = `getmemes`; break;
+            default: api = `getdankmemes`; break;
         }
 
-        const options = {
-            method: 'post',
+
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + api, options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}${api}`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }
+        );
     }
 
     checkUpdate(updateCallback){
-        const options = {
+        let options = {
             method: 'post',
             data: { "uid": this.uid, "token": this.token, "version": this.version },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "checkupdate", options, function(response) {
-            var update;
-            try {
-                update = JSON.parse(response.data).data;
-            } catch (e){
-                update = {};
-                update.update = false;
-                update.version = this.version;
-            }
-            if(update.update === true){
-                updateCallback(update);
-            }
-        }, function(response) {
-
-        });
+        this.http.sendRequest(
+            this.getAPIUrl() + `${this.getAPIUrl()}checkupdate`, 
+            options, 
+            response => {
+                let update = {};
+                try {
+                    update = JSON.parse(response.data).data;
+                } catch (e){
+                    update.update = false;
+                    update.version = this.version;
+                }
+                if(update.update === true){
+                    updateCallback(update);
+                }
+            },
+            response => {}
+        );
     }
 
     getMemesLimit(start, length, callback){
         const options = {
-            method: 'post',
+            method: `post`,
             data: {
                 uid: this.uid,
                 token: this.token,
