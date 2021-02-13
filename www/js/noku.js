@@ -125,7 +125,7 @@ class Noku {
     }
 
     getMemesLimit(start, length, callback){
-        const options = {
+        let options = {
             method: `post`,
             data: {
                 uid: this.uid,
@@ -136,138 +136,174 @@ class Noku {
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getmemeslimit", options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}getmemeslimit`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }
+        );
     }
 
     getContent(url, callback){
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { },
             headers: { }
         };
 
-        this.http.sendRequest(url, options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            url, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }   
+        );
     }
 
-    sendError(){
-        const options = {
-            method: 'post',
+    sendError() {
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getmemes", options, function(response) {
-            navigator.notification.alert("Error report was sent successfully.", function(){}, "Error Report")
-        }, function() {
-            console.log();
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}getmemes`, 
+            options, response => {
+                navigator.notification.alert(`Error report was sent successfully.`, () => {}, `Error Report`)
+            }, () => {
+                //console.log();
+            }
+        );
+    }
+
+    getBASEUrl() {
+        return `https://noku.wtf`
     }
 
     getCDNUrl() {
-        return "https://cdn.xemplarsoft.com/";
+        return `https://cdn.xemplarsoft.com/`;
     }
 
     getAPIUrl() {
-        return "https://noku.wtf/api/";
+        return `${this.getBASEUrl()}/api/`;
     }
 
     getUploadUrl() {
-        return "https://noku.wtf/home/upload";
+        return `${this.getBASEUrl()}/home/upload`;
     }
 
     getUploadUrlUrl() {
-        return "https://noku.wtf/home/uploadurl";
+        return `${this.getBASEUrl()}/home/uploadurl`;
     }
 
     async getUserData(id, callback) {
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token, "user_id": id },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getuserdata", options, function(response) {
-            var author;
-            try {
-                author = JSON.parse(response.data).data;
-                author.valid = true;
-            } catch (e) {
-                author = {};
-                author.valid = false;
+        this.http.sendRequest(
+            `${this.getAPIUrl()}getuserdata`, 
+            options, 
+            response => {
+                let author;
+                try {
+                    author = JSON.parse(response.data).data;
+                    author.valid = true;
+                } catch (e) {
+                    author = {};
+                    author.valid = false;
+                }
+                callback(author);
+            }, 
+            response => {
+                callback(response, false);
             }
-            callback(author);
-        }, function(response) {
-            callback(response, false);
-        });
+        );
     }
 
     async getThisUser(callback) {
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token, "user_id": this.uid },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getuserdata", options, function(response) {
-            var data;
-            try {
-                data = JSON.parse(response.data);
-            } catch (e){
-                data = {};
-                data.valid = false;
-            }
+        this.http.sendRequest(
+            `${this.getAPIUrl()}getuserdata`, 
+            options, 
+            response => {
+                let data;
+                try {
+                    data = JSON.parse(response.data);
+                } catch (e){
+                    data = {};
+                    data.valid = false;
+                }
 
-            storage.setItem("userdat", JSON.stringify(data.data));
-            callback();
-        }, function(response) {
-
-        });
+                storage.setItem(`userdat`, JSON.stringify(data.data));
+                callback();
+        }, 
+        response => {}
+        );
     }
 
     async getAllLikes(id, callback){
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token, "user_id": id },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getalllikes", options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}getalllikes`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }
+        );
     }
 
     async getAllMemes(id, callback){
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token, "user_id": id },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getallmemes", options, function(response) {
-            callback(response, true);
-        }, function(response) {
-            callback(response, false);
-        });
+        this.http.sendRequest(
+            `${this.getAPIUrl()}getallmemes`, 
+            options, 
+            response => {
+                callback(response, true);
+            }, 
+            response => {
+                callback(response, false);
+            }   
+        );
     }
 
     async getAllSubscribers(id, callback){
-        const options = {
-            method: 'post',
+        let options = {
+            method: `post`,
             data: { "uid": this.uid, "token": this.token, "user_id": id },
             headers: { }
         };
 
-        this.http.sendRequest(this.getAPIUrl() + "getallsubs", options, function(response) {
+        this.http.sendRequest(
+            this.getAPIUrl() + "getallsubs", options, function(response) {
             callback(response, true);
         }, function(response) {
             callback(response, false);
